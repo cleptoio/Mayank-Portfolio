@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #FCFCF9;
+    --surface: #FFFFFF;
+    --surface-hover: #F5F5F5;
+
+    --text-primary: #13343B;
+    --text-secondary: #626C71;
+    --text-tertiary: #A7A9A9;
+
+    --accent-primary: #21808D;
+    --accent-hover: #1D6F7A;
+    --accent-glow: rgba(33, 128, 141, 0.15);
+
+    --accent-secondary: #2563EB;
+
+    --border: 94 82 64;
+    /* Converted to RGB for opacity usage if needed, or keep hex if tailwind config handles it. Using hex in config, but shadcn uses HSL usually. Let's stick to the prompt's hex values but map them to variables. */
+    /* Actually shadcn uses HSL variables. The prompt gave hex. I will use the hex values directly in the variables as requested. */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: #0A0E0F;
+    --surface: #151A1C;
+    --surface-hover: #1F2426;
+
+    --text-primary: #F5F5F5;
+    --text-secondary: #A7A9A9;
+    --text-tertiary: #626C71;
+
+    --accent-primary: #32B8C6;
+    --accent-hover: #29A4B0;
+    --accent-glow: rgba(50, 184, 198, 0.15);
+
+    --accent-secondary: #5B9FED;
+
+    --border: 119 124 124;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
