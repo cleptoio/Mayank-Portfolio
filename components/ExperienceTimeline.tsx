@@ -1,48 +1,69 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { MapPin } from "lucide-react";
 import { EXPERIENCE } from "@/lib/data";
-import { cn } from "@/lib/utils";
 
 export function ExperienceTimeline() {
     return (
-        <div className="max-w-3xl mx-auto px-6">
-            <div className="relative border-l border-border/50 ml-3 md:ml-6 space-y-12 pb-12">
+        <div className="max-w-4xl mx-auto">
+            <div className="relative space-y-12">
                 {EXPERIENCE.map((exp, index) => (
                     <motion.div
                         key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: index * 0.1 }}
-                        className="relative pl-8 md:pl-12"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{
+                            duration: 0.5,
+                            delay: index * 0.1,
+                            ease: [0.16, 1, 0.3, 1]
+                        }}
+                        className="relative group"
                     >
-                        {/* Timeline Dot */}
-                        <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-accent ring-4 ring-background" />
+                        <div className="p-6 rounded-2xl bg-clepto-navy/30 border border-gray-800/50 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300">
+                            {/* Header */}
+                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+                                <div>
+                                    <h3 className="text-xl font-semibold text-white mb-1">
+                                        {exp.role}
+                                    </h3>
+                                    <div className="flex items-center gap-2 text-gray-400">
+                                        <span className="font-medium">{exp.company}</span>
+                                        <span className="text-gray-600">•</span>
+                                        <div className="flex items-center gap-1">
+                                            <MapPin className="w-3 h-3" />
+                                            <span className="text-sm">{exp.location}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-sm font-mono text-gray-500 whitespace-nowrap">
+                                        {exp.period}
+                                    </span>
+                                </div>
+                            </div>
 
-                        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
-                            <h3 className="text-xl font-bold text-foreground">{exp.role}</h3>
-                            <span className="text-sm font-mono text-accent/80">{exp.period}</span>
+                            {/* Description */}
+                            <p className="text-gray-400 mb-4 leading-relaxed">
+                                {exp.desc}
+                            </p>
+
+                            {/* Highlights */}
+                            <ul className="space-y-2.5">
+                                {exp.highlights.map((highlight, i) => (
+                                    <li key={i} className="flex items-start gap-3 text-sm text-gray-400">
+                                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-clepto-cyan shrink-0" />
+                                        <span className="leading-relaxed">{highlight}</span>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
 
-                        <div className="mb-4">
-                            <span className="text-base font-medium text-muted-foreground">{exp.company}</span>
-                            <span className="mx-2 text-border">•</span>
-                            <span className="text-sm text-muted-foreground/60">{exp.location}</span>
-                        </div>
-
-                        <p className="text-muted-foreground mb-4 leading-relaxed">
-                            {exp.desc}
-                        </p>
-
-                        <ul className="space-y-2">
-                            {exp.highlights.map((highlight, i) => (
-                                <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground/80">
-                                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/50 shrink-0" />
-                                    <span>{highlight}</span>
-                                </li>
-                            ))}
-                        </ul>
+                        {/* Connecting Line (except for last item) */}
+                        {index < EXPERIENCE.length - 1 && (
+                            <div className="absolute left-8 top-full h-12 w-px bg-gradient-to-b from-gray-800 to-transparent" />
+                        )}
                     </motion.div>
                 ))}
             </div>
