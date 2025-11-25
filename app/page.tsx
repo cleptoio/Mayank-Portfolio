@@ -6,6 +6,7 @@ import { CTASection } from "@/components/CTASection";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Home() {
+  console.log("Portfolio Version: 2025-11-25 06:15 UTC - Overhaul Active");
   return (
     <main className="min-h-screen bg-clepto-navy selection:bg-clepto-cyan/20">
       {/* Navigation / Header */}
