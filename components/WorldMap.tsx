@@ -25,24 +25,24 @@ export function WorldMap() {
             <ComposableMap
                 projection="geoMercator"
                 projectionConfig={{
-                    scale: 320,
-                    center: [10, 50], // Center roughly around Europe/Dublin
+                    scale: 600, // Zoomed in more
+                    center: [10, 50], // Keep center but scale handles zoom
                 }}
                 style={{ width: "100%", height: "100%" }}
             >
-                <ZoomableGroup center={[10, 50]} zoom={1}>
+                <ZoomableGroup center={[0, 50]} zoom={1}> {/* Adjusted center to be closer to Dublin/Europe */}
                     <Geographies geography={geoUrl}>
                         {({ geographies }) =>
                             geographies.map((geo) => (
                                 <Geography
                                     key={geo.rsmKey}
                                     geography={geo}
-                                    fill={theme === "dark" ? "#1F2426" : "#E5E7EB"}
-                                    stroke={theme === "dark" ? "#32B8C6" : "#9CA3AF"}
+                                    fill={theme === "dark" ? "#151f38" : "#E5E7EB"} // Darker fill
+                                    stroke={theme === "dark" ? "#1c2745" : "#9CA3AF"} // Subtle stroke
                                     strokeWidth={0.5}
                                     style={{
                                         default: { outline: "none" },
-                                        hover: { fill: theme === "dark" ? "#29A4B0" : "#D1D5DB", outline: "none" },
+                                        hover: { fill: theme === "dark" ? "#1c2745" : "#D1D5DB", outline: "none" },
                                         pressed: { outline: "none" },
                                     }}
                                 />
@@ -52,9 +52,9 @@ export function WorldMap() {
 
                     {/* Pulsing Marker for Dublin */}
                     <Marker coordinates={coordinates}>
-                        <circle r={4} fill="#32B8C6" />
-                        <circle r={8} fill="none" stroke="#32B8C6" strokeWidth={1} className="animate-ping" />
-                        <circle r={12} fill="none" stroke="#32B8C6" strokeWidth={0.5} className="animate-pulse" />
+                        <circle r={4} fill="#00f2ea" />
+                        <circle r={8} fill="none" stroke="#00f2ea" strokeWidth={1} className="animate-ping" />
+                        <circle r={12} fill="none" stroke="#00f2ea" strokeWidth={0.5} className="animate-pulse" />
                     </Marker>
                 </ZoomableGroup>
             </ComposableMap>

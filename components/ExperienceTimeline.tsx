@@ -6,60 +6,43 @@ import { cn } from "@/lib/utils";
 
 export function ExperienceTimeline() {
     return (
-        <div className="relative container mx-auto px-6 lg:px-12">
-            <div className="absolute left-6 lg:left-1/2 h-full w-px bg-border -translate-x-1/2" />
-
-            <div className="space-y-12">
+        <div className="max-w-3xl mx-auto px-6">
+            <div className="relative border-l border-border/50 ml-3 md:ml-6 space-y-12 pb-12">
                 {EXPERIENCE.map((exp, index) => (
                     <motion.div
                         key={index}
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className={cn(
-                            "relative flex flex-col lg:flex-row gap-8 lg:gap-16",
-                            index % 2 === 0 ? "lg:flex-row-reverse" : ""
-                        )}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                        className="relative pl-8 md:pl-12"
                     >
                         {/* Timeline Dot */}
-                        <div className="absolute left-6 lg:left-1/2 w-4 h-4 rounded-full bg-background border-2 border-accent -translate-x-1/2 mt-1.5 z-10 shadow-[0_0_0_4px_rgba(var(--background),1)]" />
+                        <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-accent ring-4 ring-background" />
 
-                        {/* Content */}
-                        <div className="w-full lg:w-1/2 pl-12 lg:pl-0">
-                            <div className={cn(
-                                "p-6 rounded-lg border border-border bg-surface hover:border-accent/50 transition-colors",
-                                index % 2 === 0 ? "lg:text-right" : "lg:text-left"
-                            )}>
-                                <span className="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-mono mb-4">
-                                    {exp.period}
-                                </span>
-                                <h3 className="text-xl font-bold text-foreground">{exp.role}</h3>
-                                <div className={cn(
-                                    "flex items-center gap-2 mt-1 mb-4 text-muted-foreground",
-                                    index % 2 === 0 ? "lg:justify-end" : "lg:justify-start"
-                                )}>
-                                    <span className="font-medium">{exp.company}</span>
-                                    <span>•</span>
-                                    <span className="text-sm">{exp.location}</span>
-                                </div>
-                                <p className="text-muted-foreground mb-4">{exp.desc}</p>
-                                <ul className={cn(
-                                    "space-y-2",
-                                    index % 2 === 0 ? "lg:items-end" : "lg:items-start"
-                                )}>
-                                    {exp.highlights.map((highlight, i) => (
-                                        <li key={i} className="flex gap-2 text-sm text-muted-foreground">
-                                            <span className="text-accent mt-1.5">•</span>
-                                            <span>{highlight}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                            <h3 className="text-xl font-bold text-foreground">{exp.role}</h3>
+                            <span className="text-sm font-mono text-accent/80">{exp.period}</span>
                         </div>
 
-                        {/* Empty space for the other side */}
-                        <div className="hidden lg:block w-1/2" />
+                        <div className="mb-4">
+                            <span className="text-base font-medium text-muted-foreground">{exp.company}</span>
+                            <span className="mx-2 text-border">•</span>
+                            <span className="text-sm text-muted-foreground/60">{exp.location}</span>
+                        </div>
+
+                        <p className="text-muted-foreground mb-4 leading-relaxed">
+                            {exp.desc}
+                        </p>
+
+                        <ul className="space-y-2">
+                            {exp.highlights.map((highlight, i) => (
+                                <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground/80">
+                                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/50 shrink-0" />
+                                    <span>{highlight}</span>
+                                </li>
+                            ))}
+                        </ul>
                     </motion.div>
                 ))}
             </div>

@@ -8,39 +8,36 @@
     --surface: #FFFFFF;
     --surface-hover: #F5F5F5;
 
-    --text-primary: #13343B;
+    --text-primary: #0e172f;
     --text-secondary: #626C71;
     --text-tertiary: #A7A9A9;
 
-    --accent-primary: #21808D;
-    --accent-hover: #1D6F7A;
-    --accent-glow: rgba(33, 128, 141, 0.15);
+    --accent-primary: #00f2ea;
+    --accent-hover: #00d0c9;
+    --accent-glow: rgba(0, 242, 234, 0.15);
 
-    --accent-secondary: #2563EB;
+    --accent-secondary: #0e172f;
 
-    --border: 94 82 64;
-    /* Converted to RGB for opacity usage if needed, or keep hex if tailwind config handles it. Using hex in config, but shadcn uses HSL usually. Let's stick to the prompt's hex values but map them to variables. */
-    /* Actually shadcn uses HSL variables. The prompt gave hex. I will use the hex values directly in the variables as requested. */
-
+    --border: 14 23 47;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: #0A0E0F;
-    --surface: #151A1C;
-    --surface-hover: #1F2426;
+    --background: #0e172f;
+    --surface: #151f38;
+    --surface-hover: #1c2745;
 
-    --text-primary: #F5F5F5;
+    --text-primary: #ffffff;
     --text-secondary: #A7A9A9;
     --text-tertiary: #626C71;
 
-    --accent-primary: #32B8C6;
-    --accent-hover: #29A4B0;
-    --accent-glow: rgba(50, 184, 198, 0.15);
+    --accent-primary: #00f2ea;
+    --accent-hover: #00d0c9;
+    --accent-glow: rgba(0, 242, 234, 0.15);
 
-    --accent-secondary: #5B9FED;
+    --accent-secondary: #1a2542;
 
-    --border: 119 124 124;
+    --border: 30 40 70;
   }
 }
 
