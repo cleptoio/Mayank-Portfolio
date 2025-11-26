@@ -5,7 +5,7 @@ import { SKILLS, CERTIFICATIONS } from "@/lib/data";
 import { Award, Brain, Cloud, Database, Shield, Gavel, Cpu, BarChart3, Workflow, ShieldCheck, Kanban } from "lucide-react";
 import {
     SiPython, SiSalesforce, SiGooglecloud, SiSupabase, SiPostgresql,
-    SiJira, SiConfluence, SiTableau, SiPowerbi, SiOpenai,
+    SiJira, SiConfluence, SiTableau, SiPowerBI, SiOpenai,
     SiGithub, SiLinkedin, SiUbuntu, SiPinecone, SiLangchain, SiMicrosoftsqlserver
 } from "react-icons/si";
 
@@ -39,7 +39,7 @@ const techIconMap: Record<string, any> = {
     "JIRA": SiJira,
     "Confluence": SiConfluence,
     "Tableau": SiTableau,
-    "Power BI": SiPowerbi,
+    "Power BI": SiPowerBI,
     "OpenAI": SiOpenai,
     "LangChain": SiLangchain,
 };

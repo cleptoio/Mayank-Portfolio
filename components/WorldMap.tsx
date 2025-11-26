@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import {
     ComposableMap,
@@ -20,8 +20,11 @@ export function WorldMap() {
     const [zoom, setZoom] = useState(1);
     const [center, setCenter] = useState<[number, number]>([10, 30]);
 
-    // Dublin coordinates
-    const dublinCoords: [number, number] = [PERSONAL_INFO.coordinates[0], PERSONAL_INFO.coordinates[1]];
+    // Dublin coordinates - memoized to prevent re-renders
+    const dublinCoords: [number, number] = useMemo(
+        () => [PERSONAL_INFO.coordinates[0], PERSONAL_INFO.coordinates[1]],
+        []
+    );
 
     useEffect(() => {
         // Animate zoom on mount
