@@ -6,7 +6,7 @@ import { Award, Brain, Cloud, Database, Shield, Gavel, Cpu, BarChart3, Workflow,
 import {
     SiPython, SiSalesforce, SiGooglecloud, SiSupabase, SiPostgresql,
     SiJira, SiConfluence, SiTableau, SiOpenai, SiLangchain, SiN8N,
-    SiZapier, SiMake, SiGdpr, SiPowerbi
+    SiZapier, SiMake
 } from "react-icons/si";
 
 // Category icons
@@ -39,13 +39,14 @@ const techIconMap: Record<string, any> = {
     "JIRA": SiJira,
     "Confluence": SiConfluence,
     "Tableau": SiTableau,
-    "Power BI": SiPowerbi,
+    "Power BI": BarChart3,
     "OpenAI": SiOpenai,
     "LangChain": SiLangchain,
     "Zapier": SiZapier,
     "Make.com": SiMake,
-    "GDPR": SiGdpr,
-    // Vector Databases, RAG, Pinecone, Agentic AI will use fallback gradient badges
+    "GDPR": Shield,
+    // Power BI uses BarChart3, GDPR uses Shield icon
+    // Vector Databases, RAG, Pinecone, Agentic AI use fallback gradient badges
 };
 
 export function SkillsGrid() {
