@@ -1,4 +1,5 @@
 "use client";
+// Version 2: Dark Cyber Map Redesign
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -114,7 +115,7 @@ export function WorldMap() {
                                         <circle r={4} fill="#FFD700" />
                                     </motion.g>
                                 )}
-                                
+
                                 {showLabels && (
                                     <motion.text
                                         initial={{ opacity: 0, y: 10 }}
@@ -124,8 +125,8 @@ export function WorldMap() {
                                         y={25}
                                         textAnchor="middle"
                                         className="text-2xl font-bold fill-[#FFD700]"
-                                        style={{ 
-                                            fontSize: isMobile ? "24px" : "32px", 
+                                        style={{
+                                            fontSize: isMobile ? "24px" : "32px",
                                             fontWeight: "bold",
                                             filter: "drop-shadow(0 0 4px rgba(255, 215, 0, 0.5))",
                                             fontFamily: "Orbitron, sans-serif" // Assuming Orbitron is available or fallback
@@ -154,7 +155,7 @@ export function WorldMap() {
                     </ComposableMap>
                 </motion.div>
             </motion.div>
-            
+
             {/* Vignette / Overlay for better text contrast if needed, 
                 though Hero.tsx handles some of this. 
                 Adding a subtle radial gradient here can help focus on the center. */}
