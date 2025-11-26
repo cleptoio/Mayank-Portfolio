@@ -21,8 +21,8 @@ export function Hero() {
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-clepto-cyan/5 via-transparent to-transparent z-0" />
 
             {/* Content */}
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-16">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-24 sm:pt-32 pb-12 sm:pb-16">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center">
                     {/* Left Content */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -58,7 +58,7 @@ export function Hero() {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4 }}
-                                className="text-5xl lg:text-7xl font-bold text-white tracking-tight leading-tight"
+                                className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white tracking-tight leading-tight"
                             >
                                 I&apos;m {PERSONAL_INFO.name.split(' ')[0]}.
                             </motion.h1>
@@ -69,7 +69,7 @@ export function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-xl text-gray-300 leading-relaxed max-w-2xl"
+                            className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-2xl"
                         >
                             {PERSONAL_INFO.bio}
                         </motion.p>
@@ -117,9 +117,9 @@ export function Hero() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.5, duration: 0.8 }}
-                        className="lg:col-span-5 flex justify-center lg:justify-end"
+                        className="lg:col-span-5 flex justify-center lg:justify-end order-first lg:order-last"
                     >
-                        <div className="relative w-64 h-64 lg:w-80 lg:h-80">
+                        <div className="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80">
                             {/* Animated Background Rings */}
                             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-clepto-red/20 to-clepto-cyan/20 blur-3xl animate-pulse" />
                             <div className="absolute -inset-4 rounded-full border border-clepto-cyan/10 animate-spin-slow" />
@@ -165,7 +165,7 @@ export function Hero() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9, duration: 0.8 }}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20"
+                    className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-12 sm:mt-20"
                 >
                     {[
                         {
@@ -198,27 +198,27 @@ export function Hero() {
                             whileHover={{ y: -4 }}
                             className="group relative"
                         >
-                            <div className="relative p-6 rounded-2xl bg-gradient-to-br from-clepto-navy/50 to-navy-darker/50 border border-gray-800/50 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300">
+                            <div className="relative p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-clepto-navy/50 to-navy-darker/50 border border-gray-800/50 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300">
                                 {/* Gradient Background on Hover */}
                                 <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`} />
 
-                                <div className="relative space-y-3">
+                                <div className="relative space-y-2 sm:space-y-3">
                                     {/* Icon */}
-                                    <div className="inline-flex p-2.5 bg-gradient-to-br from-clepto-cyan/10 to-clepto-red/10 rounded-xl border border-gray-800/50">
-                                        <stat.icon className="w-5 h-5 text-clepto-cyan" />
+                                    <div className="inline-flex p-2 sm:p-2.5 bg-gradient-to-br from-clepto-cyan/10 to-clepto-red/10 rounded-xl border border-gray-800/50">
+                                        <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-clepto-cyan" />
                                     </div>
 
                                     {/* Value */}
-                                    <p className="text-4xl lg:text-5xl font-bold text-white font-mono">
+                                    <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white font-mono">
                                         {stat.value}
                                     </p>
 
                                     {/* Label */}
                                     <div>
-                                        <p className="text-sm font-semibold text-gray-300 uppercase tracking-wide">
+                                        <p className="text-xs sm:text-sm font-semibold text-gray-300 uppercase tracking-wide">
                                             {stat.label}
                                         </p>
-                                        <p className="text-xs text-gray-500 mt-1">
+                                        <p className="text-[10px] sm:text-xs text-gray-500 mt-0.5 sm:mt-1">
                                             {stat.subtext}
                                         </p>
                                     </div>

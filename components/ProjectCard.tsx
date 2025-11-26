@@ -43,10 +43,10 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             className="group relative h-full"
         >
             {/* Card Background */}
-            <div className="relative h-full bg-clepto-navy/50 border border-gray-800/50 rounded-2xl p-6 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-500 overflow-hidden">
+            <div className="relative h-full bg-gradient-to-br from-clepto-navy/60 to-navy-darker/80 border border-gray-800/50 rounded-2xl p-6 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300 overflow-hidden">
 
-                {/* Animated Gradient Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-700`} />
+                {/* Subtle Static Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-clepto-cyan/[0.03] to-clepto-red/[0.03] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Content */}
                 <div className="relative space-y-4">
@@ -122,8 +122,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 </div>
             </div>
 
-            {/* Glow Effect */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-clepto-cyan/20 via-clepto-red/20 to-clepto-cyan/20 rounded-2xl opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-700 -z-10 animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
+            {/* Subtle Glow Effect on Hover */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-clepto-cyan/10 to-clepto-red/10 rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300 -z-10" />
         </motion.div>
     );
 }

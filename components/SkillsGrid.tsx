@@ -1,12 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SKILLS, CERTIFICATIONS } from "@/lib/data";
 import { Award, Brain, Cloud, Database, Shield, Gavel, Cpu, BarChart3, Workflow, ShieldCheck, Kanban } from "lucide-react";
+import {
+    SiPython, SiSalesforce, SiGooglecloud, SiSupabase, SiPostgresql,
+    SiJira, SiConfluence, SiTableau, SiMicrosoft, SiOpenai,
+    SiGithub, SiLinkedin, SiUbuntu, SiPinecone, SiLangchain
+} from "react-icons/si";
 
-const iconMap: Record<string, any> = {
+// Category icons
+const categoryIconMap: Record<string, any> = {
     Cloud,
     Shield,
     Gavel,
@@ -18,6 +22,26 @@ const iconMap: Record<string, any> = {
     Workflow,
     ShieldCheck,
     Kanban
+};
+
+// Technology-specific icons from Simple Icons
+const techIconMap: Record<string, any> = {
+    "Python": SiPython,
+    "Salesforce": SiSalesforce,
+    "Google Cloud": SiGooglecloud,
+    "Google Vertex AI": SiGooglecloud,
+    "Google Data Studio": SiGooglecloud,
+    "Supabase": SiSupabase,
+    "Pinecone": SiPinecone,
+    "SQL": SiMicrosoft,
+    "SQL Server": SiMicrosoft,
+    "PostgreSQL": SiPostgresql,
+    "JIRA": SiJira,
+    "Confluence": SiConfluence,
+    "Tableau": SiTableau,
+    "Power BI": SiMicrosoft,
+    "OpenAI": SiOpenai,
+    "LangChain": SiLangchain,
 };
 
 export function SkillsGrid() {
@@ -64,25 +88,43 @@ export function SkillsGrid() {
                                 <h3 className="text-xl font-bold text-white group-hover:text-clepto-cyan transition-colors">{category}</h3>
                             </div>
 
-                            {/* Skills */}
-                            <div className="flex flex-wrap gap-2">
-                                {data.items.map((skill, idx) => (
-                                    <motion.div
-                                        key={skill}
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: index * 0.1 + idx * 0.05 }}
-                                        whileHover={{ scale: 1.1, y: -2 }}
-                                    >
-                                        <Badge
-                                            variant="secondary"
-                                            className="bg-clepto-navy/60 text-gray-300 hover:bg-clepto-cyan/10 hover:text-clepto-cyan border border-gray-800/50 hover:border-clepto-cyan/30 transition-all cursor-default"
+                            {/* Skills with Icons */}
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                {data.items.map((skill, idx) => {
+                                    const TechIcon = techIconMap[skill];
+                                    return (
+                                        <motion.div
+                                            key={skill}
+                                            initial={{ opacity: 0, y: 10 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ delay: index * 0.1 + idx * 0.05 }}
+                                            whileHover={{ y: -4, scale: 1.03 }}
+                                            className="group relative"
                                         >
-                                            {skill}
-                                        </Badge>
-                                    </motion.div>
-                                ))}
+                                            <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-clepto-navy/40 border border-gray-800/50 hover:border-clepto-cyan/30 transition-all duration-300 backdrop-blur-sm">
+                                                {/* Icon */}
+                                                {TechIcon && (
+                                                    <motion.div
+                                                        whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                                                        transition={{ duration: 0.5 }}
+                                                    >
+                                                        <TechIcon className="w-8 h-8 text-clepto-cyan group-hover:text-clepto-cyan transition-colors" />
+                                                    </motion.div>
+                                                )}
+                                                {!TechIcon && (
+                                                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-clepto-cyan/20 to-clepto-red/20 flex items-center justify-center">
+                                                        <span className="text-xs font-bold text-clepto-cyan">{skill.substring(0, 2)}</span>
+                                                    </div>
+                                                )}
+                                                {/* Label */}
+                                                <span className="text-xs font-medium text-gray-300 group-hover:text-white transition-colors text-center leading-tight">
+                                                    {skill}
+                                                </span>
+                                            </div>
+                                        </motion.div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
@@ -103,7 +145,7 @@ export function SkillsGrid() {
                 </div>
                 <div className="flex flex-wrap justify-center gap-4">
                     {CERTIFICATIONS.map((cert, index) => {
-                        const Icon = iconMap[cert.icon] || Award;
+                        const Icon = categoryIconMap[cert.icon] || Award;
                         return (
                             <motion.div
                                 key={index}
