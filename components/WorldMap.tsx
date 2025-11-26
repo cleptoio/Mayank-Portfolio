@@ -21,6 +21,9 @@ const locations = [
     { name: "London", coords: [-0.1276, 51.5074] as [number, number], primary: false },
     { name: "Paris", coords: [2.3522, 48.8566] as [number, number], primary: false },
     { name: "Berlin", coords: [13.4050, 52.5200] as [number, number], primary: false },
+    { name: "Amsterdam", coords: [4.9041, 52.3676] as [number, number], primary: false },
+    { name: "Brussels", coords: [4.3517, 50.8503] as [number, number], primary: false },
+    { name: "Madrid", coords: [-3.7038, 40.4168] as [number, number], primary: false },
 ];
 
 export function WorldMap() {
@@ -36,16 +39,16 @@ export function WorldMap() {
     );
 
     useEffect(() => {
-        // Animate zoom on mount - like hirok.io
+        // Start with world view, then zoom to Dublin like hirok.io
         const timer1 = setTimeout(() => {
-            setZoom(3);
+            setZoom(4); // Increased zoom for better focus
             setCenter(dublinCoords);
-        }, 800);
+        }, 1000); // Delay before zoom starts
 
         // Show location labels after zoom completes
         const timer2 = setTimeout(() => {
             setShowLabels(true);
-        }, 2500);
+        }, 2500); // Show labels after zoom
 
         return () => {
             clearTimeout(timer1);
@@ -102,27 +105,31 @@ export function WorldMap() {
                                     {/* Marker Circle */}
                                     {location.primary ? (
                                         <>
-                                            <circle r={8} fill="#0BD7D4" opacity={0.3} />
-                                            <circle r={5} fill="#0BD7D4" />
-                                            <circle r={15} fill="none" stroke="#0BD7D4" strokeWidth={2} className="animate-ping" />
+                                            <circle r={6} fill="#0BD7D4" opacity={0.3} />
+                                            <circle r={3.5} fill="#0BD7D4" />
+                                            <circle r={12} fill="none" stroke="#0BD7D4" strokeWidth={1.5} className="animate-ping" />
                                         </>
                                     ) : (
                                         <>
-                                            <circle r={4} fill="#6B7280" opacity={0.5} />
-                                            <circle r={2.5} fill="#9CA3AF" />
+                                            <circle r={2.5} fill="#6B7280" opacity={0.4} />
+                                            <circle r={1.5} fill="#9CA3AF" />
                                         </>
                                     )}
 
-                                    {/* Location Label - appears after animation */}
+                                    {/* Location Label - appears after animation, much smaller text */}
                                     {showLabels && (
                                         <motion.text
-                                            initial={{ opacity: 0, y: -5 }}
+                                            initial={{ opacity: 0, y: -3 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.2 + idx * 0.1, duration: 0.4 }}
-                                            y={location.primary ? -15 : -10}
+                                            y={location.primary ? -12 : -8}
                                             textAnchor="middle"
-                                            className={location.primary ? "fill-clepto-cyan text-xs font-semibold" : "fill-gray-400 text-[10px] font-medium"}
-                                            style={{ pointerEvents: 'none' }}
+                                            className={location.primary ? "fill-clepto-cyan font-semibold" : "fill-gray-500 font-medium"}
+                                            style={{
+                                                pointerEvents: 'none',
+                                                fontSize: location.primary ? '8px' : '6px',
+                                                letterSpacing: '0.3px'
+                                            }}
                                         >
                                             {location.name}
                                         </motion.text>
