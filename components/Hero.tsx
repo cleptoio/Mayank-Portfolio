@@ -16,15 +16,12 @@ export function Hero() {
                 <WorldMap />
             </div>
 
-            {/* Gradient Overlays - Carefully balanced for map visibility */}
-            {/* Left side - solid for text, transparent on right for map */}
-            <div className="absolute inset-0 bg-gradient-to-r from-clepto-navy/95 via-clepto-navy/30 to-transparent z-[1]" />
+            {/* Gradient Overlays - Minimal for maximum map visibility */}
+            {/* Left side only - just enough for text readability */}
+            <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-clepto-navy via-clepto-navy/40 to-transparent z-[1] lg:w-2/5" />
 
-            {/* Top fade - very subtle */}
-            <div className="absolute inset-0 bg-gradient-to-b from-clepto-navy/30 via-transparent to-transparent z-[1]" />
-
-            {/* Bottom fade - for stats section */}
-            <div className="absolute inset-0 bg-gradient-to-t from-clepto-navy/80 via-transparent to-transparent z-[1]" />
+            {/* Bottom fade - only for stats section */}
+            <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-clepto-navy/90 via-clepto-navy/20 to-transparent z-[1]" />
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-16">

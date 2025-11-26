@@ -98,13 +98,13 @@ export function WorldMap() {
                                         <Geography
                                             key={geo.rsmKey}
                                             geography={geo}
-                                            fill="#3D5A80"
-                                            stroke="#5B7AA0"
-                                            strokeWidth={0.5}
+                                            fill="#4A6FA5"
+                                            stroke="#6B8EC7"
+                                            strokeWidth={0.8}
                                             style={{
-                                                default: { outline: "none", opacity: 0.7 },
-                                                hover: { outline: "none", opacity: 0.7 },
-                                                pressed: { outline: "none", opacity: 0.7 },
+                                                default: { outline: "none", opacity: 1 },
+                                                hover: { outline: "none", opacity: 1 },
+                                                pressed: { outline: "none", opacity: 1 },
                                             }}
                                         />
                                     ))
