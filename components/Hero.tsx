@@ -11,33 +11,39 @@ import { WorldMap } from "@/components/WorldMap";
 export function Hero() {
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-clepto-navy">
-            {/* World Map Background */}
+            {/* World Map Background - Full coverage */}
             <div className="absolute inset-0 z-0">
                 <WorldMap />
             </div>
 
-            {/* Gradient Overlays - Left side stronger for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-clepto-navy via-clepto-navy/60 to-transparent z-[1]" />
-            <div className="absolute inset-0 bg-gradient-to-b from-clepto-navy/40 via-transparent to-transparent z-[1]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-clepto-navy via-clepto-navy/20 to-transparent z-[1]" />
+            {/* Gradient Overlays */}
+            {/* Left side - strong for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-clepto-navy via-clepto-navy/70 to-transparent z-[1]" />
             
-            {/* Radial vignette - center-right clear for map */}
+            {/* Top - subtle fade */}
+            <div className="absolute inset-0 bg-gradient-to-b from-clepto-navy/60 via-transparent to-transparent z-[1]" />
+            
+            {/* Bottom - for stats section */}
+            <div className="absolute inset-0 bg-gradient-to-t from-clepto-navy via-transparent to-transparent z-[1]" />
+            
+            {/* Center vignette - keeps center visible for map/Dublin */}
             <div 
-                className="absolute inset-0 z-[1]" 
+                className="absolute inset-0 z-[1] pointer-events-none" 
                 style={{
-                    background: "radial-gradient(ellipse 70% 70% at 65% 50%, transparent 20%, rgba(13, 27, 42, 0.6) 100%)"
+                    background: "radial-gradient(ellipse 80% 80% at 55% 45%, transparent 30%, rgba(13, 27, 42, 0.5) 100%)"
                 }}
             />
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-16">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-8 items-center">
-                    {/* Left Content - Takes 6 columns, aligned to left edge */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+                    
+                    {/* Left Content - Text */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="lg:col-span-6 space-y-8 lg:pr-8"
+                        className="lg:col-span-6 space-y-6 lg:space-y-8"
                     >
                         {/* Status Badge */}
                         <motion.div
@@ -54,7 +60,7 @@ export function Hero() {
                         </motion.div>
 
                         {/* Greeting */}
-                        <div className="space-y-3">
+                        <div className="space-y-2">
                             <motion.p
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
@@ -78,7 +84,7 @@ export function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-xl"
+                            className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg"
                         >
                             {PERSONAL_INFO.bio}
                         </motion.p>
@@ -99,7 +105,6 @@ export function Hero() {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.7 }}
-                            className="pt-2"
                         >
                             <SocialLinks />
                         </motion.div>
@@ -109,7 +114,7 @@ export function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1 }}
-                            className="hidden lg:flex items-center gap-2 pt-6 text-sm text-gray-500"
+                            className="hidden lg:flex items-center gap-2 pt-4 text-sm text-gray-500"
                         >
                             <Link
                                 href="#projects"
@@ -121,20 +126,20 @@ export function Hero() {
                         </motion.div>
                     </motion.div>
 
-                    {/* Spacer - allows map to show in center */}
+                    {/* Center spacer - Map shows through here */}
                     <div className="hidden lg:block lg:col-span-2" />
 
-                    {/* Right Content - Profile Photo - 4 columns, pushed to right */}
+                    {/* Right Content - Profile Photo */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.5, duration: 0.8 }}
                         className="lg:col-span-4 flex justify-center lg:justify-end order-first lg:order-last"
                     >
-                        <div className="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80">
-                            {/* Animated Background Rings */}
+                        <div className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72">
+                            {/* Animated Background Glow */}
                             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-clepto-red/20 to-clepto-cyan/20 blur-3xl animate-pulse" />
-                            <div className="absolute -inset-4 rounded-full border border-clepto-cyan/10 animate-spin-slow" />
+                            <div className="absolute -inset-3 rounded-full border border-clepto-cyan/10 animate-spin-slow" />
 
                             {/* Profile Image */}
                             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-clepto-navy ring-2 ring-clepto-cyan/30 shadow-2xl shadow-clepto-cyan/20">
@@ -158,7 +163,7 @@ export function Hero() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9, duration: 0.8 }}
-                    className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-12 sm:mt-20"
+                    className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-12 sm:mt-16 lg:mt-20"
                 >
                     {[
                         {
@@ -191,7 +196,7 @@ export function Hero() {
                             whileHover={{ y: -4 }}
                             className="group relative"
                         >
-                            <div className="relative p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-clepto-navy/80 to-navy-darker/80 border border-gray-800/50 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300">
+                            <div className="relative p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-clepto-navy/90 to-navy-darker/90 border border-gray-800/50 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300">
                                 <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`} />
 
                                 <div className="relative space-y-2 sm:space-y-3">
