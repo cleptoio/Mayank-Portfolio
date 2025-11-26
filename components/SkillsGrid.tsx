@@ -88,7 +88,7 @@ export function SkillsGrid() {
                             </div>
 
                             {/* Skills with Icons */}
-                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                 {data.items.map((skill, idx) => {
                                     const TechIcon = techIconMap[skill];
                                     return (
@@ -99,21 +99,23 @@ export function SkillsGrid() {
                                             viewport={{ once: true }}
                                             transition={{ delay: index * 0.1 + idx * 0.05 }}
                                             whileHover={{ y: -4, scale: 1.03 }}
-                                            className="group relative"
+                                            className="relative group"
                                         >
-                                            <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-clepto-navy/40 border border-gray-800/50 hover:border-clepto-cyan/30 transition-all duration-300 backdrop-blur-sm">
-                                                {/* Icon */}
-                                                {TechIcon && (
+                                            <div className="flex flex-col items-center gap-2.5 p-3 rounded-xl bg-clepto-navy/60 border border-gray-800/50 hover:border-clepto-cyan/30 transition-all duration-300 backdrop-blur-sm min-h-[100px] justify-center">
+                                                {/* Icon - Always show, bigger size */}
+                                                {TechIcon ? (
                                                     <motion.div
                                                         whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                                                         transition={{ duration: 0.5 }}
+                                                        className="flex items-center justify-center"
                                                     >
-                                                        <TechIcon className="w-8 h-8 text-clepto-cyan group-hover:text-clepto-cyan transition-colors" />
+                                                        <TechIcon className="w-10 h-10 text-clepto-cyan" />
                                                     </motion.div>
-                                                )}
-                                                {!TechIcon && (
-                                                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-clepto-cyan/20 to-clepto-red/20 flex items-center justify-center">
-                                                        <span className="text-xs font-bold text-clepto-cyan">{skill.substring(0, 2)}</span>
+                                                ) : (
+                                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-clepto-cyan/20 to-clepto-red/20 flex items-center justify-center">
+                                                        <span className="text-sm font-bold text-clepto-cyan">
+                                                            {skill.substring(0, 2).toUpperCase()}
+                                                        </span>
                                                     </div>
                                                 )}
                                                 {/* Label */}

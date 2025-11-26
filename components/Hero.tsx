@@ -11,13 +11,13 @@ import { WorldMap } from "@/components/WorldMap";
 export function Hero() {
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-            {/* World Map Background */}
-            <div className="absolute inset-0 z-0 opacity-30">
+            {/* World Map Background - MORE VISIBLE */}
+            <div className="absolute inset-0 z-0 opacity-60">
                 <WorldMap />
             </div>
 
-            {/* Gradient Overlays */}
-            <div className="absolute inset-0 bg-gradient-to-b from-clepto-navy/80 via-clepto-navy/90 to-clepto-navy z-0" />
+            {/* Lighter Gradient Overlays for better map visibility */}
+            <div className="absolute inset-0 bg-gradient-to-b from-clepto-navy/60 via-clepto-navy/70 to-clepto-navy z-0" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-clepto-cyan/5 via-transparent to-transparent z-0" />
 
             {/* Content */}
@@ -138,24 +138,6 @@ export function Hero() {
                                     }}
                                 />
                             </div>
-
-                            {/* Floating Badge */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1 }}
-                                className="absolute -bottom-4 -right-4 bg-gradient-to-br from-clepto-navy to-navy-darker p-4 rounded-2xl border border-gray-800 shadow-xl backdrop-blur-md"
-                            >
-                                <div className="flex items-center gap-3">
-                                    <div className="p-2.5 bg-gradient-to-br from-clepto-cyan/20 to-clepto-red/20 rounded-xl">
-                                        <Zap className="w-5 h-5 text-clepto-cyan" />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs text-gray-400 uppercase tracking-wider">Focus</p>
-                                        <p className="text-sm font-semibold text-white">AI Workflows</p>
-                                    </div>
-                                </div>
-                            </motion.div>
                         </div>
                     </motion.div>
                 </div>
