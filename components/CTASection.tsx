@@ -37,26 +37,34 @@ export function CTASection() {
     ];
 
     return (
-        <section className="relative py-24 px-6 overflow-hidden">
+        <section className="relative py-32 px-6 overflow-hidden">
             {/* Background Gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-clepto-navy via-navy-darker to-clepto-navy" />
             <div className="absolute inset-0 bg-gradient-to-r from-clepto-red/5 to-clepto-cyan/5" />
 
+            {/* Animated Glow */}
+            <div className="absolute inset-0 bg-gradient-to-r from-clepto-cyan/10 via-clepto-red/10 to-clepto-cyan/10 opacity-30 blur-3xl animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
+
             {/* Content */}
             <div className="relative max-w-4xl mx-auto text-center">
                 <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    className="text-5xl md:text-6xl font-bold mb-6"
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-5xl md:text-7xl font-bold mb-6"
                 >
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-clepto-red to-clepto-cyan">Ready to Automate?</span>
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-clepto-red via-clepto-cyan to-clepto-red animate-gradient-shift" style={{ backgroundSize: '200% 200%' }}>
+                        Ready to Automate?
+                    </span>
                 </motion.h2>
 
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto"
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
                 >
                     Let&apos;s build compliance-ready AI workflows that scale with your business.
                 </motion.p>
@@ -64,7 +72,9 @@ export function CTASection() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ delay: 0.4, duration: 0.6 }}
+                    whileHover={{ scale: 1.05 }}
                 >
                     <Dialog>
                         <DialogTrigger asChild>
@@ -81,23 +91,34 @@ export function CTASection() {
                                 </DialogDescription>
                             </DialogHeader>
                             <div className="grid gap-4 py-4">
-                                {contactOptions.map((option) => (
-                                    <a
+                                {contactOptions.map((option, idx) => (
+                                    <motion.a
                                         key={option.label}
                                         href={option.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-4 p-4 rounded-xl bg-navy-light border border-gray-800 hover:border-clepto-cyan/50 hover:bg-clepto-cyan/5 transition-all group"
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: idx * 0.1 }}
+                                        whileHover={{ x: 4, scale: 1.02 }}
+                                        className="relative flex items-center gap-4 p-5 rounded-xl bg-navy-light border border-gray-800 hover:border-clepto-cyan/50 hover:bg-clepto-cyan/5 transition-all group overflow-hidden"
                                     >
-                                        <div className="p-3 rounded-lg bg-clepto-navy group-hover:bg-clepto-cyan/10 transition-colors">
+                                        {/* Glow Effect */}
+                                        <div className="absolute -inset-px bg-gradient-to-r from-clepto-cyan/20 to-clepto-red/20 rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500 -z-10" />
+
+                                        <motion.div
+                                            whileHover={{ rotate: 360 }}
+                                            transition={{ duration: 0.6 }}
+                                            className="p-3 rounded-lg bg-gradient-to-br from-clepto-cyan/10 to-clepto-red/10 border border-gray-800/50 group-hover:border-clepto-cyan/30 transition-all"
+                                        >
                                             <option.icon className="w-6 h-6 text-clepto-cyan" />
-                                        </div>
-                                        <div>
+                                        </motion.div>
+                                        <div className="flex-1">
                                             <p className="font-bold text-white group-hover:text-clepto-cyan transition-colors">{option.label}</p>
                                             <p className="text-sm text-gray-400">{option.value}</p>
                                         </div>
-                                        <ArrowRight className="w-5 h-5 text-gray-600 ml-auto group-hover:text-clepto-cyan group-hover:translate-x-1 transition-all" />
-                                    </a>
+                                        <ArrowRight className="w-5 h-5 text-gray-600 group-hover:text-clepto-cyan transition-all" />
+                                    </motion.a>
                                 ))}
                             </div>
                         </DialogContent>
