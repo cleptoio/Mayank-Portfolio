@@ -3,7 +3,6 @@ import { ProjectsGrid } from "@/components/ProjectsGrid";
 import { ExperienceTimeline } from "@/components/ExperienceTimeline";
 import { SkillsGrid } from "@/components/SkillsGrid";
 import { CTASection } from "@/components/CTASection";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { NeuronBackground } from "@/components/NeuronBackground";
 
 export default function Home() {
@@ -12,13 +11,10 @@ export default function Home() {
       {/* Navigation / Header */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-clepto-navy/80 backdrop-blur-md border-b border-gray-800/50">
         <div className="container mx-auto px-6 h-16 flex items-center justify-end">
-          <div className="flex items-center gap-6">
-            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
-              <a href="#projects" className="hover:text-clepto-cyan transition-colors">Projects</a>
-              <a href="#experience" className="hover:text-clepto-cyan transition-colors">Experience</a>
-              <a href="#skills" className="hover:text-clepto-cyan transition-colors">Skills</a>
-            </div>
-            <ThemeToggle />
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+            <a href="#projects" className="hover:text-clepto-cyan transition-colors">Projects</a>
+            <a href="#experience" className="hover:text-clepto-cyan transition-colors">Experience</a>
+            <a href="#skills" className="hover:text-clepto-cyan transition-colors">Skills</a>
           </div>
         </div>
       </nav>
