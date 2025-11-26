@@ -16,23 +16,15 @@ export function Hero() {
                 <WorldMap />
             </div>
 
-            {/* Gradient Overlays - Responsive for better map visibility */}
-            {/* Left side - strong for text readability on desktop, lighter on mobile */}
-            <div className="absolute inset-0 bg-gradient-to-r from-clepto-navy via-clepto-navy/70 to-transparent lg:via-clepto-navy/70 z-[1]" />
+            {/* Gradient Overlays - Carefully balanced for map visibility */}
+            {/* Left side - solid for text, transparent on right for map */}
+            <div className="absolute inset-0 bg-gradient-to-r from-clepto-navy/95 via-clepto-navy/30 to-transparent z-[1]" />
 
-            {/* Top - subtle fade, less aggressive on mobile */}
-            <div className="absolute inset-0 bg-gradient-to-b from-clepto-navy/40 via-transparent to-transparent lg:from-clepto-navy/60 z-[1]" />
+            {/* Top fade - very subtle */}
+            <div className="absolute inset-0 bg-gradient-to-b from-clepto-navy/30 via-transparent to-transparent z-[1]" />
 
-            {/* Bottom - for stats section */}
-            <div className="absolute inset-0 bg-gradient-to-t from-clepto-navy via-transparent to-transparent z-[1]" />
-
-            {/* Center vignette - keeps center visible for map/Dublin, adjusted for mobile */}
-            <div
-                className="absolute inset-0 z-[1] pointer-events-none"
-                style={{
-                    background: "radial-gradient(ellipse 90% 90% at 50% 50%, transparent 20%, rgba(13, 27, 42, 0.4) 100%)"
-                }}
-            />
+            {/* Bottom fade - for stats section */}
+            <div className="absolute inset-0 bg-gradient-to-t from-clepto-navy/80 via-transparent to-transparent z-[1]" />
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-16">
