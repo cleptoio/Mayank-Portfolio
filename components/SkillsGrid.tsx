@@ -5,7 +5,8 @@ import { SKILLS, CERTIFICATIONS } from "@/lib/data";
 import { Award, Brain, Cloud, Database, Shield, Gavel, Cpu, BarChart3, Workflow, ShieldCheck, Kanban } from "lucide-react";
 import {
     SiPython, SiSalesforce, SiGooglecloud, SiSupabase, SiPostgresql,
-    SiJira, SiConfluence, SiTableau, SiOpenai, SiLangchain
+    SiJira, SiConfluence, SiTableau, SiOpenai, SiLangchain, SiN8N,
+    SiZapier, SiMake, SiGdpr, SiPowerbi
 } from "react-icons/si";
 
 // Category icons
@@ -25,6 +26,7 @@ const categoryIconMap: Record<string, any> = {
 
 // Technology-specific icons from Simple Icons
 const techIconMap: Record<string, any> = {
+    "n8n": SiN8N,
     "Python": SiPython,
     "Salesforce": SiSalesforce,
     "Google Cloud": SiGooglecloud,
@@ -37,10 +39,13 @@ const techIconMap: Record<string, any> = {
     "JIRA": SiJira,
     "Confluence": SiConfluence,
     "Tableau": SiTableau,
-    "Power BI": BarChart3,
+    "Power BI": SiPowerbi,
     "OpenAI": SiOpenai,
     "LangChain": SiLangchain,
-    // Pinecone, RAG, n8n, etc. will use fallback gradient badges
+    "Zapier": SiZapier,
+    "Make.com": SiMake,
+    "GDPR": SiGdpr,
+    // Vector Databases, RAG, Pinecone, Agentic AI will use fallback gradient badges
 };
 
 export function SkillsGrid() {

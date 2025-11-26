@@ -18,7 +18,7 @@ const geoUrl =
 export function WorldMap() {
     const { theme } = useTheme();
     const [zoom, setZoom] = useState(1);
-    const [center, setCenter] = useState<[number, number]>([10, 30]);
+    const [center, setCenter] = useState<[number, number]>([0, 20]);
 
     // Dublin coordinates - memoized to prevent re-renders
     const dublinCoords: [number, number] = useMemo(
@@ -27,11 +27,11 @@ export function WorldMap() {
     );
 
     useEffect(() => {
-        // Animate zoom on mount
+        // Animate zoom on mount - like hirok.io
         const timer1 = setTimeout(() => {
-            setZoom(2.5);
+            setZoom(3);
             setCenter(dublinCoords);
-        }, 500);
+        }, 800);
 
         return () => {
             clearTimeout(timer1);
@@ -43,15 +43,14 @@ export function WorldMap() {
             <ComposableMap
                 projection="geoMercator"
                 projectionConfig={{
-                    scale: 400,
-                    center: [10, 50],
+                    scale: 200,
                 }}
                 style={{ width: "100%", height: "100%" }}
             >
                 <motion.g
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
+                    transition={{ duration: 1.5 }}
                 >
                     <ZoomableGroup
                         center={center}
@@ -64,12 +63,12 @@ export function WorldMap() {
                                     <Geography
                                         key={geo.rsmKey}
                                         geography={geo}
-                                        fill={theme === "dark" ? "#0E172F" : "#E5E7EB"}
-                                        stroke={theme === "dark" ? "#1A2847" : "#9CA3AF"}
+                                        fill="#1A2847"
+                                        stroke="#2A3F5F"
                                         strokeWidth={0.5}
                                         style={{
                                             default: { outline: "none" },
-                                            hover: { fill: theme === "dark" ? "#1A2847" : "#D1D5DB", outline: "none" },
+                                            hover: { fill: "#243B5A", outline: "none" },
                                             pressed: { outline: "none" },
                                         }}
                                     />
@@ -77,16 +76,16 @@ export function WorldMap() {
                             }
                         </Geographies>
 
-                        {/* Animated Pulsing Marker for Dublin */}
+                        {/* Dublin Marker - Clean and visible */}
                         <Marker coordinates={dublinCoords}>
                             <motion.g
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
-                                transition={{ delay: 1.5, duration: 0.5, type: "spring" }}
+                                transition={{ delay: 2, duration: 0.5, type: "spring" }}
                             >
+                                <circle r={8} fill="#0BD7D4" opacity={0.3} />
                                 <circle r={5} fill="#0BD7D4" />
-                                <circle r={10} fill="none" stroke="#0BD7D4" strokeWidth={2} className="animate-ping" />
-                                <circle r={15} fill="none" stroke="#0BD7D4" strokeWidth={1} opacity={0.5} className="animate-pulse" />
+                                <circle r={15} fill="none" stroke="#0BD7D4" strokeWidth={2} className="animate-ping" />
                             </motion.g>
                         </Marker>
                     </ZoomableGroup>
