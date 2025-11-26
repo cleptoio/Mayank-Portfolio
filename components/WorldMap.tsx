@@ -24,7 +24,7 @@ const locations = [
 
 const INITIAL_DELAY = 500;
 const ZOOM_DURATION = 1800;
-const LABEL_DELAY = INITIAL_DELAY + ZOOM_DURATION + 300;
+const LABEL_DELAY = INITIAL_DELAY + ZOOM_DURATION + 200;
 
 export function WorldMap() {
     const [isZoomed, setIsZoomed] = useState(false);
@@ -33,7 +33,7 @@ export function WorldMap() {
 
     useEffect(() => {
         const zoomTimer = setTimeout(() => setIsZoomed(true), INITIAL_DELAY);
-        const markerTimer = setTimeout(() => setShowMarkers(true), INITIAL_DELAY + 800);
+        const markerTimer = setTimeout(() => setShowMarkers(true), INITIAL_DELAY + 600);
         const labelTimer = setTimeout(() => setShowLabels(true), LABEL_DELAY);
 
         return () => {
@@ -102,13 +102,14 @@ export function WorldMap() {
 
                             {locations.map((location, idx) => (
                                 <Marker key={location.name} coordinates={location.coords}>
+                                    {/* Markers */}
                                     <AnimatePresence>
                                         {showMarkers && (
                                             <motion.g
                                                 initial={{ scale: 0, opacity: 0 }}
                                                 animate={{ scale: 1, opacity: 1 }}
                                                 transition={{ 
-                                                    delay: idx * 0.1, 
+                                                    delay: idx * 0.08, 
                                                     duration: 0.4, 
                                                     type: "spring",
                                                     stiffness: 200,
@@ -117,53 +118,81 @@ export function WorldMap() {
                                             >
                                                 {location.primary ? (
                                                     <>
-                                                        <circle r={6} fill="#0BD7D4" opacity={0.15}>
+                                                        {/* Pulse ring */}
+                                                        <circle r={6} fill="#0BD7D4" opacity={0.2}>
                                                             <animate
                                                                 attributeName="r"
-                                                                from="4"
-                                                                to="12"
+                                                                from="3"
+                                                                to="10"
                                                                 dur="2s"
                                                                 repeatCount="indefinite"
                                                             />
                                                             <animate
                                                                 attributeName="opacity"
-                                                                from="0.3"
+                                                                from="0.4"
                                                                 to="0"
                                                                 dur="2s"
                                                                 repeatCount="indefinite"
                                                             />
                                                         </circle>
-                                                        <circle r={4} fill="#0BD7D4" opacity={0.3} />
-                                                        <circle r={2} fill="#0BD7D4" />
+                                                        {/* Glow */}
+                                                        <circle r={4} fill="#0BD7D4" opacity={0.35} />
+                                                        {/* Core */}
+                                                        <circle r={2.5} fill="#0BD7D4" />
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <circle r={1.5} fill="#4B5563" opacity={0.5} />
-                                                        <circle r={0.8} fill="#9CA3AF" />
+                                                        <circle r={1.8} fill="#4B5563" opacity={0.6} />
+                                                        <circle r={1} fill="#9CA3AF" />
                                                     </>
                                                 )}
                                             </motion.g>
                                         )}
                                     </AnimatePresence>
 
+                                    {/* City Labels */}
                                     <AnimatePresence>
                                         {showLabels && (
-                                            <motion.text
-                                                initial={{ opacity: 0, y: 2 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: idx * 0.05, duration: 0.3 }}
-                                                y={location.primary ? -8 : -5}
-                                                textAnchor="middle"
-                                                fill={location.primary ? "#0BD7D4" : "#6B7280"}
-                                                style={{
-                                                    fontSize: location.primary ? "4px" : "3px",
-                                                    fontWeight: location.primary ? 600 : 400,
-                                                    letterSpacing: "0.3px",
-                                                    pointerEvents: "none",
+                                            <motion.g
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                transition={{ 
+                                                    delay: idx * 0.06, 
+                                                    duration: 0.4 
                                                 }}
                                             >
-                                                {location.name}
-                                            </motion.text>
+                                                {/* Text stroke/outline for readability */}
+                                                <text
+                                                    y={location.primary ? -10 : -7}
+                                                    textAnchor="middle"
+                                                    fill="none"
+                                                    stroke="#0D1B2A"
+                                                    strokeWidth={location.primary ? 2.5 : 2}
+                                                    style={{
+                                                        fontSize: location.primary ? "6px" : "4.5px",
+                                                        fontWeight: location.primary ? 700 : 500,
+                                                        fontFamily: "system-ui, -apple-system, sans-serif",
+                                                        letterSpacing: "0.5px",
+                                                        paintOrder: "stroke fill",
+                                                    }}
+                                                >
+                                                    {location.name}
+                                                </text>
+                                                {/* Main text */}
+                                                <text
+                                                    y={location.primary ? -10 : -7}
+                                                    textAnchor="middle"
+                                                    fill={location.primary ? "#0BD7D4" : "#94A3B8"}
+                                                    style={{
+                                                        fontSize: location.primary ? "6px" : "4.5px",
+                                                        fontWeight: location.primary ? 700 : 500,
+                                                        fontFamily: "system-ui, -apple-system, sans-serif",
+                                                        letterSpacing: "0.5px",
+                                                    }}
+                                                >
+                                                    {location.name}
+                                                </text>
+                                            </motion.g>
                                         )}
                                     </AnimatePresence>
                                 </Marker>
