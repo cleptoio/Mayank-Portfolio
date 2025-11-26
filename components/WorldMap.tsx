@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
     ComposableMap,
     Geographies,
@@ -22,19 +22,15 @@ const locations = [
     { name: "Liverpool", coords: [-2.9916, 53.4084] as [number, number], primary: false },
 ];
 
-const INITIAL_DELAY = 500;
-const ZOOM_DURATION = 1800;
-const LABEL_DELAY = INITIAL_DELAY + ZOOM_DURATION + 200;
-
 export function WorldMap() {
     const [isZoomed, setIsZoomed] = useState(false);
     const [showMarkers, setShowMarkers] = useState(false);
     const [showLabels, setShowLabels] = useState(false);
 
     useEffect(() => {
-        const zoomTimer = setTimeout(() => setIsZoomed(true), INITIAL_DELAY);
-        const markerTimer = setTimeout(() => setShowMarkers(true), INITIAL_DELAY + 600);
-        const labelTimer = setTimeout(() => setShowLabels(true), LABEL_DELAY);
+        const zoomTimer = setTimeout(() => setIsZoomed(true), 500);
+        const markerTimer = setTimeout(() => setShowMarkers(true), 1200);
+        const labelTimer = setTimeout(() => setShowLabels(true), 2000);
 
         return () => {
             clearTimeout(zoomTimer);
@@ -49,15 +45,15 @@ export function WorldMap() {
                 className="w-full h-full"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 1, ease: "easeOut" }}
+                transition={{ duration: 1 }}
             >
                 <motion.div
                     className="w-full h-full origin-center"
                     initial={{ scale: 1, x: 0, y: 0 }}
                     animate={isZoomed ? { 
-                        scale: 4.5,
-                        x: "15%",
-                        y: "-25%"
+                        scale: 5,
+                        x: "5%",
+                        y: "-30%"
                     } : { 
                         scale: 1, 
                         x: 0, 
@@ -100,101 +96,90 @@ export function WorldMap() {
                                 }
                             </Geographies>
 
+                            {/* Markers */}
                             {locations.map((location, idx) => (
                                 <Marker key={location.name} coordinates={location.coords}>
-                                    {/* Markers */}
-                                    <AnimatePresence>
-                                        {showMarkers && (
-                                            <motion.g
-                                                initial={{ scale: 0, opacity: 0 }}
-                                                animate={{ scale: 1, opacity: 1 }}
-                                                transition={{ 
-                                                    delay: idx * 0.08, 
-                                                    duration: 0.4, 
-                                                    type: "spring",
-                                                    stiffness: 200,
-                                                    damping: 15
-                                                }}
-                                            >
-                                                {location.primary ? (
-                                                    <>
-                                                        {/* Pulse ring */}
-                                                        <circle r={6} fill="#0BD7D4" opacity={0.2}>
-                                                            <animate
-                                                                attributeName="r"
-                                                                from="3"
-                                                                to="10"
-                                                                dur="2s"
-                                                                repeatCount="indefinite"
-                                                            />
-                                                            <animate
-                                                                attributeName="opacity"
-                                                                from="0.4"
-                                                                to="0"
-                                                                dur="2s"
-                                                                repeatCount="indefinite"
-                                                            />
-                                                        </circle>
-                                                        {/* Glow */}
-                                                        <circle r={4} fill="#0BD7D4" opacity={0.35} />
-                                                        {/* Core */}
-                                                        <circle r={2.5} fill="#0BD7D4" />
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <circle r={1.8} fill="#4B5563" opacity={0.6} />
-                                                        <circle r={1} fill="#9CA3AF" />
-                                                    </>
-                                                )}
-                                            </motion.g>
-                                        )}
-                                    </AnimatePresence>
+                                    {showMarkers && (
+                                        <motion.g
+                                            initial={{ scale: 0, opacity: 0 }}
+                                            animate={{ scale: 1, opacity: 1 }}
+                                            transition={{ 
+                                                delay: idx * 0.08, 
+                                                duration: 0.4, 
+                                                type: "spring",
+                                                stiffness: 200,
+                                                damping: 15
+                                            }}
+                                        >
+                                            {location.primary ? (
+                                                <>
+                                                    <circle r={5} fill="#0BD7D4" opacity={0.2}>
+                                                        <animate
+                                                            attributeName="r"
+                                                            from="3"
+                                                            to="8"
+                                                            dur="2s"
+                                                            repeatCount="indefinite"
+                                                        />
+                                                        <animate
+                                                            attributeName="opacity"
+                                                            from="0.4"
+                                                            to="0"
+                                                            dur="2s"
+                                                            repeatCount="indefinite"
+                                                        />
+                                                    </circle>
+                                                    <circle r={3} fill="#0BD7D4" opacity={0.4} />
+                                                    <circle r={1.8} fill="#0BD7D4" />
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <circle r={1.2} fill="#4B5563" opacity={0.6} />
+                                                    <circle r={0.7} fill="#9CA3AF" />
+                                                </>
+                                            )}
+                                        </motion.g>
+                                    )}
 
-                                    {/* City Labels */}
-                                    <AnimatePresence>
-                                        {showLabels && (
-                                            <motion.g
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                transition={{ 
-                                                    delay: idx * 0.06, 
-                                                    duration: 0.4 
-                                                }}
+                                    {/* Labels - using regular SVG text with motion wrapper */}
+                                    {showLabels && (
+                                        <motion.g
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            transition={{ delay: idx * 0.05, duration: 0.5 }}
+                                        >
+                                            {/* Shadow/stroke for contrast */}
+                                            <text
+                                                y={location.primary ? -8 : -5}
+                                                x={0}
+                                                textAnchor="middle"
+                                                dominantBaseline="middle"
+                                                stroke="#0D1B2A"
+                                                strokeWidth={location.primary ? 3 : 2}
+                                                fill="none"
+                                                fontSize={location.primary ? 5 : 3.5}
+                                                fontWeight={location.primary ? 700 : 500}
+                                                fontFamily="system-ui, sans-serif"
+                                                letterSpacing="0.5"
                                             >
-                                                {/* Text stroke/outline for readability */}
-                                                <text
-                                                    y={location.primary ? -10 : -7}
-                                                    textAnchor="middle"
-                                                    fill="none"
-                                                    stroke="#0D1B2A"
-                                                    strokeWidth={location.primary ? 2.5 : 2}
-                                                    style={{
-                                                        fontSize: location.primary ? "6px" : "4.5px",
-                                                        fontWeight: location.primary ? 700 : 500,
-                                                        fontFamily: "system-ui, -apple-system, sans-serif",
-                                                        letterSpacing: "0.5px",
-                                                        paintOrder: "stroke fill",
-                                                    }}
-                                                >
-                                                    {location.name}
-                                                </text>
-                                                {/* Main text */}
-                                                <text
-                                                    y={location.primary ? -10 : -7}
-                                                    textAnchor="middle"
-                                                    fill={location.primary ? "#0BD7D4" : "#94A3B8"}
-                                                    style={{
-                                                        fontSize: location.primary ? "6px" : "4.5px",
-                                                        fontWeight: location.primary ? 700 : 500,
-                                                        fontFamily: "system-ui, -apple-system, sans-serif",
-                                                        letterSpacing: "0.5px",
-                                                    }}
-                                                >
-                                                    {location.name}
-                                                </text>
-                                            </motion.g>
-                                        )}
-                                    </AnimatePresence>
+                                                {location.name}
+                                            </text>
+                                            {/* Main text */}
+                                            <text
+                                                y={location.primary ? -8 : -5}
+                                                x={0}
+                                                textAnchor="middle"
+                                                dominantBaseline="middle"
+                                                fill={location.primary ? "#0BD7D4" : "#94A3B8"}
+                                                fontSize={location.primary ? 5 : 3.5}
+                                                fontWeight={location.primary ? 700 : 500}
+                                                fontFamily="system-ui, sans-serif"
+                                                letterSpacing="0.5"
+                                            >
+                                                {location.name}
+                                            </text>
+                                        </motion.g>
+                                    )}
                                 </Marker>
                             ))}
                         </ZoomableGroup>
