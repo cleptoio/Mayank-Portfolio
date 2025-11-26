@@ -23,18 +23,16 @@ const locations = [
 export function WorldMap() {
     const [animationStage, setAnimationStage] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
-    // 0 = initial, 1 = zoomed, 2 = markers visible, 3 = labels visible
 
     useEffect(() => {
-        // Check if mobile on mount and window resize
         const checkMobile = () => setIsMobile(window.innerWidth < 1024);
         checkMobile();
         window.addEventListener('resize', checkMobile);
 
         const timers = [
-            setTimeout(() => setAnimationStage(1), 400),   // Start zoom
-            setTimeout(() => setAnimationStage(2), 1800),  // Show markers
-            setTimeout(() => setAnimationStage(3), 2400),  // Show labels
+            setTimeout(() => setAnimationStage(1), 100),
+            setTimeout(() => setAnimationStage(2), 1000),
+            setTimeout(() => setAnimationStage(3), 1500),
         ];
         return () => {
             timers.forEach(clearTimeout);
@@ -47,162 +45,120 @@ export function WorldMap() {
     const showLabels = animationStage >= 3;
 
     return (
-        <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#0e172f]">
             <motion.div
                 className="w-full h-full"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 1.5 }}
             >
-                {/*
-                    Transform strategy:
-                    - Desktop: Higher zoom (6x) centered on Dublin with offset positioning
-                    - Mobile: Lower zoom (3x) to show more context and prevent overlap
-                    - Transform origin adjusted based on viewport
-                */}
                 <motion.div
                     className="w-full h-full"
-                    style={{ transformOrigin: isMobile ? "50% 50%" : "60% 40%" }}
-                    initial={{ scale: 1, x: 0, y: 0 }}
-                    animate={isZoomed ? {
-                        scale: isMobile ? 3 : 6,
-                        x: isMobile ? 0 : "-10%",
-                        y: isMobile ? 0 : "5%"
-                    } : {
-                        scale: 1,
-                        x: 0,
-                        y: 0
+                    style={{ transformOrigin: "50% 50%" }}
+                    initial={{ scale: 1.2 }}
+                    animate={{
+                        scale: isMobile ? 1.5 : 1, // Adjust initial scale if needed, but we rely on projectionConfig mostly
                     }}
-                    transition={{
-                        duration: 2,
-                        ease: [0.16, 1, 0.3, 1]
-                    }}
+                    transition={{ duration: 2, ease: "easeOut" }}
                 >
                     <ComposableMap
                         projection="geoMercator"
                         projectionConfig={{
-                            scale: 150,
-                            center: [5, 50], // Centered on Western Europe
+                            scale: isMobile ? 1800 : 2800, // Much higher scale for zoom
+                            center: [-6.2603, 53.3498], // Centered on Dublin
                         }}
                         style={{ width: "100%", height: "100%" }}
                     >
                         <ZoomableGroup
-                            center={[5, 50]}
+                            center={[-6.2603, 53.3498]}
                             zoom={1}
                             filterZoomEvent={() => false}
                         >
                             {/* Map Geography */}
                             <Geographies geography={geoUrl}>
                                 {({ geographies }) =>
-                                    geographies.map((geo) => (
-                                        <Geography
-                                            key={geo.rsmKey}
-                                            geography={geo}
-                                            fill="#4A6FA5"
-                                            stroke="#6B8EC7"
-                                            strokeWidth={0.8}
-                                            style={{
-                                                default: { outline: "none", opacity: 1 },
-                                                hover: { outline: "none", opacity: 1 },
-                                                pressed: { outline: "none", opacity: 1 },
-                                            }}
-                                        />
-                                    ))
+                                    geographies.map((geo) => {
+                                        // Optional: Highlight Ireland slightly differently if desired, 
+                                        // but for now keeping uniform dark cyber style
+                                        return (
+                                            <Geography
+                                                key={geo.rsmKey}
+                                                geography={geo}
+                                                fill="#1a1a2e" // Dark Navy
+                                                stroke="#0bd7d4" // Cyan
+                                                strokeWidth={0.5}
+                                                style={{
+                                                    default: { outline: "none", filter: "drop-shadow(0 0 2px rgba(11, 215, 212, 0.3))" },
+                                                    hover: { outline: "none", fill: "#232342", transition: "all 0.3s" },
+                                                    pressed: { outline: "none" },
+                                                }}
+                                            />
+                                        );
+                                    })
                                 }
                             </Geographies>
 
-                            {/* City Markers and Labels */}
-                            {locations.map((location, idx) => (
-                                <Marker key={location.name} coordinates={location.coords}>
-                                    {/* Marker Dot */}
-                                    {showMarkers && (
-                                        <motion.g
-                                            initial={{ scale: 0, opacity: 0 }}
-                                            animate={{ scale: 1, opacity: 1 }}
-                                            transition={{ 
-                                                delay: idx * 0.15, 
-                                                duration: 0.5, 
-                                                type: "spring",
-                                                stiffness: 150,
-                                                damping: 12
-                                            }}
-                                        >
-                                            {location.primary ? (
-                                                <>
-                                                    {/* Animated pulse - larger on desktop */}
-                                                    <circle r={isMobile ? 4 : 5} fill="#0BD7D4" opacity={0.3}>
-                                                        <animate
-                                                            attributeName="r"
-                                                            from={isMobile ? "3" : "4"}
-                                                            to={isMobile ? "8" : "10"}
-                                                            dur="2s"
-                                                            repeatCount="indefinite"
-                                                        />
-                                                        <animate
-                                                            attributeName="opacity"
-                                                            from="0.5"
-                                                            to="0"
-                                                            dur="2s"
-                                                            repeatCount="indefinite"
-                                                        />
-                                                    </circle>
-                                                    {/* Glow */}
-                                                    <circle r={isMobile ? 3.5 : 4} fill="#0BD7D4" opacity={0.4} />
-                                                    {/* Core */}
-                                                    <circle r={isMobile ? 2 : 2.5} fill="#0BD7D4" />
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <circle r={isMobile ? 1.5 : 2} fill="#64748B" opacity={0.6} />
-                                                    <circle r={isMobile ? 0.8 : 1} fill="#94A3B8" />
-                                                </>
-                                            )}
-                                        </motion.g>
-                                    )}
+                            {/* Dublin Marker */}
+                            <Marker coordinates={[-6.2603, 53.3498]}>
+                                {showMarkers && (
+                                    <motion.g
+                                        initial={{ scale: 0, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        transition={{ duration: 0.5, type: "spring" }}
+                                    >
+                                        {/* Pulsing rings */}
+                                        <circle r={8} fill="#FFD700" opacity={0.2}>
+                                            <animate attributeName="r" from="8" to="20" dur="1.5s" repeatCount="indefinite" />
+                                            <animate attributeName="opacity" from="0.4" to="0" dur="1.5s" repeatCount="indefinite" />
+                                        </circle>
+                                        <circle r={4} fill="#FFD700" />
+                                    </motion.g>
+                                )}
+                                
+                                {showLabels && (
+                                    <motion.text
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.2 }}
+                                        x={0}
+                                        y={25}
+                                        textAnchor="middle"
+                                        className="text-2xl font-bold fill-[#FFD700]"
+                                        style={{ 
+                                            fontSize: isMobile ? "24px" : "32px", 
+                                            fontWeight: "bold",
+                                            filter: "drop-shadow(0 0 4px rgba(255, 215, 0, 0.5))",
+                                            fontFamily: "Orbitron, sans-serif" // Assuming Orbitron is available or fallback
+                                        }}
+                                    >
+                                        DUBLIN
+                                    </motion.text>
+                                )}
+                            </Marker>
 
-                                    {/* City Label */}
-                                    {showLabels && (
-                                        <motion.g
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ delay: idx * 0.1, duration: 0.5 }}
-                                        >
-                                            {/* Text shadow for readability - increased stroke width */}
-                                            <text
-                                                x={location.labelOffset.x}
-                                                y={location.labelOffset.y}
-                                                textAnchor="middle"
-                                                dominantBaseline="middle"
-                                                stroke="#0D1B2A"
-                                                strokeWidth={location.primary ? (isMobile ? 3 : 4) : (isMobile ? 2.5 : 3)}
-                                                fill="none"
-                                                fontSize={location.primary ? (isMobile ? 8 : 12) : (isMobile ? 6 : 9)}
-                                                fontWeight={location.primary ? 700 : 600}
-                                                fontFamily="system-ui, -apple-system, sans-serif"
-                                            >
-                                                {location.name}
-                                            </text>
-                                            {/* Main text - much larger font sizes */}
-                                            <text
-                                                x={location.labelOffset.x}
-                                                y={location.labelOffset.y}
-                                                textAnchor="middle"
-                                                dominantBaseline="middle"
-                                                fill={location.primary ? "#0BD7D4" : "#94A3B8"}
-                                                fontSize={location.primary ? (isMobile ? 8 : 12) : (isMobile ? 6 : 9)}
-                                                fontWeight={location.primary ? 700 : 600}
-                                                fontFamily="system-ui, -apple-system, sans-serif"
-                                            >
-                                                {location.name}
-                                            </text>
-                                        </motion.g>
-                                    )}
+                            {/* Decorative Particles/Dots around Europe */}
+                            {/* Adding some random static or slowly moving dots for "cyber" feel */}
+                            {[
+                                [-0.1276, 51.5074], // London
+                                [2.3522, 48.8566],  // Paris
+                                [4.9041, 52.3676],  // Amsterdam
+                                [-3.7038, 40.4168], // Madrid
+                                [13.4050, 52.5200], // Berlin
+                            ].map((coords, i) => (
+                                <Marker key={i} coordinates={coords as [number, number]}>
+                                    <circle r={1.5} fill="#0bd7d4" opacity={0.6} />
                                 </Marker>
                             ))}
+
                         </ZoomableGroup>
                     </ComposableMap>
                 </motion.div>
             </motion.div>
+            
+            {/* Vignette / Overlay for better text contrast if needed, 
+                though Hero.tsx handles some of this. 
+                Adding a subtle radial gradient here can help focus on the center. */}
+            <div className="absolute inset-0 pointer-events-none bg-radial-gradient from-transparent via-[#0e172f]/50 to-[#0e172f]" />
         </div>
     );
 }
