@@ -10,15 +10,14 @@ import { WorldMap } from "@/components/WorldMap";
 
 export function Hero() {
     return (
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-            {/* World Map Background - MORE VISIBLE */}
-            <div className="absolute inset-0 z-0 opacity-60">
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-clepto-navy">
+            {/* World Map Background - HIGHLY VISIBLE like hirok.io */}
+            <div className="absolute inset-0 z-0">
                 <WorldMap />
             </div>
 
-            {/* Lighter Gradient Overlays for better map visibility */}
-            <div className="absolute inset-0 bg-gradient-to-b from-clepto-navy/60 via-clepto-navy/70 to-clepto-navy z-0" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-clepto-cyan/5 via-transparent to-transparent z-0" />
+            {/* Minimal gradient overlay - don't hide the map! */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-clepto-navy/30 to-clepto-navy z-0" />
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-24 sm:pt-32 pb-12 sm:pb-16">
