@@ -5,8 +5,8 @@ import { SKILLS, CERTIFICATIONS } from "@/lib/data";
 import { Award, Brain, Cloud, Database, Shield, Gavel, Cpu, BarChart3, Workflow, ShieldCheck, Kanban } from "lucide-react";
 import {
     SiPython, SiSalesforce, SiGooglecloud, SiSupabase, SiPostgresql,
-    SiJira, SiConfluence, SiTableau, SiMicrosoft, SiOpenai,
-    SiGithub, SiLinkedin, SiUbuntu, SiPinecone, SiLangchain
+    SiJira, SiConfluence, SiTableau, SiPowerbi, SiOpenai,
+    SiGithub, SiLinkedin, SiUbuntu, SiPinecone, SiLangchain, SiMicrosoftsqlserver
 } from "react-icons/si";
 
 // Category icons
@@ -33,13 +33,13 @@ const techIconMap: Record<string, any> = {
     "Google Data Studio": SiGooglecloud,
     "Supabase": SiSupabase,
     "Pinecone": SiPinecone,
-    "SQL": SiMicrosoft,
-    "SQL Server": SiMicrosoft,
+    "SQL": SiMicrosoftsqlserver,
+    "SQL Server": SiMicrosoftsqlserver,
     "PostgreSQL": SiPostgresql,
     "JIRA": SiJira,
     "Confluence": SiConfluence,
     "Tableau": SiTableau,
-    "Power BI": SiMicrosoft,
+    "Power BI": SiPowerbi,
     "OpenAI": SiOpenai,
     "LangChain": SiLangchain,
 };
@@ -73,14 +73,14 @@ export function SkillsGrid() {
                         <div className="relative space-y-4">
                             {/* Header */}
                             <div className="flex items-center gap-3">
-                                {iconMap[data.icon] && (
+                                {categoryIconMap[data.icon] && (
                                     <motion.div
                                         whileHover={{ rotate: 360 }}
                                         transition={{ duration: 0.6 }}
                                         className="p-3 rounded-xl bg-gradient-to-br from-clepto-cyan/10 to-clepto-red/10 border border-gray-800/50 group-hover:border-clepto-cyan/30 transition-all"
                                     >
                                         {(() => {
-                                            const Icon = iconMap[data.icon];
+                                            const Icon = categoryIconMap[data.icon];
                                             return <Icon className="w-6 h-6 text-clepto-cyan" />;
                                         })()}
                                     </motion.div>

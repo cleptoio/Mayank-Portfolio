@@ -33,7 +33,7 @@ export function WorldMap() {
         return () => {
             clearTimeout(timer1);
         };
-    }, []);
+    }, [dublinCoords]);
 
     return (
         <div className="w-full h-full min-h-[400px] flex items-center justify-center overflow-hidden bg-transparent">
