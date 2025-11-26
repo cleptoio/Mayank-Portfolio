@@ -7,7 +7,6 @@ import {
     SiPython, SiSalesforce, SiGooglecloud, SiSupabase, SiPostgresql,
     SiJira, SiConfluence, SiTableau, SiOpenai, SiLangchain
 } from "react-icons/si";
-import { Database } from "lucide-react";
 
 // Category icons
 const categoryIconMap: Record<string, any> = {
