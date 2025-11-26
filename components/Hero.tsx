@@ -16,23 +16,12 @@ export function Hero() {
                 <WorldMap />
             </div>
 
-            {/* Gradient Overlays */}
-            {/* Left side - strong for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-clepto-navy via-clepto-navy/70 to-transparent z-[1]" />
-            
-            {/* Top - subtle fade */}
-            <div className="absolute inset-0 bg-gradient-to-b from-clepto-navy/60 via-transparent to-transparent z-[1]" />
-            
-            {/* Bottom - for stats section */}
-            <div className="absolute inset-0 bg-gradient-to-t from-clepto-navy via-transparent to-transparent z-[1]" />
-            
-            {/* Center vignette - keeps center visible for map/Dublin */}
-            <div 
-                className="absolute inset-0 z-[1] pointer-events-none" 
-                style={{
-                    background: "radial-gradient(ellipse 80% 80% at 55% 45%, transparent 30%, rgba(13, 27, 42, 0.5) 100%)"
-                }}
-            />
+            {/* Gradient Overlays - Minimal for maximum map visibility */}
+            {/* Left side only - just enough for text readability */}
+            <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-clepto-navy via-clepto-navy/40 to-transparent z-[1] lg:w-2/5" />
+
+            {/* Bottom fade - only for stats section */}
+            <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-clepto-navy/90 via-clepto-navy/20 to-transparent z-[1]" />
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-16">

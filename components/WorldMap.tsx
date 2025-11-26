@@ -22,15 +22,24 @@ const locations = [
 
 export function WorldMap() {
     const [animationStage, setAnimationStage] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
     // 0 = initial, 1 = zoomed, 2 = markers visible, 3 = labels visible
 
     useEffect(() => {
+        // Check if mobile on mount and window resize
+        const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+
         const timers = [
             setTimeout(() => setAnimationStage(1), 400),   // Start zoom
             setTimeout(() => setAnimationStage(2), 1800),  // Show markers
             setTimeout(() => setAnimationStage(3), 2400),  // Show labels
         ];
-        return () => timers.forEach(clearTimeout);
+        return () => {
+            timers.forEach(clearTimeout);
+            window.removeEventListener('resize', checkMobile);
+        };
     }, []);
 
     const isZoomed = animationStage >= 1;
@@ -45,27 +54,27 @@ export function WorldMap() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
             >
-                {/* 
+                {/*
                     Transform strategy:
-                    - origin-[60%_40%] = zoom origin at center-right, slightly above center
-                    - This keeps Ireland/UK visible after zoom
-                    - x translate shifts map left so Dublin appears more centered
+                    - Desktop: Higher zoom (6x) centered on Dublin with offset positioning
+                    - Mobile: Lower zoom (3x) to show more context and prevent overlap
+                    - Transform origin adjusted based on viewport
                 */}
                 <motion.div
                     className="w-full h-full"
-                    style={{ transformOrigin: "60% 40%" }}
+                    style={{ transformOrigin: isMobile ? "50% 50%" : "60% 40%" }}
                     initial={{ scale: 1, x: 0, y: 0 }}
-                    animate={isZoomed ? { 
-                        scale: 6,
-                        x: "-10%",
-                        y: "5%"
-                    } : { 
-                        scale: 1, 
-                        x: 0, 
-                        y: 0 
+                    animate={isZoomed ? {
+                        scale: isMobile ? 3 : 6,
+                        x: isMobile ? 0 : "-10%",
+                        y: isMobile ? 0 : "5%"
+                    } : {
+                        scale: 1,
+                        x: 0,
+                        y: 0
                     }}
-                    transition={{ 
-                        duration: 2, 
+                    transition={{
+                        duration: 2,
                         ease: [0.16, 1, 0.3, 1]
                     }}
                 >
@@ -89,13 +98,13 @@ export function WorldMap() {
                                         <Geography
                                             key={geo.rsmKey}
                                             geography={geo}
-                                            fill="#2A4A6F"
-                                            stroke="#3D5A80"
-                                            strokeWidth={0.4}
+                                            fill="#4A6FA5"
+                                            stroke="#6B8EC7"
+                                            strokeWidth={0.8}
                                             style={{
-                                                default: { outline: "none" },
-                                                hover: { outline: "none" },
-                                                pressed: { outline: "none" },
+                                                default: { outline: "none", opacity: 1 },
+                                                hover: { outline: "none", opacity: 1 },
+                                                pressed: { outline: "none", opacity: 1 },
                                             }}
                                         />
                                     ))
@@ -120,12 +129,12 @@ export function WorldMap() {
                                         >
                                             {location.primary ? (
                                                 <>
-                                                    {/* Animated pulse */}
-                                                    <circle r={3} fill="#0BD7D4" opacity={0.3}>
+                                                    {/* Animated pulse - larger on desktop */}
+                                                    <circle r={isMobile ? 4 : 5} fill="#0BD7D4" opacity={0.3}>
                                                         <animate
                                                             attributeName="r"
-                                                            from="2"
-                                                            to="6"
+                                                            from={isMobile ? "3" : "4"}
+                                                            to={isMobile ? "8" : "10"}
                                                             dur="2s"
                                                             repeatCount="indefinite"
                                                         />
@@ -138,14 +147,14 @@ export function WorldMap() {
                                                         />
                                                     </circle>
                                                     {/* Glow */}
-                                                    <circle r={2.5} fill="#0BD7D4" opacity={0.4} />
+                                                    <circle r={isMobile ? 3.5 : 4} fill="#0BD7D4" opacity={0.4} />
                                                     {/* Core */}
-                                                    <circle r={1.5} fill="#0BD7D4" />
+                                                    <circle r={isMobile ? 2 : 2.5} fill="#0BD7D4" />
                                                 </>
                                             ) : (
                                                 <>
-                                                    <circle r={1} fill="#64748B" opacity={0.6} />
-                                                    <circle r={0.5} fill="#94A3B8" />
+                                                    <circle r={isMobile ? 1.5 : 2} fill="#64748B" opacity={0.6} />
+                                                    <circle r={isMobile ? 0.8 : 1} fill="#94A3B8" />
                                                 </>
                                             )}
                                         </motion.g>
@@ -158,30 +167,30 @@ export function WorldMap() {
                                             animate={{ opacity: 1 }}
                                             transition={{ delay: idx * 0.1, duration: 0.5 }}
                                         >
-                                            {/* Text shadow for readability */}
+                                            {/* Text shadow for readability - increased stroke width */}
                                             <text
                                                 x={location.labelOffset.x}
                                                 y={location.labelOffset.y}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
                                                 stroke="#0D1B2A"
-                                                strokeWidth={location.primary ? 2.5 : 2}
+                                                strokeWidth={location.primary ? (isMobile ? 3 : 4) : (isMobile ? 2.5 : 3)}
                                                 fill="none"
-                                                fontSize={location.primary ? 4 : 3}
-                                                fontWeight={location.primary ? 700 : 500}
+                                                fontSize={location.primary ? (isMobile ? 8 : 12) : (isMobile ? 6 : 9)}
+                                                fontWeight={location.primary ? 700 : 600}
                                                 fontFamily="system-ui, -apple-system, sans-serif"
                                             >
                                                 {location.name}
                                             </text>
-                                            {/* Main text */}
+                                            {/* Main text - much larger font sizes */}
                                             <text
                                                 x={location.labelOffset.x}
                                                 y={location.labelOffset.y}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
                                                 fill={location.primary ? "#0BD7D4" : "#94A3B8"}
-                                                fontSize={location.primary ? 4 : 3}
-                                                fontWeight={location.primary ? 700 : 500}
+                                                fontSize={location.primary ? (isMobile ? 8 : 12) : (isMobile ? 6 : 9)}
+                                                fontWeight={location.primary ? 700 : 600}
                                                 fontFamily="system-ui, -apple-system, sans-serif"
                                             >
                                                 {location.name}
