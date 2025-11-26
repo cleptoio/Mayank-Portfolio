@@ -1,8 +1,7 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useState, useEffect, useMemo } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
     ComposableMap,
     Geographies,
@@ -10,12 +9,9 @@ import {
     Marker,
     ZoomableGroup,
 } from "react-simple-maps";
-import { PERSONAL_INFO } from "@/lib/data";
 
-const geoUrl =
-    "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
+const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
 
-// Location markers - strategically positioned to avoid text overlap
 const locations = [
     { name: "Dublin", coords: [-6.2603, 53.3498] as [number, number], primary: true },
     { name: "London", coords: [-0.1276, 51.5074] as [number, number], primary: false },
@@ -26,130 +22,156 @@ const locations = [
     { name: "Liverpool", coords: [-2.9916, 53.4084] as [number, number], primary: false },
 ];
 
+const INITIAL_DELAY = 500;
+const ZOOM_DURATION = 1800;
+const LABEL_DELAY = INITIAL_DELAY + ZOOM_DURATION + 300;
+
 export function WorldMap() {
-    const { theme } = useTheme();
-    const [zoom, setZoom] = useState(1);
-    const [center, setCenter] = useState<[number, number]>([0, 20]);
+    const [isZoomed, setIsZoomed] = useState(false);
+    const [showMarkers, setShowMarkers] = useState(false);
     const [showLabels, setShowLabels] = useState(false);
 
-    // Dublin coordinates - memoized to prevent re-renders
-    const dublinCoords: [number, number] = useMemo(
-        () => [PERSONAL_INFO.coordinates[0], PERSONAL_INFO.coordinates[1]],
-        []
-    );
-
     useEffect(() => {
-        // Animate zoom from world view to UK/Ireland focus like hirok.io
-        const zoomTimer = setTimeout(() => {
-            setZoom(5.5); // Strong zoom on UK/Ireland region
-            setCenter([-4, 54]); // Center between Ireland and UK
-        }, 800);
-
-        // Show location labels after zoom animation completes
-        const labelTimer = setTimeout(() => {
-            setShowLabels(true);
-        }, 2300);
+        const zoomTimer = setTimeout(() => setIsZoomed(true), INITIAL_DELAY);
+        const markerTimer = setTimeout(() => setShowMarkers(true), INITIAL_DELAY + 800);
+        const labelTimer = setTimeout(() => setShowLabels(true), LABEL_DELAY);
 
         return () => {
             clearTimeout(zoomTimer);
+            clearTimeout(markerTimer);
             clearTimeout(labelTimer);
         };
     }, []);
 
     return (
-        <div className="w-full h-full min-h-[400px] flex items-center justify-center overflow-hidden bg-transparent">
-            <ComposableMap
-                projection="geoMercator"
-                projectionConfig={{
-                    scale: 200,
-                }}
-                style={{ width: "100%", height: "100%" }}
+        <div className="w-full h-full min-h-[500px] lg:min-h-[700px] flex items-center justify-center overflow-hidden">
+            <motion.div
+                className="w-full h-full"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, ease: "easeOut" }}
             >
-                <motion.g
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1.5 }}
+                <motion.div
+                    className="w-full h-full origin-center"
+                    initial={{ scale: 1, x: 0, y: 0 }}
+                    animate={isZoomed ? { 
+                        scale: 4.5,
+                        x: "15%",
+                        y: "-25%"
+                    } : { 
+                        scale: 1, 
+                        x: 0, 
+                        y: 0 
+                    }}
+                    transition={{ 
+                        duration: 1.8, 
+                        ease: [0.25, 0.1, 0.25, 1]
+                    }}
                 >
-                    <motion.g
-                        animate={{
-                            scale: zoom,
-                            x: -(center[0] * zoom * 2),
-                            y: -(center[1] * zoom * 2),
+                    <ComposableMap
+                        projection="geoMercator"
+                        projectionConfig={{
+                            scale: 180,
+                            center: [0, 45],
                         }}
-                        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                        style={{ width: "100%", height: "100%" }}
                     >
-                    <ZoomableGroup
-                        center={[0, 20]}
-                        zoom={1}
-                        filterZoomEvent={() => true}
-                    >
-                        <Geographies geography={geoUrl}>
-                            {({ geographies }) =>
-                                geographies.map((geo) => (
-                                    <Geography
-                                        key={geo.rsmKey}
-                                        geography={geo}
-                                        fill="#2A4A6F"
-                                        stroke="#3D5A80"
-                                        strokeWidth={0.8}
-                                        style={{
-                                            default: { outline: "none" },
-                                            hover: { fill: "#324F72", outline: "none" },
-                                            pressed: { outline: "none" },
-                                        }}
-                                    />
-                                ))
-                            }
-                        </Geographies>
-
-                        {/* Location Markers */}
-                        {locations.map((location, idx) => (
-                            <Marker key={location.name} coordinates={location.coords}>
-                                <motion.g
-                                    initial={{ scale: 0, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    transition={{ delay: 2 + idx * 0.1, duration: 0.5, type: "spring" }}
-                                >
-                                    {/* Marker Circle - smaller and more subtle */}
-                                    {location.primary ? (
-                                        <>
-                                            <circle r={4} fill="#0BD7D4" opacity={0.25} />
-                                            <circle r={2} fill="#0BD7D4" />
-                                            <circle r={8} fill="none" stroke="#0BD7D4" strokeWidth={1} className="animate-ping" />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <circle r={1.5} fill="#6B7280" opacity={0.3} />
-                                            <circle r={0.8} fill="#9CA3AF" />
-                                        </>
-                                    )}
-
-                                    {/* Location Label - tiny, subtle, positioned to avoid overlap */}
-                                    {showLabels && (
-                                        <motion.text
-                                            initial={{ opacity: 0, y: -2 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.2 + idx * 0.08, duration: 0.3 }}
-                                            y={-6}
-                                            textAnchor="middle"
-                                            className={location.primary ? "fill-clepto-cyan font-semibold" : "fill-gray-400 font-normal"}
+                        <ZoomableGroup
+                            center={[0, 45]}
+                            zoom={1}
+                            filterZoomEvent={() => false}
+                        >
+                            <Geographies geography={geoUrl}>
+                                {({ geographies }) =>
+                                    geographies.map((geo) => (
+                                        <Geography
+                                            key={geo.rsmKey}
+                                            geography={geo}
+                                            fill="#2A4A6F"
+                                            stroke="#3D5A80"
+                                            strokeWidth={0.5}
                                             style={{
-                                                pointerEvents: 'none',
-                                                fontSize: location.primary ? '5px' : '4px',
-                                                letterSpacing: '0.2px',
-                                                opacity: location.primary ? 0.9 : 0.6
+                                                default: { outline: "none" },
+                                                hover: { outline: "none" },
+                                                pressed: { outline: "none" },
                                             }}
-                                        >
-                                            {location.name}
-                                        </motion.text>
-                                    )}
-                                </motion.g>
-                            </Marker>
-                        ))}
-                    </ZoomableGroup>
-                    </motion.g>
-                </motion.g>
-            </ComposableMap>
+                                        />
+                                    ))
+                                }
+                            </Geographies>
+
+                            {locations.map((location, idx) => (
+                                <Marker key={location.name} coordinates={location.coords}>
+                                    <AnimatePresence>
+                                        {showMarkers && (
+                                            <motion.g
+                                                initial={{ scale: 0, opacity: 0 }}
+                                                animate={{ scale: 1, opacity: 1 }}
+                                                transition={{ 
+                                                    delay: idx * 0.1, 
+                                                    duration: 0.4, 
+                                                    type: "spring",
+                                                    stiffness: 200,
+                                                    damping: 15
+                                                }}
+                                            >
+                                                {location.primary ? (
+                                                    <>
+                                                        <circle r={6} fill="#0BD7D4" opacity={0.15}>
+                                                            <animate
+                                                                attributeName="r"
+                                                                from="4"
+                                                                to="12"
+                                                                dur="2s"
+                                                                repeatCount="indefinite"
+                                                            />
+                                                            <animate
+                                                                attributeName="opacity"
+                                                                from="0.3"
+                                                                to="0"
+                                                                dur="2s"
+                                                                repeatCount="indefinite"
+                                                            />
+                                                        </circle>
+                                                        <circle r={4} fill="#0BD7D4" opacity={0.3} />
+                                                        <circle r={2} fill="#0BD7D4" />
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <circle r={1.5} fill="#4B5563" opacity={0.5} />
+                                                        <circle r={0.8} fill="#9CA3AF" />
+                                                    </>
+                                                )}
+                                            </motion.g>
+                                        )}
+                                    </AnimatePresence>
+
+                                    <AnimatePresence>
+                                        {showLabels && (
+                                            <motion.text
+                                                initial={{ opacity: 0, y: 2 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ delay: idx * 0.05, duration: 0.3 }}
+                                                y={location.primary ? -8 : -5}
+                                                textAnchor="middle"
+                                                fill={location.primary ? "#0BD7D4" : "#6B7280"}
+                                                style={{
+                                                    fontSize: location.primary ? "4px" : "3px",
+                                                    fontWeight: location.primary ? 600 : 400,
+                                                    letterSpacing: "0.3px",
+                                                    pointerEvents: "none",
+                                                }}
+                                            >
+                                                {location.name}
+                                            </motion.text>
+                                        )}
+                                    </AnimatePresence>
+                                </Marker>
+                            ))}
+                        </ZoomableGroup>
+                    </ComposableMap>
+                </motion.div>
+            </motion.div>
         </div>
     );
 }
