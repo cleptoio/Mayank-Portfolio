@@ -11,36 +11,32 @@ import { WorldMap } from "@/components/WorldMap";
 export function Hero() {
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-clepto-navy">
-            {/* World Map Background - Full coverage */}
+            {/* World Map Background */}
             <div className="absolute inset-0 z-0">
                 <WorldMap />
             </div>
 
-            {/* Gradient Overlays - Minimal for maximum map visibility */}
-            {/* Left side only - just enough for text readability */}
+            {/* Gradient Overlays */}
             <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-clepto-navy via-clepto-navy/40 to-transparent z-[1] lg:w-2/5" />
-
-            {/* Bottom fade - only for stats section */}
             <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-clepto-navy/90 via-clepto-navy/20 to-transparent z-[1]" />
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-16">
-                {/* Mobile: Stack vertically, Desktop: Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
 
                     {/* Left Content - Text */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="lg:col-span-6 space-y-5 lg:space-y-8 lg:pt-8 order-2 lg:order-1"
+                        className="lg:col-span-6 space-y-6 lg:space-y-8 lg:pt-8"
                     >
-                        {/* Status Badge - NO RED */}
+                        {/* Status Badge */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.2 }}
-                            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-clepto-cyan/10 border border-clepto-cyan/20 backdrop-blur-md"
+                            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-clepto-cyan/10 border border-clepto-cyan/30 backdrop-blur-md"
                         >
                             <span className="relative flex h-2.5 w-2.5">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-clepto-cyan opacity-75" />
@@ -69,12 +65,12 @@ export function Hero() {
                             </motion.h1>
                         </div>
 
-                        {/* Bio */}
+                        {/* Bio - constrained width */}
                         <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg"
+                            className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-md"
                         >
                             {PERSONAL_INFO.bio}
                         </motion.p>
@@ -116,7 +112,7 @@ export function Hero() {
                         </motion.div>
                     </motion.div>
 
-                    {/* Center spacer - Map shows through here */}
+                    {/* Center spacer */}
                     <div className="hidden lg:block lg:col-span-2" />
 
                     {/* Right Content - Profile Photo */}
@@ -124,21 +120,21 @@ export function Hero() {
                         initial={{ opacity: 0, scale: 0.9, x: 20 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ delay: 0.5, duration: 0.8 }}
-                        className="lg:col-span-4 flex justify-center lg:justify-end order-1 lg:order-2 perspective-1000 lg:-mt-8"
+                        className="lg:col-span-4 flex justify-center lg:justify-end order-first lg:order-last perspective-1000 lg:-mt-8"
                     >
                         <motion.div
-                            className="relative w-40 h-40 sm:w-48 sm:h-48 lg:w-64 lg:h-64 xl:w-72 xl:h-72"
+                            className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72"
                             whileHover={{ scale: 1.05, rotateY: 10, rotateX: -10 }}
                             transition={{ type: "spring", stiffness: 400, damping: 25 }}
                         >
-                            {/* Cyber Glow - CYAN/BLUE only, NO RED */}
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-clepto-cyan via-blue-500 to-cyan-400 opacity-40 blur-3xl animate-pulse" />
+                            {/* Glow - cyan only */}
+                            <div className="absolute inset-0 rounded-full bg-clepto-cyan/30 blur-3xl animate-pulse" />
 
-                            {/* Rotating Rings - CYAN only, NO RED */}
+                            {/* Rotating Rings - cyan only */}
                             <div className="absolute -inset-4 rounded-full border border-clepto-cyan/30 border-dashed animate-spin-slow" style={{ animationDuration: '10s' }} />
-                            <div className="absolute -inset-2 rounded-full border border-blue-400/20 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }} />
+                            <div className="absolute -inset-2 rounded-full border border-clepto-cyan/20 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }} />
 
-                            {/* Profile Image Container */}
+                            {/* Profile Image */}
                             <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-clepto-cyan/50 ring-4 ring-black/50 shadow-[0_0_50px_rgba(11,215,212,0.4)] backdrop-blur-sm">
                                 <Image
                                     src={PERSONAL_INFO.image}
@@ -155,7 +151,7 @@ export function Hero() {
                     </motion.div>
                 </div>
 
-                {/* Stats Section - NO RED */}
+                {/* Stats Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -167,22 +163,19 @@ export function Hero() {
                             icon: Sparkles,
                             value: "8+",
                             label: "Years Experience",
-                            subtext: "Business Transformation",
-                            color: "from-clepto-cyan to-blue-400"
+                            subtext: "Business Transformation"
                         },
                         {
                             icon: Zap,
                             value: "50+",
                             label: "n8n Workflows",
-                            subtext: "Deployed Successfully",
-                            color: "from-blue-400 to-cyan-400"
+                            subtext: "Deployed Successfully"
                         },
                         {
                             icon: Shield,
                             value: "100%",
                             label: "Audit Ready",
-                            subtext: "EU AI Act Compliant",
-                            color: "from-cyan-400 to-clepto-cyan"
+                            subtext: "EU AI Act Compliant"
                         }
                     ].map((stat, idx) => (
                         <motion.div
@@ -193,11 +186,10 @@ export function Hero() {
                             whileHover={{ y: -5, scale: 1.02 }}
                             className="relative group"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity rounded-2xl" />
                             <div className="relative p-3 sm:p-6 rounded-2xl bg-clepto-navy/60 border border-gray-800/50 backdrop-blur-md hover:border-clepto-cyan/30 transition-all duration-300">
                                 <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-4">
-                                    <div className={`p-2 sm:p-3 rounded-xl bg-gradient-to-br ${stat.color} bg-opacity-10`}>
-                                        <stat.icon className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+                                    <div className="p-2 sm:p-3 rounded-xl bg-clepto-cyan/10 border border-clepto-cyan/20">
+                                        <stat.icon className="w-4 h-4 sm:w-6 sm:h-6 text-clepto-cyan" />
                                     </div>
                                     <div className="text-center sm:text-left">
                                         <div className="text-xl sm:text-3xl font-bold text-white">{stat.value}</div>
