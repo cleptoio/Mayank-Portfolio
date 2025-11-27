@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     ComposableMap,
@@ -12,129 +12,109 @@ import {
 
 const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
 
-const theme = {
-    colors: {
-        base: "#0e172f",
-        land: "#1a1a2e",
-        stroke: "#0bd7d4",
-        highlight: "#FFD700",
-    }
+// Clepto brand colors
+const COLORS = {
+    navy: "#0e172f",
+    navyLight: "#151f38",
+    cyan: "#0bd7d4",
+    gold: "#FFD700",
+    white: "#ffffff",
 };
 
-// UK & Ireland cities with label positions to avoid overlap
+// UK & Ireland cities - positioned to avoid text overlap on left side
 const cities = [
     { 
-        name: "DUBLIN", 
+        name: "Dublin", 
         coordinates: [-6.2603, 53.3498], 
         isPrimary: true,
-        labelOffset: { x: 0, y: -28 }
     },
     { 
         name: "London", 
         coordinates: [-0.1276, 51.5074], 
         isPrimary: false,
-        labelOffset: { x: 18, y: 4 }
     },
     { 
         name: "Manchester", 
         coordinates: [-2.2426, 53.4808], 
         isPrimary: false,
-        labelOffset: { x: 22, y: 0 }
     },
     { 
         name: "Leeds", 
         coordinates: [-1.5491, 53.8008], 
         isPrimary: false,
-        labelOffset: { x: 16, y: -8 }
     },
     { 
         name: "Glasgow", 
         coordinates: [-4.2518, 55.8642], 
         isPrimary: false,
-        labelOffset: { x: -20, y: -10 }
     },
     { 
         name: "Belfast", 
         coordinates: [-5.9301, 54.5973], 
         isPrimary: false,
-        labelOffset: { x: -18, y: 5 }
     },
 ];
 
 export function WorldMap() {
-    const [zoom, setZoom] = useState(0.8);
-    const [center, setCenter] = useState<[number, number]>([0, 40]);
-    const [showMarkers, setShowMarkers] = useState(false);
-    const [animationComplete, setAnimationComplete] = useState(false);
+    const [animationPhase, setAnimationPhase] = useState<"initial" | "zooming" | "complete">("initial");
 
+    // Animation timeline
     useEffect(() => {
-        // Start zoom animation after short delay
-        const zoomTimer = setTimeout(() => {
-            setZoom(4.5);
-            setCenter([-4, 54]); // Center on Ireland/UK
-        }, 800);
-
-        // Show markers after zoom completes
-        const markerTimer = setTimeout(() => {
-            setShowMarkers(true);
-        }, 2500);
-
-        // Mark animation complete
-        const completeTimer = setTimeout(() => {
-            setAnimationComplete(true);
-        }, 3500);
+        const zoomTimer = setTimeout(() => setAnimationPhase("zooming"), 600);
+        const completeTimer = setTimeout(() => setAnimationPhase("complete"), 2800);
 
         return () => {
             clearTimeout(zoomTimer);
-            clearTimeout(markerTimer);
             clearTimeout(completeTimer);
         };
     }, []);
 
+    // Map configuration - shifted RIGHT so Ireland/UK appears in center-right of viewport
+    const mapConfig = useMemo(() => ({
+        initial: { zoom: 1, center: [10, 45] as [number, number] },
+        zooming: { zoom: 5, center: [-3, 54] as [number, number] },
+        complete: { zoom: 5, center: [-3, 54] as [number, number] },
+    }), []);
+
+    const currentConfig = mapConfig[animationPhase];
+
     return (
-        <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#0e172f]">
-            {/* CSS for smooth zoom transition */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ backgroundColor: COLORS.navy }}>
+            {/* Smooth zoom transition */}
             <style jsx global>{`
-                .world-map-container g[class*="rsm-zoomable-group"] {
-                    transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
+                .rsm-zoomable-group {
+                    transition: transform 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                 }
             `}</style>
-            
+
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
+                transition={{ duration: 0.8 }}
                 className="w-full h-full"
             >
                 <ComposableMap
                     projection="geoMercator"
-                    projectionConfig={{
-                        scale: 200,
-                    }}
+                    projectionConfig={{ scale: 180 }}
                     style={{ width: "100%", height: "100%" }}
-                    className="world-map-container"
                 >
-                    <ZoomableGroup 
-                        center={center} 
-                        zoom={zoom}
-                        minZoom={0.8}
-                        maxZoom={6}
+                    <ZoomableGroup
+                        center={currentConfig.center}
+                        zoom={currentConfig.zoom}
                         filterZoomEvent={() => false}
-                        translateExtent={[[-Infinity, -Infinity], [Infinity, Infinity]]}
                     >
+                        {/* Map geography */}
                         <Geographies geography={geoUrl}>
                             {({ geographies }) =>
                                 geographies.map((geo) => (
                                     <Geography
                                         key={geo.rsmKey}
                                         geography={geo}
-                                        fill={theme.colors.land}
-                                        stroke={theme.colors.stroke}
-                                        strokeWidth={0.3}
+                                        fill={COLORS.navyLight}
+                                        stroke={COLORS.cyan}
+                                        strokeWidth={0.15}
                                         style={{
-                                            default: { 
-                                                outline: "none",
-                                            },
+                                            default: { outline: "none" },
                                             hover: { outline: "none" },
                                             pressed: { outline: "none" },
                                         }}
@@ -143,117 +123,144 @@ export function WorldMap() {
                             }
                         </Geographies>
 
-                        {/* City markers - appear after zoom */}
+                        {/* City markers */}
                         <AnimatePresence>
-                            {showMarkers && cities.map(({ name, coordinates, isPrimary, labelOffset }, index) => (
-                                <Marker key={name} coordinates={coordinates as [number, number]}>
+                            {animationPhase === "complete" && cities.map((city, index) => (
+                                <Marker key={city.name} coordinates={city.coordinates as [number, number]}>
                                     <motion.g
                                         initial={{ opacity: 0, scale: 0 }}
                                         animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ 
-                                            delay: index * 0.15,
-                                            duration: 0.5,
+                                        transition={{
+                                            delay: index * 0.12,
+                                            duration: 0.4,
                                             type: "spring",
-                                            stiffness: 200
+                                            stiffness: 300,
+                                            damping: 20,
                                         }}
                                     >
-                                        {isPrimary ? (
-                                            <>
-                                                {/* Pulsing ring for Dublin */}
-                                                <motion.circle
-                                                    r={8}
-                                                    fill="none"
-                                                    stroke={theme.colors.highlight}
-                                                    strokeWidth={2}
-                                                    initial={{ scale: 0.5, opacity: 1 }}
-                                                    animate={{ scale: 2.5, opacity: 0 }}
-                                                    transition={{ 
-                                                        duration: 2, 
-                                                        repeat: Infinity,
-                                                        ease: "easeOut"
-                                                    }}
-                                                />
-                                                {/* Inner glow */}
-                                                <circle 
-                                                    r={4} 
-                                                    fill={theme.colors.highlight} 
-                                                    opacity={0.5}
-                                                    filter="url(#glow)"
-                                                />
-                                                {/* Core dot */}
-                                                <circle r={3} fill={theme.colors.highlight} />
-                                                
-                                                {/* DUBLIN label */}
-                                                <text
-                                                    x={labelOffset.x}
-                                                    y={labelOffset.y}
-                                                    textAnchor="middle"
-                                                    style={{
-                                                        fontFamily: "system-ui, -apple-system, sans-serif",
-                                                        fontSize: "14px",
-                                                        fontWeight: 800,
-                                                        fill: theme.colors.highlight,
-                                                        letterSpacing: "1px",
-                                                    }}
-                                                >
-                                                    {name}
-                                                </text>
-                                            </>
+                                        {city.isPrimary ? (
+                                            <PrimaryMarker />
                                         ) : (
-                                            <>
-                                                {/* Small dot for other cities */}
-                                                <motion.circle
-                                                    r={2}
-                                                    fill={theme.colors.stroke}
-                                                    animate={animationComplete ? { 
-                                                        opacity: [0.5, 1, 0.5]
-                                                    } : {}}
-                                                    transition={{ 
-                                                        duration: 3, 
-                                                        repeat: Infinity,
-                                                        delay: Math.random() * 2
-                                                    }}
-                                                />
-                                                
-                                                {/* City label */}
-                                                <text
-                                                    x={labelOffset.x}
-                                                    y={labelOffset.y}
-                                                    textAnchor={labelOffset.x < 0 ? "end" : "start"}
-                                                    dominantBaseline="middle"
-                                                    style={{
-                                                        fontFamily: "system-ui, -apple-system, sans-serif",
-                                                        fontSize: "8px",
-                                                        fontWeight: 600,
-                                                        fill: "#ffffff",
-                                                        opacity: 0.75,
-                                                    }}
-                                                >
-                                                    {name}
-                                                </text>
-                                            </>
+                                            <SecondaryMarker name={city.name} index={index} />
                                         )}
                                     </motion.g>
                                 </Marker>
                             ))}
                         </AnimatePresence>
-
-                        {/* SVG filter for glow effect */}
-                        <defs>
-                            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
-                        </defs>
                     </ZoomableGroup>
                 </ComposableMap>
             </motion.div>
 
-            {/* Vignette overlay */}
-            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_0%,transparent_40%,#0e172f_100%)]" />
+            {/* Gradient overlays for depth and text readability */}
+            <div className="absolute inset-0 pointer-events-none">
+                {/* Left fade for text area */}
+                <div 
+                    className="absolute inset-y-0 left-0 w-1/2"
+                    style={{
+                        background: `linear-gradient(to right, ${COLORS.navy} 0%, ${COLORS.navy}ee 30%, transparent 100%)`
+                    }}
+                />
+                {/* Vignette */}
+                <div 
+                    className="absolute inset-0"
+                    style={{
+                        background: `radial-gradient(ellipse 80% 80% at 70% 50%, transparent 0%, ${COLORS.navy}40 50%, ${COLORS.navy} 100%)`
+                    }}
+                />
+            </div>
         </div>
+    );
+}
+
+// Dublin marker with golden pulse
+function PrimaryMarker() {
+    return (
+        <g>
+            {/* Outer pulse ring */}
+            <motion.circle
+                r={4}
+                fill="none"
+                stroke={COLORS.gold}
+                strokeWidth={1.5}
+                initial={{ scale: 1, opacity: 0.8 }}
+                animate={{ scale: 3, opacity: 0 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+            />
+            {/* Second pulse ring (delayed) */}
+            <motion.circle
+                r={4}
+                fill="none"
+                stroke={COLORS.gold}
+                strokeWidth={1}
+                initial={{ scale: 1, opacity: 0.6 }}
+                animate={{ scale: 2.5, opacity: 0 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
+            />
+            {/* Glow */}
+            <circle r={3} fill={COLORS.gold} opacity={0.4} />
+            {/* Core */}
+            <circle r={2} fill={COLORS.gold} />
+            
+            {/* Label */}
+            <text
+                y={-12}
+                textAnchor="middle"
+                fill={COLORS.gold}
+                style={{
+                    fontSize: "5px",
+                    fontWeight: 700,
+                    fontFamily: "system-ui, -apple-system, sans-serif",
+                    letterSpacing: "0.5px",
+                    textShadow: `0 0 8px ${COLORS.gold}80`,
+                }}
+            >
+                DUBLIN
+            </text>
+        </g>
+    );
+}
+
+// Other city markers with cyan dots
+function SecondaryMarker({ name, index }: { name: string; index: number }) {
+    // Calculate label position based on city to avoid overlaps
+    const labelPositions: Record<string, { x: number; y: number; anchor: string }> = {
+        London: { x: 4, y: 1, anchor: "start" },
+        Manchester: { x: 4, y: 0, anchor: "start" },
+        Leeds: { x: 4, y: -1, anchor: "start" },
+        Glasgow: { x: -4, y: -2, anchor: "end" },
+        Belfast: { x: -4, y: 1, anchor: "end" },
+    };
+
+    const pos = labelPositions[name] || { x: 4, y: 0, anchor: "start" };
+
+    return (
+        <g>
+            {/* Subtle pulse */}
+            <motion.circle
+                r={1.5}
+                fill={COLORS.cyan}
+                animate={{ opacity: [0.4, 0.9, 0.4] }}
+                transition={{ duration: 3, repeat: Infinity, delay: index * 0.3 }}
+            />
+            {/* Core dot */}
+            <circle r={1} fill={COLORS.cyan} />
+            
+            {/* Label */}
+            <text
+                x={pos.x}
+                y={pos.y}
+                textAnchor={pos.anchor}
+                dominantBaseline="middle"
+                fill={COLORS.white}
+                style={{
+                    fontSize: "3px",
+                    fontWeight: 500,
+                    fontFamily: "system-ui, -apple-system, sans-serif",
+                    opacity: 0.7,
+                }}
+            >
+                {name}
+            </text>
+        </g>
     );
 }
