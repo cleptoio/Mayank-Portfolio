@@ -26,7 +26,7 @@ export function Hero() {
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-16">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
-                    
+
                     {/* Left Content - Text */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -120,18 +120,25 @@ export function Hero() {
 
                     {/* Right Content - Profile Photo */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, scale: 0.9, x: 20 }}
+                        animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ delay: 0.5, duration: 0.8 }}
-                        className="lg:col-span-4 flex justify-center lg:justify-end order-first lg:order-last"
+                        className="lg:col-span-4 flex justify-center lg:justify-end order-first lg:order-last perspective-1000"
                     >
-                        <div className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72">
-                            {/* Animated Background Glow */}
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-clepto-red/20 to-clepto-cyan/20 blur-3xl animate-pulse" />
-                            <div className="absolute -inset-3 rounded-full border border-clepto-cyan/10 animate-spin-slow" />
+                        <motion.div
+                            className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72"
+                            whileHover={{ scale: 1.05, rotateY: 10, rotateX: -10 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                        >
+                            {/* Stronger Cyber Glow */}
+                            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-clepto-cyan via-blue-500 to-purple-600 opacity-40 blur-3xl animate-pulse" />
 
-                            {/* Profile Image */}
-                            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-clepto-navy ring-2 ring-clepto-cyan/30 shadow-2xl shadow-clepto-cyan/20">
+                            {/* Rotating Rings */}
+                            <div className="absolute -inset-4 rounded-full border border-clepto-cyan/30 border-dashed animate-spin-slow" style={{ animationDuration: '10s' }} />
+                            <div className="absolute -inset-2 rounded-full border border-clepto-red/20 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }} />
+
+                            {/* Profile Image Container */}
+                            <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-clepto-cyan/50 ring-4 ring-black/50 shadow-[0_0_50px_rgba(11,215,212,0.4)] backdrop-blur-sm">
                                 <Image
                                     src={PERSONAL_INFO.image}
                                     alt={PERSONAL_INFO.name}
@@ -143,7 +150,7 @@ export function Hero() {
                                     }}
                                 />
                             </div>
-                        </div>
+                        </motion.div>
                     </motion.div>
                 </div>
 

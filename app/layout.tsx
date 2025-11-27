@@ -15,6 +15,7 @@ const fontMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://mayank.clepto.io'),
   title: 'Mayank Khanvilkar | AI Automation Consultant',
   description: 'Founder of Clepto.io specializing in n8n workflows, RAG pipelines, and EU AI Act compliance for SMEs.',
   openGraph: {
