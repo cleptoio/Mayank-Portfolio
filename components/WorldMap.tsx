@@ -223,7 +223,8 @@ function PrimaryMarker() {
 // Other city markers with cyan dots
 function SecondaryMarker({ name, index }: { name: string; index: number }) {
     // Calculate label position based on city to avoid overlaps
-    const labelPositions: Record<string, { x: number; y: number; anchor: string }> = {
+    type TextAnchor = "start" | "middle" | "end";
+    const labelPositions: Record<string, { x: number; y: number; anchor: TextAnchor }> = {
         London: { x: 4, y: 1, anchor: "start" },
         Manchester: { x: 4, y: 0, anchor: "start" },
         Leeds: { x: 4, y: -1, anchor: "start" },
@@ -231,7 +232,7 @@ function SecondaryMarker({ name, index }: { name: string; index: number }) {
         Belfast: { x: -4, y: 1, anchor: "end" },
     };
 
-    const pos = labelPositions[name] || { x: 4, y: 0, anchor: "start" };
+    const pos = labelPositions[name] || { x: 4, y: 0, anchor: "start" as TextAnchor };
 
     return (
         <g>
