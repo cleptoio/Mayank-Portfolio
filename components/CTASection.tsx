@@ -38,12 +38,12 @@ export function CTASection() {
 
     return (
         <section className="relative py-32 px-6 overflow-hidden">
-            {/* Background Gradient */}
+            {/* Background Gradient - NO RED */}
             <div className="absolute inset-0 bg-gradient-to-br from-clepto-navy via-navy-darker to-clepto-navy" />
-            <div className="absolute inset-0 bg-gradient-to-r from-clepto-red/5 to-clepto-cyan/5" />
+            <div className="absolute inset-0 bg-gradient-to-r from-clepto-cyan/5 to-blue-500/5" />
 
-            {/* Animated Glow */}
-            <div className="absolute inset-0 bg-gradient-to-r from-clepto-cyan/10 via-clepto-red/10 to-clepto-cyan/10 opacity-30 blur-3xl animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
+            {/* Animated Glow - NO RED */}
+            <div className="absolute inset-0 bg-gradient-to-r from-clepto-cyan/10 via-blue-500/10 to-clepto-cyan/10 opacity-30 blur-3xl animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
 
             {/* Content */}
             <div className="relative max-w-4xl mx-auto text-center">
@@ -54,7 +54,8 @@ export function CTASection() {
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     className="text-5xl md:text-7xl font-bold mb-6"
                 >
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-clepto-red via-clepto-cyan to-clepto-red animate-gradient-shift" style={{ backgroundSize: '200% 200%' }}>
+                    {/* NO RED - cyan/blue gradient */}
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-clepto-cyan via-blue-400 to-clepto-cyan animate-gradient-shift" style={{ backgroundSize: '200% 200%' }}>
                         Ready to Automate?
                     </span>
                 </motion.h2>
@@ -78,8 +79,9 @@ export function CTASection() {
                 >
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button size="lg" className="bg-gradient-to-r from-clepto-red to-clepto-cyan text-white px-8 py-6 text-lg font-semibold rounded-xl hover:shadow-2xl hover:shadow-clepto-cyan/20 transition-all duration-300 border-none">
-                                Let&apos;s Book Together
+                            {/* NO RED - cyan/blue gradient button */}
+                            <Button size="lg" className="bg-gradient-to-r from-clepto-cyan to-blue-500 text-white px-8 py-6 text-lg font-semibold rounded-xl hover:shadow-2xl hover:shadow-clepto-cyan/20 transition-all duration-300 border-none">
+                                Let&apos;s Connect
                                 <ArrowRight className="ml-2 w-5 h-5" />
                             </Button>
                         </DialogTrigger>
@@ -103,13 +105,13 @@ export function CTASection() {
                                         whileHover={{ x: 4, scale: 1.02 }}
                                         className="relative flex items-center gap-4 p-5 rounded-xl bg-navy-light border border-gray-800 hover:border-clepto-cyan/50 hover:bg-clepto-cyan/5 transition-all group overflow-hidden"
                                     >
-                                        {/* Glow Effect */}
-                                        <div className="absolute -inset-px bg-gradient-to-r from-clepto-cyan/20 to-clepto-red/20 rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500 -z-10" />
+                                        {/* Glow Effect - NO RED */}
+                                        <div className="absolute -inset-px bg-gradient-to-r from-clepto-cyan/20 to-blue-500/20 rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500 -z-10" />
 
                                         <motion.div
                                             whileHover={{ rotate: 360 }}
                                             transition={{ duration: 0.6 }}
-                                            className="p-3 rounded-lg bg-gradient-to-br from-clepto-cyan/10 to-clepto-red/10 border border-gray-800/50 group-hover:border-clepto-cyan/30 transition-all"
+                                            className="p-3 rounded-lg bg-clepto-cyan/10 border border-gray-800/50 group-hover:border-clepto-cyan/30 transition-all"
                                         >
                                             <option.icon className="w-6 h-6 text-clepto-cyan" />
                                         </motion.div>
