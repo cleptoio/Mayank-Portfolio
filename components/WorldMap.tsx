@@ -261,7 +261,7 @@ export function WorldMap() {
         return () => { clearTimeout(t1); clearTimeout(t2); };
     }, []);
 
-    // Map config - Dublin visible in CENTER of map area (between text and photo)
+    // Map config - Dublin in the CLEAR area (right of text, left of photo)
     const config = useMemo(() => {
         const mobileConfig = {
             init: { zoom: 1, center: [5, 50] as [number, number] },
@@ -270,9 +270,9 @@ export function WorldMap() {
         };
         const desktopConfig = {
             init: { zoom: 1.2, center: [10, 50] as [number, number] },
-            // Center at [0, 53] puts Dublin in the middle of visible area
-            zoom: { zoom: 3.2, center: [0, 53] as [number, number] },
-            done: { zoom: 3.2, center: [0, 53] as [number, number] },
+            // Center at [-12, 52] shifts map so Dublin (-6.26) appears RIGHT of center
+            zoom: { zoom: 3.2, center: [-12, 52] as [number, number] },
+            done: { zoom: 3.2, center: [-12, 52] as [number, number] },
         };
         return isMobile ? mobileConfig : desktopConfig;
     }, [isMobile]);
@@ -393,25 +393,25 @@ export function WorldMap() {
 
             {/* Gradient overlays */}
             <div className="absolute inset-0 pointer-events-none">
-                {/* Left fade for hero text - NARROWER to not cover Dublin */}
+                {/* Left fade - very narrow, just for text readability */}
                 <div 
-                    className="absolute inset-y-0 left-0 w-[35%] md:w-[30%]"
+                    className="absolute inset-y-0 left-0 w-[28%]"
                     style={{
-                        background: `linear-gradient(to right, ${COLORS.navy} 0%, ${COLORS.navy}dd 60%, transparent 100%)`
+                        background: `linear-gradient(to right, ${COLORS.navy} 0%, ${COLORS.navy}cc 70%, transparent 100%)`
                     }}
                 />
                 {/* Right fade for profile area */}
                 <div 
-                    className="absolute inset-y-0 right-0 w-[30%] hidden lg:block"
+                    className="absolute inset-y-0 right-0 w-[20%] hidden lg:block"
                     style={{
-                        background: `linear-gradient(to left, ${COLORS.navy}40 0%, transparent 100%)`
+                        background: `linear-gradient(to left, ${COLORS.navy}60 0%, transparent 100%)`
                     }}
                 />
-                {/* Subtle vignette */}
+                {/* Very subtle vignette - centered more to the right */}
                 <div 
                     className="absolute inset-0"
                     style={{
-                        background: `radial-gradient(ellipse 80% 80% at 50% 50%, transparent 0%, ${COLORS.navy}50 70%, ${COLORS.navy} 100%)`
+                        background: `radial-gradient(ellipse 90% 90% at 55% 50%, transparent 0%, ${COLORS.navy}30 70%, ${COLORS.navy}90 100%)`
                     }}
                 />
                 {/* Top fade */}
@@ -433,44 +433,55 @@ export function WorldMap() {
     );
 }
 
-// Dublin marker - LARGE and prominent
+// Dublin marker - LARGE and prominent with clear label
 function DublinMarker({ isMobile }: { isMobile: boolean }) {
-    const size = isMobile ? 1 : 1.3;
+    const size = isMobile ? 1 : 1.4;
     
     return (
         <g>
             {/* Outer pulse ring 1 */}
             <motion.circle
-                r={3 * size}
+                r={3.5 * size}
                 fill="none"
                 stroke={COLORS.cyan}
-                strokeWidth={1 * size}
+                strokeWidth={1.2 * size}
                 initial={{ scale: 1, opacity: 0.9 }}
                 animate={{ scale: 4, opacity: 0 }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }}
             />
             {/* Outer pulse ring 2 */}
             <motion.circle
-                r={3 * size}
+                r={3.5 * size}
                 fill="none"
                 stroke={COLORS.cyan}
-                strokeWidth={0.7 * size}
+                strokeWidth={0.8 * size}
                 initial={{ scale: 1, opacity: 0.7 }}
-                animate={{ scale: 3.5, opacity: 0 }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut", delay: 0.6 }}
+                animate={{ scale: 3, opacity: 0 }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut", delay: 0.7 }}
             />
             {/* Glow */}
-            <circle r={2.5 * size} fill={COLORS.cyan} opacity={0.4} />
+            <circle r={3 * size} fill={COLORS.cyan} opacity={0.35} />
             {/* Core */}
-            <circle r={1.8 * size} fill={COLORS.cyan} />
+            <circle r={2 * size} fill={COLORS.cyan} />
             
-            {/* DUBLIN label - LARGER and positioned above */}
+            {/* Label background for readability */}
+            <rect
+                x={-12 * size}
+                y={-12 * size}
+                width={24 * size}
+                height={6 * size}
+                rx={1}
+                fill={COLORS.navy}
+                opacity={0.8}
+            />
+            
+            {/* DUBLIN label */}
             <text
                 y={-8 * size}
                 textAnchor="middle"
                 fill={COLORS.cyan}
                 style={{
-                    fontSize: `${isMobile ? 4 : 5}px`,
+                    fontSize: `${isMobile ? 4.5 : 5.5}px`,
                     fontWeight: 700,
                     fontFamily: "system-ui, -apple-system, sans-serif",
                     letterSpacing: "1.5px",
