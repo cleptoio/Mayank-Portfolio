@@ -167,30 +167,25 @@ export function WorldMap() {
                                             animate={{ opacity: 1 }}
                                             transition={{ delay: idx * 0.1, duration: 0.5 }}
                                         >
-                                            {/* Text shadow for readability - increased stroke width */}
+                                            {/* Background box for contrast */}
+                                            <rect
+                                                x={location.labelOffset.x - (location.primary ? 22 : 18)}
+                                                y={location.labelOffset.y - 7}
+                                                width={location.primary ? 44 : 36}
+                                                height={14}
+                                                fill="#0D1B2A"
+                                                opacity={0.9}
+                                                rx={2}
+                                            />
+                                            {/* Main text - bright and clear */}
                                             <text
                                                 x={location.labelOffset.x}
                                                 y={location.labelOffset.y}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
-                                                stroke="#0D1B2A"
-                                                strokeWidth={location.primary ? (isMobile ? 3 : 4) : (isMobile ? 2.5 : 3)}
-                                                fill="none"
-                                                fontSize={location.primary ? (isMobile ? 8 : 12) : (isMobile ? 6 : 9)}
-                                                fontWeight={location.primary ? 700 : 600}
-                                                fontFamily="system-ui, -apple-system, sans-serif"
-                                            >
-                                                {location.name}
-                                            </text>
-                                            {/* Main text - much larger font sizes */}
-                                            <text
-                                                x={location.labelOffset.x}
-                                                y={location.labelOffset.y}
-                                                textAnchor="middle"
-                                                dominantBaseline="middle"
-                                                fill={location.primary ? "#0BD7D4" : "#94A3B8"}
-                                                fontSize={location.primary ? (isMobile ? 8 : 12) : (isMobile ? 6 : 9)}
-                                                fontWeight={location.primary ? 700 : 600}
+                                                fill={location.primary ? "#0BD7D4" : "#FFFFFF"}
+                                                fontSize={location.primary ? (isMobile ? 10 : 14) : (isMobile ? 8 : 11)}
+                                                fontWeight={700}
                                                 fontFamily="system-ui, -apple-system, sans-serif"
                                             >
                                                 {location.name}
