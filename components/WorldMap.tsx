@@ -54,6 +54,26 @@ export function WorldMap() {
                         zoom={1}
                         filterZoomEvent={() => false} // Disable scroll zoom
                     >
+                        <ZoomableGroup
+                            center={[5, 50]}
+                            zoom={1}
+                            filterZoomEvent={() => false}
+                        >
+                            {/* Map Geography */}
+                            <Geographies geography={geoUrl}>
+                                {({ geographies }) =>
+                                    geographies.map((geo) => (
+                                        <Geography
+                                            key={geo.rsmKey}
+                                            geography={geo}
+                                            fill="#2D4A6B"
+                                            stroke="#3D5A7B"
+                                            strokeWidth={0.5}
+                                            style={{
+                                                default: { outline: "none", opacity: 0.8 },
+                                                hover: { outline: "none", opacity: 0.8 },
+                                                pressed: { outline: "none", opacity: 0.8 },
+                                            }}
                         <Geographies geography={geoUrl}>
                             {({ geographies }) =>
                                 geographies.map((geo) => (
@@ -114,6 +134,76 @@ export function WorldMap() {
                                                 filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.8))"
                                             }}
                                         >
+                                            {location.primary ? (
+                                                <>
+                                                    {/* Animated pulse - larger on desktop */}
+                                                    <circle r={isMobile ? 4 : 5} fill="#0BD7D4" opacity={0.3}>
+                                                        <animate
+                                                            attributeName="r"
+                                                            from={isMobile ? "3" : "4"}
+                                                            to={isMobile ? "8" : "10"}
+                                                            dur="2s"
+                                                            repeatCount="indefinite"
+                                                        />
+                                                        <animate
+                                                            attributeName="opacity"
+                                                            from="0.5"
+                                                            to="0"
+                                                            dur="2s"
+                                                            repeatCount="indefinite"
+                                                        />
+                                                    </circle>
+                                                    {/* Glow */}
+                                                    <circle r={isMobile ? 3.5 : 4} fill="#0BD7D4" opacity={0.4} />
+                                                    {/* Core */}
+                                                    <circle r={isMobile ? 2 : 2.5} fill="#0BD7D4" />
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <circle r={isMobile ? 1.5 : 2} fill="#64748B" opacity={0.6} />
+                                                    <circle r={isMobile ? 0.8 : 1} fill="#94A3B8" />
+                                                </>
+                                            )}
+                                        </motion.g>
+                                    )}
+
+                                    {/* City Label */}
+                                    {showLabels && (
+                                        <motion.g
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            transition={{ delay: idx * 0.1, duration: 0.5 }}
+                                        >
+                                            {/* Background box for contrast */}
+                                            <rect
+                                                x={location.labelOffset.x - (location.primary ? 22 : 18)}
+                                                y={location.labelOffset.y - 7}
+                                                width={location.primary ? 44 : 36}
+                                                height={14}
+                                                fill="#0D1B2A"
+                                                opacity={0.9}
+                                                rx={2}
+                                            />
+                                            {/* Main text - bright and clear */}
+                                            <text
+                                                x={location.labelOffset.x}
+                                                y={location.labelOffset.y}
+                                                textAnchor="middle"
+                                                dominantBaseline="middle"
+                                                fill={location.primary ? "#0BD7D4" : "#FFFFFF"}
+                                                fontSize={location.primary ? (isMobile ? 10 : 14) : (isMobile ? 8 : 11)}
+                                                fontWeight={700}
+                                                fontFamily="system-ui, -apple-system, sans-serif"
+                                            >
+                                                {location.name}
+                                            </text>
+                                        </motion.g>
+                                    )}
+                                </Marker>
+                            ))}
+                        </ZoomableGroup>
+                    </ComposableMap>
+                </motion.div>
                                             DUBLIN
                                         </text>
                                     </g>
