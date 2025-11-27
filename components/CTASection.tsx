@@ -1,14 +1,11 @@
 "use client";
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Mail, Linkedin, Instagram, ExternalLink, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Mail, Linkedin, Instagram, ExternalLink, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export function CTASection() {
-    const [showModal, setShowModal] = useState(false);
-
     const contactOptions = [
         {
             icon: Mail,
@@ -38,12 +35,12 @@ export function CTASection() {
 
     return (
         <section className="relative py-32 px-6 overflow-hidden">
-            {/* Background Gradient - NO RED */}
+            {/* Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-clepto-navy via-navy-darker to-clepto-navy" />
-            <div className="absolute inset-0 bg-gradient-to-r from-clepto-cyan/5 to-blue-500/5" />
+            <div className="absolute inset-0 bg-clepto-cyan/[0.02]" />
 
-            {/* Animated Glow - NO RED */}
-            <div className="absolute inset-0 bg-gradient-to-r from-clepto-cyan/10 via-blue-500/10 to-clepto-cyan/10 opacity-30 blur-3xl animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
+            {/* Animated Glow */}
+            <div className="absolute inset-0 bg-gradient-to-r from-clepto-cyan/5 via-transparent to-clepto-cyan/5 opacity-50 blur-3xl animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
 
             {/* Content */}
             <div className="relative max-w-4xl mx-auto text-center">
@@ -54,8 +51,7 @@ export function CTASection() {
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     className="text-5xl md:text-7xl font-bold mb-6"
                 >
-                    {/* NO RED - cyan/blue gradient */}
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-clepto-cyan via-blue-400 to-clepto-cyan animate-gradient-shift" style={{ backgroundSize: '200% 200%' }}>
+                    <span className="text-clepto-cyan">
                         Ready to Automate?
                     </span>
                 </motion.h2>
@@ -79,8 +75,7 @@ export function CTASection() {
                 >
                     <Dialog>
                         <DialogTrigger asChild>
-                            {/* NO RED - cyan/blue gradient button */}
-                            <Button size="lg" className="bg-gradient-to-r from-clepto-cyan to-blue-500 text-white px-8 py-6 text-lg font-semibold rounded-xl hover:shadow-2xl hover:shadow-clepto-cyan/20 transition-all duration-300 border-none">
+                            <Button size="lg" className="bg-clepto-cyan hover:bg-clepto-cyan/90 text-clepto-navy px-8 py-6 text-lg font-semibold rounded-xl hover:shadow-2xl hover:shadow-clepto-cyan/20 transition-all duration-300 border-none">
                                 Let&apos;s Connect
                                 <ArrowRight className="ml-2 w-5 h-5" />
                             </Button>
@@ -105,8 +100,7 @@ export function CTASection() {
                                         whileHover={{ x: 4, scale: 1.02 }}
                                         className="relative flex items-center gap-4 p-5 rounded-xl bg-navy-light border border-gray-800 hover:border-clepto-cyan/50 hover:bg-clepto-cyan/5 transition-all group overflow-hidden"
                                     >
-                                        {/* Glow Effect - NO RED */}
-                                        <div className="absolute -inset-px bg-gradient-to-r from-clepto-cyan/20 to-blue-500/20 rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500 -z-10" />
+                                        <div className="absolute -inset-px bg-clepto-cyan/10 rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500 -z-10" />
 
                                         <motion.div
                                             whileHover={{ rotate: 360 }}
