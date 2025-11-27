@@ -22,7 +22,7 @@ const COLORS = {
     gray: "#A7A9A9",
 };
 
-// European cities - comprehensive list
+// Major European cities only
 const cities: Array<{
     name: string;
     coordinates: [number, number];
@@ -36,40 +36,23 @@ const cities: Array<{
         isPrimary: true,
         labelPos: { x: 0, y: -7, anchor: "middle" }
     },
-    // UK & Ireland
+    // Ireland
     { 
-        name: "Belfast", 
-        coordinates: [-5.9301, 54.5973], 
-        isPrimary: false,
-        labelPos: { x: -2, y: -1, anchor: "end" }
-    },
-    { 
-        name: "Edinburgh", 
-        coordinates: [-3.1883, 55.9533], 
-        isPrimary: false,
-        labelPos: { x: 2, y: -1, anchor: "start" }
-    },
-    { 
-        name: "Glasgow", 
-        coordinates: [-4.2518, 55.8642], 
-        isPrimary: false,
-        labelPos: { x: -2, y: 0, anchor: "end" }
-    },
-    { 
-        name: "Newcastle", 
-        coordinates: [-1.6178, 54.9783], 
-        isPrimary: false,
-        labelPos: { x: 2, y: 0, anchor: "start" }
-    },
-    { 
-        name: "Liverpool", 
-        coordinates: [-2.9916, 53.4084], 
+        name: "Cork", 
+        coordinates: [-8.4863, 51.8985], 
         isPrimary: false,
         labelPos: { x: -2, y: 1, anchor: "end" }
     },
+    // UK
     { 
-        name: "Manchester", 
-        coordinates: [-2.2426, 53.4808], 
+        name: "London", 
+        coordinates: [-0.1276, 51.5074], 
+        isPrimary: false,
+        labelPos: { x: 2, y: 1, anchor: "start" }
+    },
+    { 
+        name: "Birmingham", 
+        coordinates: [-1.8904, 52.4862], 
         isPrimary: false,
         labelPos: { x: 2, y: 0, anchor: "start" }
     },
@@ -80,76 +63,40 @@ const cities: Array<{
         labelPos: { x: 2, y: -1, anchor: "start" }
     },
     { 
-        name: "Birmingham", 
-        coordinates: [-1.8904, 52.4862], 
-        isPrimary: false,
-        labelPos: { x: -2, y: 0, anchor: "end" }
-    },
-    { 
-        name: "London", 
-        coordinates: [-0.1276, 51.5074], 
+        name: "Manchester", 
+        coordinates: [-2.2426, 53.4808], 
         isPrimary: false,
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
     { 
-        name: "Bristol", 
-        coordinates: [-2.5879, 51.4545], 
+        name: "Edinburgh", 
+        coordinates: [-3.1883, 55.9533], 
         isPrimary: false,
-        labelPos: { x: -2, y: 1, anchor: "end" }
-    },
-    { 
-        name: "Cardiff", 
-        coordinates: [-3.1791, 51.4816], 
-        isPrimary: false,
-        labelPos: { x: -2, y: 0, anchor: "end" }
+        labelPos: { x: 2, y: -1, anchor: "start" }
     },
     // Western Europe
+    { 
+        name: "Paris", 
+        coordinates: [2.3522, 48.8566], 
+        isPrimary: false,
+        labelPos: { x: 2, y: 1, anchor: "start" }
+    },
     { 
         name: "Amsterdam", 
         coordinates: [4.9041, 52.3676], 
         isPrimary: false,
-        labelPos: { x: 0, y: -2, anchor: "middle" }
-    },
-    { 
-        name: "Rotterdam", 
-        coordinates: [4.4777, 51.9244], 
-        isPrimary: false,
-        labelPos: { x: 2, y: 1, anchor: "start" }
+        labelPos: { x: 2, y: -1, anchor: "start" }
     },
     { 
         name: "Brussels", 
         coordinates: [4.3517, 50.8503], 
         isPrimary: false,
-        labelPos: { x: 2, y: 0, anchor: "start" }
-    },
-    { 
-        name: "Paris", 
-        coordinates: [2.3522, 48.8566], 
-        isPrimary: false,
-        labelPos: { x: -2, y: 1, anchor: "end" }
-    },
-    { 
-        name: "Lyon", 
-        coordinates: [4.8357, 45.7640], 
-        isPrimary: false,
-        labelPos: { x: 2, y: 0, anchor: "start" }
+        labelPos: { x: 2, y: 1, anchor: "start" }
     },
     // Central Europe
     { 
         name: "Berlin", 
         coordinates: [13.4050, 52.5200], 
-        isPrimary: false,
-        labelPos: { x: 2, y: -1, anchor: "start" }
-    },
-    { 
-        name: "Hamburg", 
-        coordinates: [9.9937, 53.5511], 
-        isPrimary: false,
-        labelPos: { x: 2, y: 0, anchor: "start" }
-    },
-    { 
-        name: "Frankfurt", 
-        coordinates: [8.6821, 50.1109], 
         isPrimary: false,
         labelPos: { x: 2, y: 0, anchor: "start" }
     },
@@ -160,22 +107,10 @@ const cities: Array<{
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
     { 
-        name: "Zurich", 
-        coordinates: [8.5417, 47.3769], 
-        isPrimary: false,
-        labelPos: { x: -2, y: 0, anchor: "end" }
-    },
-    { 
         name: "Vienna", 
         coordinates: [16.3738, 48.2082], 
         isPrimary: false,
         labelPos: { x: 2, y: 0, anchor: "start" }
-    },
-    { 
-        name: "Prague", 
-        coordinates: [14.4378, 50.0755], 
-        isPrimary: false,
-        labelPos: { x: 2, y: -1, anchor: "start" }
     },
     // Southern Europe
     { 
@@ -191,30 +126,18 @@ const cities: Array<{
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
     { 
-        name: "Barcelona", 
-        coordinates: [2.1734, 41.3851], 
-        isPrimary: false,
-        labelPos: { x: -2, y: 1, anchor: "end" }
-    },
-    { 
         name: "Madrid", 
         coordinates: [-3.7038, 40.4168], 
         isPrimary: false,
         labelPos: { x: -2, y: 0, anchor: "end" }
     },
     { 
-        name: "Lisbon", 
-        coordinates: [-9.1393, 38.7223], 
+        name: "Barcelona", 
+        coordinates: [2.1734, 41.3851], 
         isPrimary: false,
-        labelPos: { x: -2, y: 1, anchor: "end" }
+        labelPos: { x: 2, y: 0, anchor: "start" }
     },
     // Northern Europe
-    { 
-        name: "Copenhagen", 
-        coordinates: [12.5683, 55.6761], 
-        isPrimary: false,
-        labelPos: { x: 2, y: -1, anchor: "start" }
-    },
     { 
         name: "Stockholm", 
         coordinates: [18.0686, 59.3293], 
@@ -222,23 +145,10 @@ const cities: Array<{
         labelPos: { x: 2, y: 0, anchor: "start" }
     },
     { 
-        name: "Oslo", 
-        coordinates: [10.7522, 59.9139], 
+        name: "Copenhagen", 
+        coordinates: [12.5683, 55.6761], 
         isPrimary: false,
-        labelPos: { x: -2, y: 0, anchor: "end" }
-    },
-    { 
-        name: "Helsinki", 
-        coordinates: [24.9384, 60.1699], 
-        isPrimary: false,
-        labelPos: { x: 2, y: 0, anchor: "start" }
-    },
-    // Eastern Europe
-    { 
-        name: "Warsaw", 
-        coordinates: [21.0122, 52.2297], 
-        isPrimary: false,
-        labelPos: { x: 2, y: 0, anchor: "start" }
+        labelPos: { x: 2, y: -1, anchor: "start" }
     },
 ];
 
@@ -283,8 +193,7 @@ export function WorldMap() {
     const visibleCities = useMemo(() => {
         if (isMobile) {
             const mobileCities = [
-                "Dublin", "London", "Paris", "Berlin", "Amsterdam", 
-                "Brussels", "Madrid", "Rome", "Stockholm", "Copenhagen"
+                "Dublin", "London", "Paris", "Berlin", "Amsterdam", "Madrid", "Rome"
             ];
             return cities.filter(c => c.isPrimary || mobileCities.includes(c.name));
         }
