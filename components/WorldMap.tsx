@@ -261,7 +261,7 @@ export function WorldMap() {
         return () => { clearTimeout(t1); clearTimeout(t2); };
     }, []);
 
-    // Map config - Dublin positioned in center-left of viewport
+    // Map config - Dublin visible in CENTER of map area (between text and photo)
     const config = useMemo(() => {
         const mobileConfig = {
             init: { zoom: 1, center: [5, 50] as [number, number] },
@@ -270,9 +270,9 @@ export function WorldMap() {
         };
         const desktopConfig = {
             init: { zoom: 1.2, center: [10, 50] as [number, number] },
-            // Shift center RIGHT (higher longitude) so Dublin appears more LEFT in viewport
-            zoom: { zoom: 3.5, center: [8, 52] as [number, number] },
-            done: { zoom: 3.5, center: [8, 52] as [number, number] },
+            // Center at [0, 53] puts Dublin in the middle of visible area
+            zoom: { zoom: 3.2, center: [0, 53] as [number, number] },
+            done: { zoom: 3.2, center: [0, 53] as [number, number] },
         };
         return isMobile ? mobileConfig : desktopConfig;
     }, [isMobile]);
@@ -393,11 +393,11 @@ export function WorldMap() {
 
             {/* Gradient overlays */}
             <div className="absolute inset-0 pointer-events-none">
-                {/* Left fade for hero text - stronger on mobile */}
+                {/* Left fade for hero text - NARROWER to not cover Dublin */}
                 <div 
-                    className="absolute inset-y-0 left-0 w-[50%] md:w-[40%]"
+                    className="absolute inset-y-0 left-0 w-[35%] md:w-[30%]"
                     style={{
-                        background: `linear-gradient(to right, ${COLORS.navy} 0%, ${COLORS.navy}ee 40%, ${COLORS.navy}88 70%, transparent 100%)`
+                        background: `linear-gradient(to right, ${COLORS.navy} 0%, ${COLORS.navy}dd 60%, transparent 100%)`
                     }}
                 />
                 {/* Right fade for profile area */}
@@ -433,47 +433,47 @@ export function WorldMap() {
     );
 }
 
-// Dublin marker - prominent cyan with pulse
+// Dublin marker - LARGE and prominent
 function DublinMarker({ isMobile }: { isMobile: boolean }) {
-    const size = isMobile ? 0.8 : 1;
+    const size = isMobile ? 1 : 1.3;
     
     return (
         <g>
             {/* Outer pulse ring 1 */}
             <motion.circle
-                r={2.5 * size}
+                r={3 * size}
                 fill="none"
                 stroke={COLORS.cyan}
-                strokeWidth={0.8 * size}
+                strokeWidth={1 * size}
                 initial={{ scale: 1, opacity: 0.9 }}
-                animate={{ scale: 5, opacity: 0 }}
+                animate={{ scale: 4, opacity: 0 }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }}
             />
             {/* Outer pulse ring 2 */}
             <motion.circle
-                r={2.5 * size}
+                r={3 * size}
                 fill="none"
                 stroke={COLORS.cyan}
-                strokeWidth={0.6 * size}
+                strokeWidth={0.7 * size}
                 initial={{ scale: 1, opacity: 0.7 }}
-                animate={{ scale: 4, opacity: 0 }}
+                animate={{ scale: 3.5, opacity: 0 }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut", delay: 0.6 }}
             />
             {/* Glow */}
-            <circle r={2 * size} fill={COLORS.cyan} opacity={0.35} />
+            <circle r={2.5 * size} fill={COLORS.cyan} opacity={0.4} />
             {/* Core */}
-            <circle r={1.4 * size} fill={COLORS.cyan} />
+            <circle r={1.8 * size} fill={COLORS.cyan} />
             
-            {/* DUBLIN label - positioned above */}
+            {/* DUBLIN label - LARGER and positioned above */}
             <text
-                y={-6 * size}
+                y={-8 * size}
                 textAnchor="middle"
                 fill={COLORS.cyan}
                 style={{
-                    fontSize: `${isMobile ? 3.5 : 4}px`,
+                    fontSize: `${isMobile ? 4 : 5}px`,
                     fontWeight: 700,
                     fontFamily: "system-ui, -apple-system, sans-serif",
-                    letterSpacing: "1px",
+                    letterSpacing: "1.5px",
                 }}
             >
                 DUBLIN
