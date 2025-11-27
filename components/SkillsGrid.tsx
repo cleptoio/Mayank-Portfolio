@@ -9,22 +9,10 @@ import {
     SiZapier, SiMake
 } from "react-icons/si";
 
-// Category icons
 const categoryIconMap: Record<string, any> = {
-    Cloud,
-    Shield,
-    Gavel,
-    Brain,
-    Database,
-    Award,
-    Cpu,
-    BarChart3,
-    Workflow,
-    ShieldCheck,
-    Kanban
+    Cloud, Shield, Gavel, Brain, Database, Award, Cpu, BarChart3, Workflow, ShieldCheck, Kanban
 };
 
-// Technology-specific icons from Simple Icons
 const techIconMap: Record<string, any> = {
     "n8n": SiN8N,
     "Python": SiPython,
@@ -50,31 +38,21 @@ const techIconMap: Record<string, any> = {
 export function SkillsGrid() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Skills Categories */}
             {Object.entries(SKILLS).map(([category, data], index) => (
                 <motion.div
                     key={category}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
-                    transition={{
-                        duration: 0.6,
-                        delay: index * 0.1,
-                        ease: [0.16, 1, 0.3, 1]
-                    }}
+                    transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
                     whileHover={{ y: -6, scale: 1.02 }}
                     className="group"
                 >
                     <div className="relative h-full bg-clepto-navy/40 border border-gray-800/50 rounded-2xl p-6 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300">
-                        {/* Gradient Background on Hover - NO RED */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-clepto-cyan/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute inset-0 bg-clepto-cyan/[0.02] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute -inset-px bg-clepto-cyan/10 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
 
-                        {/* Glow Effect - NO RED */}
-                        <div className="absolute -inset-px bg-gradient-to-r from-clepto-cyan/20 to-blue-500/20 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-
-                        {/* Content */}
                         <div className="relative space-y-4">
-                            {/* Header */}
                             <div className="flex items-center gap-3">
                                 {categoryIconMap[data.icon] && (
                                     <motion.div
@@ -91,7 +69,6 @@ export function SkillsGrid() {
                                 <h3 className="text-xl font-bold text-white group-hover:text-clepto-cyan transition-colors">{category}</h3>
                             </div>
 
-                            {/* Skills with Icons */}
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                 {data.items.map((skill, idx) => {
                                     const TechIcon = techIconMap[skill];
@@ -106,7 +83,6 @@ export function SkillsGrid() {
                                             className="relative group"
                                         >
                                             <div className="flex flex-col items-center gap-2.5 p-3 rounded-xl bg-clepto-navy/60 border border-gray-800/50 hover:border-clepto-cyan/30 transition-all duration-300 backdrop-blur-sm min-h-[100px] justify-center">
-                                                {/* Icon - Always show, bigger size */}
                                                 {TechIcon ? (
                                                     <motion.div
                                                         whileHover={{ rotate: [0, -10, 10, -10, 0] }}
@@ -116,14 +92,12 @@ export function SkillsGrid() {
                                                         <TechIcon className="w-10 h-10 text-clepto-cyan" />
                                                     </motion.div>
                                                 ) : (
-                                                    /* NO RED - cyan/blue gradient */
-                                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-clepto-cyan/20 to-blue-500/20 flex items-center justify-center">
+                                                    <div className="w-10 h-10 rounded-xl bg-clepto-cyan/10 flex items-center justify-center border border-clepto-cyan/20">
                                                         <span className="text-sm font-bold text-clepto-cyan">
                                                             {skill.substring(0, 2).toUpperCase()}
                                                         </span>
                                                     </div>
                                                 )}
-                                                {/* Label */}
                                                 <span className="text-xs font-medium text-gray-300 group-hover:text-white transition-colors text-center leading-tight">
                                                     {skill}
                                                 </span>
@@ -137,7 +111,7 @@ export function SkillsGrid() {
                 </motion.div>
             ))}
 
-            {/* Certifications - Spanning full width on mobile, or fitting into grid */}
+            {/* Certifications */}
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
