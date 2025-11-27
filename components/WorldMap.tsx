@@ -12,17 +12,19 @@ import {
 
 const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
 
-// Clepto brand colors
+// Clepto brand colors - CYAN ONLY
 const COLORS = {
     navy: "#0E172F",
     navyDark: "#070B1A",
     navyLight: "#1A2847",
     cyan: "#0BD7D4",
+    cyanDark: "#099E9C",
+    cyanLight: "#3DE8E5",
     white: "#ffffff",
     gray: "#A7A9A9",
 };
 
-// Major European cities - curated list
+// Curated European cities
 const cities: Array<{
     name: string;
     coordinates: [number, number];
@@ -36,119 +38,119 @@ const cities: Array<{
         isPrimary: true,
         labelPos: { x: 0, y: -7, anchor: "middle" }
     },
-    // 1. Cork (South Ireland)
+    // Cork
     { 
         name: "Cork", 
         coordinates: [-8.4863, 51.8985], 
         isPrimary: false,
         labelPos: { x: -2, y: 1, anchor: "end" }
     },
-    // 2. Edinburgh (Scotland)
+    // Edinburgh
     { 
         name: "Edinburgh", 
         coordinates: [-3.1883, 55.9533], 
         isPrimary: false,
         labelPos: { x: 2, y: -1, anchor: "start" }
     },
-    // 3. London (Southern UK)
+    // London
     { 
         name: "London", 
         coordinates: [-0.1276, 51.5074], 
         isPrimary: false,
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
-    // 4. Manchester (Central UK)
+    // Manchester
     { 
         name: "Manchester", 
         coordinates: [-2.2426, 53.4808], 
         isPrimary: false,
         labelPos: { x: 2, y: 0, anchor: "start" }
     },
-    // 5. Amsterdam (Netherlands)
+    // Amsterdam
     { 
         name: "Amsterdam", 
         coordinates: [4.9041, 52.3676], 
         isPrimary: false,
         labelPos: { x: 2, y: -1, anchor: "start" }
     },
-    // 6. Brussels (Belgium)
+    // Brussels
     { 
         name: "Brussels", 
         coordinates: [4.3517, 50.8503], 
         isPrimary: false,
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
-    // 7. Paris (Northern France)
+    // Paris
     { 
         name: "Paris", 
         coordinates: [2.3522, 48.8566], 
         isPrimary: false,
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
-    // 8. Lyon (Central/Southern France)
+    // Lyon
     { 
         name: "Lyon", 
         coordinates: [4.8357, 45.7640], 
         isPrimary: false,
         labelPos: { x: 2, y: 0, anchor: "start" }
     },
-    // 9. Bordeaux (South-West France)
+    // Bordeaux
     { 
         name: "Bordeaux", 
         coordinates: [-0.5792, 44.8378], 
         isPrimary: false,
         labelPos: { x: -2, y: 1, anchor: "end" }
     },
-    // 10. Berlin (North-East Germany)
+    // Berlin
     { 
         name: "Berlin", 
         coordinates: [13.4050, 52.5200], 
         isPrimary: false,
         labelPos: { x: 2, y: 0, anchor: "start" }
     },
-    // 11. Hamburg (North Germany)
+    // Hamburg
     { 
         name: "Hamburg", 
         coordinates: [9.9937, 53.5511], 
         isPrimary: false,
         labelPos: { x: 2, y: -1, anchor: "start" }
     },
-    // 12. Frankfurt (Central Germany)
+    // Frankfurt
     { 
         name: "Frankfurt", 
         coordinates: [8.6821, 50.1109], 
         isPrimary: false,
         labelPos: { x: 2, y: 0, anchor: "start" }
     },
-    // 13. Munich (Southern Germany)
+    // Munich
     { 
         name: "Munich", 
         coordinates: [11.5820, 48.1351], 
         isPrimary: false,
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
-    // 14. Vienna (Austria)
+    // Vienna
     { 
         name: "Vienna", 
         coordinates: [16.3738, 48.2082], 
         isPrimary: false,
         labelPos: { x: 2, y: 0, anchor: "start" }
     },
-    // 15. Zurich (Switzerland)
+    // Zurich
     { 
         name: "Zurich", 
         coordinates: [8.5417, 47.3769], 
         isPrimary: false,
         labelPos: { x: -2, y: 0, anchor: "end" }
     },
-    // 16. Milan (Northern Italy)
+    // Milan
     { 
         name: "Milan", 
         coordinates: [9.1900, 45.4642], 
         isPrimary: false,
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
-    // 17. Prague (Czech Republic)
+    // Prague
     { 
         name: "Prague", 
         coordinates: [14.4378, 50.0755], 
@@ -161,7 +163,6 @@ export function WorldMap() {
     const [phase, setPhase] = useState<"init" | "zoom" | "done">("init");
     const [isMobile, setIsMobile] = useState(false);
 
-    // Detect mobile
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 768);
         checkMobile();
@@ -169,37 +170,34 @@ export function WorldMap() {
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
-    // Animation timeline
     useEffect(() => {
         const t1 = setTimeout(() => setPhase("zoom"), 500);
         const t2 = setTimeout(() => setPhase("done"), 2800);
         return () => { clearTimeout(t1); clearTimeout(t2); };
     }, []);
 
-    // Map config - Dublin in the CLEAR area (right of text, left of photo)
+    // Map config - Dublin clearly visible in the right area
     const config = useMemo(() => {
         const mobileConfig = {
             init: { zoom: 1, center: [5, 50] as [number, number] },
-            zoom: { zoom: 3, center: [-6, 53] as [number, number] },
-            done: { zoom: 3, center: [-6, 53] as [number, number] },
+            zoom: { zoom: 2.5, center: [-6, 53] as [number, number] },
+            done: { zoom: 2.5, center: [-6, 53] as [number, number] },
         };
         const desktopConfig = {
             init: { zoom: 1.2, center: [10, 50] as [number, number] },
-            // Center at [-12, 52] shifts map so Dublin (-6.26) appears RIGHT of center
-            zoom: { zoom: 3.2, center: [-12, 52] as [number, number] },
-            done: { zoom: 3.2, center: [-12, 52] as [number, number] },
+            // Shift further west so Dublin appears more to the RIGHT of viewport
+            zoom: { zoom: 3, center: [-18, 52] as [number, number] },
+            done: { zoom: 3, center: [-18, 52] as [number, number] },
         };
         return isMobile ? mobileConfig : desktopConfig;
     }, [isMobile]);
 
     const current = config[phase];
 
-    // Filter cities for mobile (show fewer)
+    // Fewer cities on mobile
     const visibleCities = useMemo(() => {
         if (isMobile) {
-            const mobileCities = [
-                "Dublin", "London", "Paris", "Berlin", "Amsterdam", "Munich", "Milan"
-            ];
+            const mobileCities = ["Dublin", "London", "Paris", "Berlin", "Amsterdam", "Munich", "Milan"];
             return cities.filter(c => c.isPrimary || mobileCities.includes(c.name));
         }
         return cities;
@@ -207,7 +205,6 @@ export function WorldMap() {
 
     return (
         <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ background: COLORS.navy }}>
-            {/* Smooth CSS transition for zoom */}
             <style jsx global>{`
                 .rsm-zoomable-group {
                     transition: transform 2.3s cubic-bezier(0.22, 1, 0.36, 1);
@@ -230,7 +227,6 @@ export function WorldMap() {
                         zoom={current.zoom}
                         filterZoomEvent={() => false}
                     >
-                        {/* Map land masses */}
                         <Geographies geography={geoUrl}>
                             {({ geographies }) =>
                                 geographies.map((geo) => (
@@ -250,7 +246,7 @@ export function WorldMap() {
                             }
                         </Geographies>
 
-                        {/* Connection lines from Dublin */}
+                        {/* Connection lines */}
                         <AnimatePresence>
                             {phase === "done" && visibleCities.filter(c => !c.isPrimary).map((city, i) => {
                                 const dublin = cities[0].coordinates;
@@ -307,35 +303,30 @@ export function WorldMap() {
 
             {/* Gradient overlays */}
             <div className="absolute inset-0 pointer-events-none">
-                {/* Left fade - very narrow, just for text readability */}
                 <div 
                     className="absolute inset-y-0 left-0 w-[28%]"
                     style={{
                         background: `linear-gradient(to right, ${COLORS.navy} 0%, ${COLORS.navy}cc 70%, transparent 100%)`
                     }}
                 />
-                {/* Right fade for profile area */}
                 <div 
                     className="absolute inset-y-0 right-0 w-[20%] hidden lg:block"
                     style={{
                         background: `linear-gradient(to left, ${COLORS.navy}60 0%, transparent 100%)`
                     }}
                 />
-                {/* Very subtle vignette - centered more to the right */}
                 <div 
                     className="absolute inset-0"
                     style={{
                         background: `radial-gradient(ellipse 90% 90% at 55% 50%, transparent 0%, ${COLORS.navy}30 70%, ${COLORS.navy}90 100%)`
                     }}
                 />
-                {/* Top fade */}
                 <div 
                     className="absolute inset-x-0 top-0 h-20"
                     style={{
                         background: `linear-gradient(to bottom, ${COLORS.navy} 0%, transparent 100%)`
                     }}
                 />
-                {/* Bottom fade */}
                 <div 
                     className="absolute inset-x-0 bottom-0 h-20"
                     style={{
@@ -347,13 +338,12 @@ export function WorldMap() {
     );
 }
 
-// Dublin marker - LARGE and prominent with clear label
+// Dublin marker - prominent cyan
 function DublinMarker({ isMobile }: { isMobile: boolean }) {
     const size = isMobile ? 1 : 1.4;
     
     return (
         <g>
-            {/* Outer pulse ring 1 */}
             <motion.circle
                 r={3.5 * size}
                 fill="none"
@@ -363,7 +353,6 @@ function DublinMarker({ isMobile }: { isMobile: boolean }) {
                 animate={{ scale: 4, opacity: 0 }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }}
             />
-            {/* Outer pulse ring 2 */}
             <motion.circle
                 r={3.5 * size}
                 fill="none"
@@ -373,12 +362,9 @@ function DublinMarker({ isMobile }: { isMobile: boolean }) {
                 animate={{ scale: 3, opacity: 0 }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut", delay: 0.7 }}
             />
-            {/* Glow */}
             <circle r={3 * size} fill={COLORS.cyan} opacity={0.35} />
-            {/* Core */}
             <circle r={2 * size} fill={COLORS.cyan} />
             
-            {/* Label background for readability */}
             <rect
                 x={-12 * size}
                 y={-12 * size}
@@ -389,7 +375,6 @@ function DublinMarker({ isMobile }: { isMobile: boolean }) {
                 opacity={0.8}
             />
             
-            {/* DUBLIN label */}
             <text
                 y={-8 * size}
                 textAnchor="middle"
@@ -423,17 +408,14 @@ function CityMarker({
     
     return (
         <g>
-            {/* Breathing dot */}
             <motion.circle
                 r={0.6 * size}
                 fill={COLORS.cyan}
                 animate={{ opacity: [0.3, 0.8, 0.3] }}
                 transition={{ duration: 3, repeat: Infinity, delay }}
             />
-            {/* Core */}
             <circle r={0.4 * size} fill={COLORS.cyan} />
             
-            {/* City name - slightly larger */}
             <text
                 x={labelPos.x * size}
                 y={labelPos.y * size}
