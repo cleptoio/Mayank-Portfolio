@@ -22,7 +22,7 @@ const COLORS = {
     gray: "#A7A9A9",
 };
 
-// Major European cities only
+// Major European cities - curated list
 const cities: Array<{
     name: string;
     coordinates: [number, number];
@@ -36,117 +36,122 @@ const cities: Array<{
         isPrimary: true,
         labelPos: { x: 0, y: -7, anchor: "middle" }
     },
-    // Ireland
+    // 1. Cork (South Ireland)
     { 
         name: "Cork", 
         coordinates: [-8.4863, 51.8985], 
         isPrimary: false,
         labelPos: { x: -2, y: 1, anchor: "end" }
     },
-    // UK
-    { 
-        name: "London", 
-        coordinates: [-0.1276, 51.5074], 
-        isPrimary: false,
-        labelPos: { x: 2, y: 1, anchor: "start" }
-    },
-    { 
-        name: "Birmingham", 
-        coordinates: [-1.8904, 52.4862], 
-        isPrimary: false,
-        labelPos: { x: 2, y: 0, anchor: "start" }
-    },
-    { 
-        name: "Leeds", 
-        coordinates: [-1.5491, 53.8008], 
-        isPrimary: false,
-        labelPos: { x: 2, y: -1, anchor: "start" }
-    },
-    { 
-        name: "Manchester", 
-        coordinates: [-2.2426, 53.4808], 
-        isPrimary: false,
-        labelPos: { x: 2, y: 1, anchor: "start" }
-    },
+    // 2. Edinburgh (Scotland)
     { 
         name: "Edinburgh", 
         coordinates: [-3.1883, 55.9533], 
         isPrimary: false,
         labelPos: { x: 2, y: -1, anchor: "start" }
     },
-    // Western Europe
+    // 3. London (Southern UK)
     { 
-        name: "Paris", 
-        coordinates: [2.3522, 48.8566], 
+        name: "London", 
+        coordinates: [-0.1276, 51.5074], 
         isPrimary: false,
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
+    // 4. Manchester (Central UK)
+    { 
+        name: "Manchester", 
+        coordinates: [-2.2426, 53.4808], 
+        isPrimary: false,
+        labelPos: { x: 2, y: 0, anchor: "start" }
+    },
+    // 5. Amsterdam (Netherlands)
     { 
         name: "Amsterdam", 
         coordinates: [4.9041, 52.3676], 
         isPrimary: false,
         labelPos: { x: 2, y: -1, anchor: "start" }
     },
+    // 6. Brussels (Belgium)
     { 
         name: "Brussels", 
         coordinates: [4.3517, 50.8503], 
         isPrimary: false,
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
-    // Central Europe
+    // 7. Paris (Northern France)
+    { 
+        name: "Paris", 
+        coordinates: [2.3522, 48.8566], 
+        isPrimary: false,
+        labelPos: { x: 2, y: 1, anchor: "start" }
+    },
+    // 8. Lyon (Central/Southern France)
+    { 
+        name: "Lyon", 
+        coordinates: [4.8357, 45.7640], 
+        isPrimary: false,
+        labelPos: { x: 2, y: 0, anchor: "start" }
+    },
+    // 9. Bordeaux (South-West France)
+    { 
+        name: "Bordeaux", 
+        coordinates: [-0.5792, 44.8378], 
+        isPrimary: false,
+        labelPos: { x: -2, y: 1, anchor: "end" }
+    },
+    // 10. Berlin (North-East Germany)
     { 
         name: "Berlin", 
         coordinates: [13.4050, 52.5200], 
         isPrimary: false,
         labelPos: { x: 2, y: 0, anchor: "start" }
     },
+    // 11. Hamburg (North Germany)
+    { 
+        name: "Hamburg", 
+        coordinates: [9.9937, 53.5511], 
+        isPrimary: false,
+        labelPos: { x: 2, y: -1, anchor: "start" }
+    },
+    // 12. Frankfurt (Central Germany)
+    { 
+        name: "Frankfurt", 
+        coordinates: [8.6821, 50.1109], 
+        isPrimary: false,
+        labelPos: { x: 2, y: 0, anchor: "start" }
+    },
+    // 13. Munich (Southern Germany)
     { 
         name: "Munich", 
         coordinates: [11.5820, 48.1351], 
         isPrimary: false,
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
+    // 14. Vienna (Austria)
     { 
         name: "Vienna", 
         coordinates: [16.3738, 48.2082], 
         isPrimary: false,
         labelPos: { x: 2, y: 0, anchor: "start" }
     },
-    // Southern Europe
+    // 15. Zurich (Switzerland)
+    { 
+        name: "Zurich", 
+        coordinates: [8.5417, 47.3769], 
+        isPrimary: false,
+        labelPos: { x: -2, y: 0, anchor: "end" }
+    },
+    // 16. Milan (Northern Italy)
     { 
         name: "Milan", 
         coordinates: [9.1900, 45.4642], 
         isPrimary: false,
-        labelPos: { x: 2, y: 0, anchor: "start" }
-    },
-    { 
-        name: "Rome", 
-        coordinates: [12.4964, 41.9028], 
-        isPrimary: false,
         labelPos: { x: 2, y: 1, anchor: "start" }
     },
+    // 17. Prague (Czech Republic)
     { 
-        name: "Madrid", 
-        coordinates: [-3.7038, 40.4168], 
-        isPrimary: false,
-        labelPos: { x: -2, y: 0, anchor: "end" }
-    },
-    { 
-        name: "Barcelona", 
-        coordinates: [2.1734, 41.3851], 
-        isPrimary: false,
-        labelPos: { x: 2, y: 0, anchor: "start" }
-    },
-    // Northern Europe
-    { 
-        name: "Stockholm", 
-        coordinates: [18.0686, 59.3293], 
-        isPrimary: false,
-        labelPos: { x: 2, y: 0, anchor: "start" }
-    },
-    { 
-        name: "Copenhagen", 
-        coordinates: [12.5683, 55.6761], 
+        name: "Prague", 
+        coordinates: [14.4378, 50.0755], 
         isPrimary: false,
         labelPos: { x: 2, y: -1, anchor: "start" }
     },
@@ -193,7 +198,7 @@ export function WorldMap() {
     const visibleCities = useMemo(() => {
         if (isMobile) {
             const mobileCities = [
-                "Dublin", "London", "Paris", "Berlin", "Amsterdam", "Madrid", "Rome"
+                "Dublin", "London", "Paris", "Berlin", "Amsterdam", "Munich", "Milan"
             ];
             return cities.filter(c => c.isPrimary || mobileCities.includes(c.name));
         }
@@ -428,7 +433,7 @@ function CityMarker({
             {/* Core */}
             <circle r={0.4 * size} fill={COLORS.cyan} />
             
-            {/* City name */}
+            {/* City name - slightly larger */}
             <text
                 x={labelPos.x * size}
                 y={labelPos.y * size}
@@ -436,10 +441,10 @@ function CityMarker({
                 dominantBaseline="middle"
                 fill={COLORS.white}
                 style={{
-                    fontSize: `${isMobile ? 1.6 : 1.8}px`,
+                    fontSize: `${isMobile ? 2 : 2.2}px`,
                     fontWeight: 500,
                     fontFamily: "system-ui, -apple-system, sans-serif",
-                    opacity: 0.7,
+                    opacity: 0.75,
                 }}
             >
                 {name}
