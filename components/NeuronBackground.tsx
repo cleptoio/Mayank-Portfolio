@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 interface Node {
     x: number;
@@ -13,105 +13,122 @@ export function NeuronBackground() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const nodesRef = useRef<Node[]>([]);
-    const mouseRef = useRef({ x: -1000, y: -1000 });
-    const animationFrameRef = useRef<number>();
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    const mouseRef = useRef({ x: -1000, y: -1000, active: false });
+    const animationRef = useRef<number>();
+    const dimensionsRef = useRef({ width: 0, height: 0 });
 
-    useEffect(() => {
-        const container = containerRef.current;
-        if (!container) return;
-
-        const updateDimensions = () => {
-            const rect = container.getBoundingClientRect();
-            setDimensions({ width: rect.width, height: rect.height });
-        };
-
-        updateDimensions();
-        window.addEventListener("resize", updateDimensions);
-        return () => window.removeEventListener("resize", updateDimensions);
+    const initNodes = useCallback((width: number, height: number, isMobile: boolean) => {
+        const nodeCount = isMobile ? 20 : 45;
+        const speed = isMobile ? 0.2 : 0.3;
+        const nodes: Node[] = [];
+        
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * speed,
+                vy: (Math.random() - 0.5) * speed,
+            });
+        }
+        nodesRef.current = nodes;
     }, []);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         const container = containerRef.current;
-        if (!canvas || !container || dimensions.width === 0) return;
+        if (!canvas || !container) return;
 
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        const isMobile = dimensions.width < 768;
+        let isMobile = window.innerWidth < 768;
 
-        // Set canvas size
-        canvas.width = dimensions.width;
-        canvas.height = dimensions.height;
-
-        // Initialize nodes - fewer on mobile
-        const nodeCount = isMobile ? 25 : 50;
-        const nodes: Node[] = [];
-        for (let i = 0; i < nodeCount; i++) {
-            nodes.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * (isMobile ? 0.25 : 0.35),
-                vy: (Math.random() - 0.5) * (isMobile ? 0.25 : 0.35),
-            });
-        }
-        nodesRef.current = nodes;
-
-        // Mouse movement (desktop)
-        const handleMouseMove = (e: MouseEvent) => {
+        const resize = () => {
             const rect = container.getBoundingClientRect();
-            mouseRef.current = {
-                x: e.clientX - rect.left,
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            canvas.style.width = `${rect.width}px`;
+            canvas.style.height = `${rect.height}px`;
+            ctx.scale(dpr, dpr);
+            
+            dimensionsRef.current = { width: rect.width, height: rect.height };
+            isMobile = window.innerWidth < 768;
+            initNodes(rect.width, rect.height, isMobile);
+        };
+
+        resize();
+        window.addEventListener("resize", resize);
+
+        // Mouse events
+        const onMouseMove = (e: MouseEvent) => {
+            const rect = container.getBoundingClientRect();
+            mouseRef.current = { 
+                x: e.clientX - rect.left, 
                 y: e.clientY - rect.top,
+                active: true
             };
         };
 
-        // Touch movement (mobile)
-        const handleTouchMove = (e: TouchEvent) => {
+        const onMouseLeave = () => {
+            mouseRef.current.active = false;
+        };
+
+        // Touch events for mobile
+        const onTouchMove = (e: TouchEvent) => {
             if (e.touches.length > 0) {
                 const rect = container.getBoundingClientRect();
                 mouseRef.current = {
                     x: e.touches[0].clientX - rect.left,
                     y: e.touches[0].clientY - rect.top,
+                    active: true
                 };
             }
         };
 
-        const handleTouchEnd = () => {
-            mouseRef.current = { x: -1000, y: -1000 };
+        const onTouchEnd = () => {
+            mouseRef.current.active = false;
         };
 
-        container.addEventListener("mousemove", handleMouseMove);
-        container.addEventListener("touchmove", handleTouchMove, { passive: true });
-        container.addEventListener("touchend", handleTouchEnd);
+        container.addEventListener("mousemove", onMouseMove);
+        container.addEventListener("mouseleave", onMouseLeave);
+        container.addEventListener("touchmove", onTouchMove, { passive: true });
+        container.addEventListener("touchend", onTouchEnd);
 
-        const connectionDistance = isMobile ? 80 : 100;
-
-        // Animation loop
+        // Animation
         const animate = () => {
-            if (!ctx || !canvas) return;
+            const { width, height } = dimensionsRef.current;
+            if (!ctx || width === 0) {
+                animationRef.current = requestAnimationFrame(animate);
+                return;
+            }
 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, width, height);
+            
+            const connectionDist = isMobile ? 70 : 90;
+            const mouseInfluence = isMobile ? 60 : 80;
 
             nodesRef.current.forEach((node, i) => {
-                // Update position
+                // Move
                 node.x += node.vx;
                 node.y += node.vy;
 
-                // Bounce off edges
-                if (node.x < 0) { node.x = 0; node.vx *= -1; }
-                if (node.x > canvas.width) { node.x = canvas.width; node.vx *= -1; }
-                if (node.y < 0) { node.y = 0; node.vy *= -1; }
-                if (node.y > canvas.height) { node.y = canvas.height; node.vy *= -1; }
+                // Bounce
+                if (node.x < 0 || node.x > width) node.vx *= -1;
+                if (node.y < 0 || node.y > height) node.vy *= -1;
+                node.x = Math.max(0, Math.min(width, node.x));
+                node.y = Math.max(0, Math.min(height, node.y));
 
-                // Mouse/touch interaction
-                const dx = mouseRef.current.x - node.x;
-                const dy = mouseRef.current.y - node.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 100 && dist > 0) {
-                    node.x -= (dx / dist) * 0.8;
-                    node.y -= (dy / dist) * 0.8;
+                // Mouse interaction
+                if (mouseRef.current.active) {
+                    const dx = mouseRef.current.x - node.x;
+                    const dy = mouseRef.current.y - node.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouseInfluence && dist > 0) {
+                        node.x -= (dx / dist) * 0.5;
+                        node.y -= (dy / dist) * 0.5;
+                    }
                 }
 
                 // Draw node
@@ -122,37 +139,36 @@ export function NeuronBackground() {
 
                 // Draw connections
                 for (let j = i + 1; j < nodesRef.current.length; j++) {
-                    const otherNode = nodesRef.current[j];
-                    const cdx = node.x - otherNode.x;
-                    const cdy = node.y - otherNode.y;
-                    const distance = Math.sqrt(cdx * cdx + cdy * cdy);
+                    const other = nodesRef.current[j];
+                    const dx = node.x - other.x;
+                    const dy = node.y - other.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < connectionDistance) {
+                    if (dist < connectionDist) {
                         ctx.beginPath();
                         ctx.moveTo(node.x, node.y);
-                        ctx.lineTo(otherNode.x, otherNode.y);
-                        const opacity = (1 - distance / connectionDistance) * 0.2;
-                        ctx.strokeStyle = `rgba(11, 215, 212, ${opacity})`;
+                        ctx.lineTo(other.x, other.y);
+                        ctx.strokeStyle = `rgba(11, 215, 212, ${(1 - dist / connectionDist) * 0.2})`;
                         ctx.lineWidth = isMobile ? 0.5 : 0.8;
                         ctx.stroke();
                     }
                 }
             });
 
-            animationFrameRef.current = requestAnimationFrame(animate);
+            animationRef.current = requestAnimationFrame(animate);
         };
 
         animate();
 
         return () => {
-            container.removeEventListener("mousemove", handleMouseMove);
-            container.removeEventListener("touchmove", handleTouchMove);
-            container.removeEventListener("touchend", handleTouchEnd);
-            if (animationFrameRef.current) {
-                cancelAnimationFrame(animationFrameRef.current);
-            }
+            window.removeEventListener("resize", resize);
+            container.removeEventListener("mousemove", onMouseMove);
+            container.removeEventListener("mouseleave", onMouseLeave);
+            container.removeEventListener("touchmove", onTouchMove);
+            container.removeEventListener("touchend", onTouchEnd);
+            if (animationRef.current) cancelAnimationFrame(animationRef.current);
         };
-    }, [dimensions]);
+    }, [initNodes]);
 
     return (
         <div 
