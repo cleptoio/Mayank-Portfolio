@@ -25,14 +25,15 @@ export function Hero() {
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-16">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+                {/* Changed items-center to items-start for top alignment */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
 
                     {/* Left Content - Text */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="lg:col-span-6 space-y-6 lg:space-y-8"
+                        className="lg:col-span-6 space-y-6 lg:space-y-8 lg:pt-8"
                     >
                         {/* Status Badge */}
                         <motion.div
@@ -118,12 +119,12 @@ export function Hero() {
                     {/* Center spacer - Map shows through here */}
                     <div className="hidden lg:block lg:col-span-2" />
 
-                    {/* Right Content - Profile Photo */}
+                    {/* Right Content - Profile Photo - MOVED UP with negative margin */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9, x: 20 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ delay: 0.5, duration: 0.8 }}
-                        className="lg:col-span-4 flex justify-center lg:justify-end order-first lg:order-last perspective-1000"
+                        className="lg:col-span-4 flex justify-center lg:justify-end order-first lg:order-last perspective-1000 lg:-mt-8"
                     >
                         <motion.div
                             className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72"
@@ -189,28 +190,19 @@ export function Hero() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1 + idx * 0.1 }}
-                            whileHover={{ y: -4 }}
-                            className="group relative"
+                            whileHover={{ y: -5, scale: 1.02 }}
+                            className="relative group"
                         >
-                            <div className="relative p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-clepto-navy/90 to-navy-darker/90 border border-gray-800/50 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300">
-                                <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`} />
-
-                                <div className="relative space-y-2 sm:space-y-3">
-                                    <div className="inline-flex p-2 sm:p-2.5 bg-gradient-to-br from-clepto-cyan/10 to-clepto-red/10 rounded-xl border border-gray-800/50">
-                                        <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-clepto-cyan" />
+                            <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity rounded-2xl" />
+                            <div className="relative p-4 sm:p-6 rounded-2xl bg-clepto-navy/60 border border-gray-800/50 backdrop-blur-md hover:border-clepto-cyan/30 transition-all duration-300">
+                                <div className="flex items-center gap-3 sm:gap-4">
+                                    <div className={`p-2 sm:p-3 rounded-xl bg-gradient-to-br ${stat.color} bg-opacity-10`}>
+                                        <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                                     </div>
-
-                                    <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white font-mono">
-                                        {stat.value}
-                                    </p>
-
                                     <div>
-                                        <p className="text-xs sm:text-sm font-semibold text-gray-300 uppercase tracking-wide">
-                                            {stat.label}
-                                        </p>
-                                        <p className="text-[10px] sm:text-xs text-gray-500 mt-0.5 sm:mt-1">
-                                            {stat.subtext}
-                                        </p>
+                                        <div className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</div>
+                                        <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
+                                        <div className="text-xs text-gray-500 hidden sm:block">{stat.subtext}</div>
                                     </div>
                                 </div>
                             </div>
