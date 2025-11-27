@@ -45,8 +45,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             {/* Card Background */}
             <div className="relative h-full bg-gradient-to-br from-clepto-navy/60 to-navy-darker/80 border border-gray-800/50 rounded-2xl p-6 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300 overflow-hidden">
 
-                {/* Subtle Static Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-clepto-cyan/[0.03] to-clepto-red/[0.03] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Subtle Static Gradient - NO RED */}
+                <div className="absolute inset-0 bg-gradient-to-br from-clepto-cyan/[0.03] to-blue-500/[0.03] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Content */}
                 <div className="relative space-y-4">
@@ -55,7 +55,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                         <motion.div
                             whileHover={{ rotate: 360, scale: 1.1 }}
                             transition={{ duration: 0.6 }}
-                            className="p-3 bg-gradient-to-br from-clepto-cyan/10 to-clepto-red/10 rounded-xl border border-gray-800/50 group-hover:border-clepto-cyan/30 transition-all"
+                            className="p-3 bg-clepto-cyan/10 rounded-xl border border-gray-800/50 group-hover:border-clepto-cyan/30 transition-all"
                         >
                             <Icon className="w-6 h-6 text-clepto-cyan" />
                         </motion.div>
@@ -111,9 +111,10 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                     <div className="pt-3 border-t border-gray-800/50 group-hover:border-clepto-cyan/20 transition-colors">
                         <div className="flex items-center justify-between">
                             <span className="text-xs text-gray-500 uppercase tracking-wider font-medium">Impact</span>
+                            {/* NO RED - cyan/blue gradient */}
                             <motion.span
                                 whileHover={{ scale: 1.1 }}
-                                className="text-base font-mono font-bold bg-gradient-to-r from-clepto-cyan to-clepto-red bg-clip-text text-transparent"
+                                className="text-base font-mono font-bold bg-gradient-to-r from-clepto-cyan to-blue-400 bg-clip-text text-transparent"
                             >
                                 {project.metric}
                             </motion.span>
@@ -122,8 +123,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 </div>
             </div>
 
-            {/* Subtle Glow Effect on Hover */}
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-clepto-cyan/10 to-clepto-red/10 rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300 -z-10" />
+            {/* Subtle Glow Effect on Hover - NO RED */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-clepto-cyan/10 to-blue-500/10 rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300 -z-10" />
         </motion.div>
     );
 }
