@@ -45,8 +45,6 @@ const techIconMap: Record<string, any> = {
     "Zapier": SiZapier,
     "Make.com": SiMake,
     "GDPR": Shield,
-    // Power BI uses BarChart3, GDPR uses Shield icon
-    // Vector Databases, RAG, Pinecone, Agentic AI use fallback gradient badges
 };
 
 export function SkillsGrid() {
@@ -68,11 +66,11 @@ export function SkillsGrid() {
                     className="group"
                 >
                     <div className="relative h-full bg-clepto-navy/40 border border-gray-800/50 rounded-2xl p-6 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300">
-                        {/* Gradient Background on Hover */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-clepto-cyan/5 to-clepto-red/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        {/* Gradient Background on Hover - NO RED */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-clepto-cyan/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                        {/* Glow Effect */}
-                        <div className="absolute -inset-px bg-gradient-to-r from-clepto-cyan/20 to-clepto-red/20 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                        {/* Glow Effect - NO RED */}
+                        <div className="absolute -inset-px bg-gradient-to-r from-clepto-cyan/20 to-blue-500/20 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
 
                         {/* Content */}
                         <div className="relative space-y-4">
@@ -82,7 +80,7 @@ export function SkillsGrid() {
                                     <motion.div
                                         whileHover={{ rotate: 360 }}
                                         transition={{ duration: 0.6 }}
-                                        className="p-3 rounded-xl bg-gradient-to-br from-clepto-cyan/10 to-clepto-red/10 border border-gray-800/50 group-hover:border-clepto-cyan/30 transition-all"
+                                        className="p-3 rounded-xl bg-clepto-cyan/10 border border-gray-800/50 group-hover:border-clepto-cyan/30 transition-all"
                                     >
                                         {(() => {
                                             const Icon = categoryIconMap[data.icon];
@@ -118,7 +116,8 @@ export function SkillsGrid() {
                                                         <TechIcon className="w-10 h-10 text-clepto-cyan" />
                                                     </motion.div>
                                                 ) : (
-                                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-clepto-cyan/20 to-clepto-red/20 flex items-center justify-center">
+                                                    /* NO RED - cyan/blue gradient */
+                                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-clepto-cyan/20 to-blue-500/20 flex items-center justify-center">
                                                         <span className="text-sm font-bold text-clepto-cyan">
                                                             {skill.substring(0, 2).toUpperCase()}
                                                         </span>
@@ -161,24 +160,10 @@ export function SkillsGrid() {
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1, duration: 0.4 }}
                                 whileHover={{ y: -4, scale: 1.05 }}
-                                className="group"
+                                className="flex items-center gap-3 px-5 py-3 rounded-full bg-clepto-navy/60 border border-gray-800/50 hover:border-clepto-cyan/30 backdrop-blur-sm transition-all"
                             >
-                                <div className="relative flex items-center gap-3 px-5 py-4 rounded-xl bg-clepto-navy/40 border border-gray-800/50 hover:border-clepto-cyan/30 transition-all duration-300 backdrop-blur-sm">
-                                    {/* Glow Effect */}
-                                    <div className="absolute -inset-px bg-gradient-to-r from-clepto-cyan/20 to-clepto-red/20 rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500 -z-10" />
-
-                                    <motion.div
-                                        whileHover={{ rotate: 360 }}
-                                        transition={{ duration: 0.6 }}
-                                        className="p-2.5 rounded-lg bg-gradient-to-br from-clepto-cyan/10 to-clepto-red/10 border border-gray-800/50 group-hover:border-clepto-cyan/30 transition-all"
-                                    >
-                                        <Icon className="h-5 w-5 text-clepto-cyan" />
-                                    </motion.div>
-                                    <div>
-                                        <p className="font-semibold text-sm text-white group-hover:text-clepto-cyan transition-colors">{cert.name}</p>
-                                        <p className="text-xs text-gray-400">{cert.issuer}</p>
-                                    </div>
-                                </div>
+                                <Icon className="w-5 h-5 text-clepto-cyan" />
+                                <span className="text-sm font-medium text-gray-300">{cert.name}</span>
                             </motion.div>
                         );
                     })}
