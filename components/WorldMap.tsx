@@ -261,17 +261,18 @@ export function WorldMap() {
         return () => { clearTimeout(t1); clearTimeout(t2); };
     }, []);
 
-    // Map config - Dublin CENTERED, responsive zoom levels
+    // Map config - Dublin positioned in center-left of viewport
     const config = useMemo(() => {
         const mobileConfig = {
             init: { zoom: 1, center: [5, 50] as [number, number] },
-            zoom: { zoom: 3, center: [-6, 53] as [number, number] }, // Dublin coords
+            zoom: { zoom: 3, center: [-6, 53] as [number, number] },
             done: { zoom: 3, center: [-6, 53] as [number, number] },
         };
         const desktopConfig = {
             init: { zoom: 1.2, center: [10, 50] as [number, number] },
-            zoom: { zoom: 3.5, center: [-2, 52] as [number, number] }, // Slightly east of Dublin for balance
-            done: { zoom: 3.5, center: [-2, 52] as [number, number] },
+            // Shift center RIGHT (higher longitude) so Dublin appears more LEFT in viewport
+            zoom: { zoom: 3.5, center: [8, 52] as [number, number] },
+            done: { zoom: 3.5, center: [8, 52] as [number, number] },
         };
         return isMobile ? mobileConfig : desktopConfig;
     }, [isMobile]);
