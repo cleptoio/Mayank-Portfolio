@@ -8,7 +8,7 @@ export const PERSONAL_INFO = {
     location: "Dublin, Ireland",
     coordinates: [-6.2603, 53.3498],
     bio: "I architect intelligent automation systems that transform manual business processes into scalable, compliance-ready workflows. Specializing in n8n orchestration, RAG pipelines, and EU AI Act frameworks for SMEs across Europe.",
-    image: "/images/mayank-profile.jpg",
+    image: "/images/Mayank Professional.webp",
     social: {
         linkedin: "https://www.linkedin.com/in/mayank-khanvilkar",
         instagram: "https://www.instagram.com/mayank_khanvilkar/",
