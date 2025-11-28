@@ -140,7 +140,7 @@ export function Hero() {
                                     src={PERSONAL_INFO.image}
                                     alt={PERSONAL_INFO.name}
                                     fill
-                                    className="object-cover"
+                                    className="object-cover scale-75"
                                     priority
                                     onError={(e) => {
                                         e.currentTarget.style.display = 'none';
