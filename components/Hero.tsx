@@ -167,7 +167,7 @@ export function Hero() {
                         },
                         {
                             icon: Zap,
-                            value: "50+",
+                            value: "100+",
                             label: "n8n Workflows",
                             subtext: "Deployed Successfully"
                         },
