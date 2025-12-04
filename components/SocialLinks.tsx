@@ -6,7 +6,7 @@ export function SocialLinks() {
         {
             name: "LinkedIn",
             icon: Linkedin,
-            href: "https://www.linkedin.com/in/mayank-khanvilkar",
+            href: "https://www.linkedin.com/in/mayankkhanvilkar",
             color: "hover:text-clepto-cyan"
         },
         {

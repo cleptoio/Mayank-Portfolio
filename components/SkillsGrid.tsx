@@ -2,37 +2,64 @@
 
 import { motion } from "framer-motion";
 import { SKILLS, CERTIFICATIONS } from "@/lib/data";
-import { Award, Brain, Cloud, Database, Shield, Gavel, Cpu, BarChart3, Workflow, ShieldCheck, Kanban } from "lucide-react";
+import { Award, Brain, Cloud, Database, Shield, Gavel, Cpu, BarChart3, Workflow, ShieldCheck, Kanban, Wrench, Bot, Users } from "lucide-react";
 import {
     SiPython, SiSalesforce, SiGooglecloud, SiSupabase, SiPostgresql,
-    SiJira, SiConfluence, SiTableau, SiOpenai, SiLangchain, SiN8N,
-    SiZapier, SiMake
+    SiJira, SiConfluence, SiTableau, SiOpenai, SiN8N,
+    SiZapier, SiMake, SiNotion, SiTrello, SiJavascript, SiGit
 } from "react-icons/si";
 
 const categoryIconMap: Record<string, any> = {
-    Cloud, Shield, Gavel, Brain, Database, Award, Cpu, BarChart3, Workflow, ShieldCheck, Kanban
+    Cloud, Shield, Gavel, Brain, Database, Award, Cpu, BarChart3, Workflow, ShieldCheck, Kanban, Wrench, Bot, Users
 };
 
 const techIconMap: Record<string, any> = {
     "n8n": SiN8N,
     "Python": SiPython,
+    "JavaScript": SiJavascript,
+    "Git": SiGit,
     "Salesforce": SiSalesforce,
-    "Google Cloud": SiGooglecloud,
-    "Google Vertex AI": SiGooglecloud,
+    "Google Workspace": SiGooglecloud,
+    "Google AI Studio": SiGooglecloud,
+    "Vertex AI": SiGooglecloud,
     "Google Data Studio": SiGooglecloud,
     "Supabase": SiSupabase,
     "SQL": Database,
-    "SQL Server": Database,
     "PostgreSQL": SiPostgresql,
     "JIRA": SiJira,
     "Confluence": SiConfluence,
     "Tableau": SiTableau,
     "Power BI": BarChart3,
     "OpenAI": SiOpenai,
-    "LangChain": SiLangchain,
     "Zapier": SiZapier,
     "Make.com": SiMake,
     "GDPR": Shield,
+    "Notion AI": SiNotion,
+    "Trello": SiTrello,
+    "Claude": Bot,
+    "Cursor": Cpu,
+    "Mistral": Bot,
+    "Heygen": Bot,
+    "RAG": Database,
+    "API Integration": Workflow,
+    "Vector Databases": Database,
+    "MCP Integration": Workflow,
+    "ETL Pipelines": Workflow,
+    "NotebookLM": Brain,
+    "Pinecone": Database,
+    "Draw.io": Workflow,
+    "MS Office": Cloud,
+    "EU AI Act": Gavel,
+    "ISO 42001": ShieldCheck,
+    "ISO 20000": ShieldCheck,
+    "Risk Management": Shield,
+    "Audit Frameworks": ShieldCheck,
+    "Requirements Analysis": Users,
+    "Stakeholder Management": Users,
+    "Process Improvement": Workflow,
+    "Agile/BPR": Kanban,
+    "Technical Documentation": Brain,
+    "Change Management": Users,
 };
 
 export function SkillsGrid() {
@@ -69,7 +96,7 @@ export function SkillsGrid() {
                                 <h3 className="text-xl font-bold text-white group-hover:text-clepto-cyan transition-colors">{category}</h3>
                             </div>
 
-                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <div className="flex flex-wrap gap-2">
                                 {data.items.map((skill, idx) => {
                                     const TechIcon = techIconMap[skill];
                                     return (
@@ -78,27 +105,15 @@ export function SkillsGrid() {
                                             initial={{ opacity: 0, y: 10 }}
                                             whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true }}
-                                            transition={{ delay: index * 0.1 + idx * 0.05 }}
-                                            whileHover={{ y: -4, scale: 1.03 }}
-                                            className="relative group"
+                                            transition={{ delay: index * 0.05 + idx * 0.02 }}
+                                            whileHover={{ y: -2, scale: 1.05 }}
+                                            className="relative"
                                         >
-                                            <div className="flex flex-col items-center gap-2.5 p-3 rounded-xl bg-clepto-navy/60 border border-gray-800/50 hover:border-clepto-cyan/30 transition-all duration-300 backdrop-blur-sm min-h-[100px] justify-center">
-                                                {TechIcon ? (
-                                                    <motion.div
-                                                        whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-                                                        transition={{ duration: 0.5 }}
-                                                        className="flex items-center justify-center"
-                                                    >
-                                                        <TechIcon className="w-10 h-10 text-clepto-cyan" />
-                                                    </motion.div>
-                                                ) : (
-                                                    <div className="w-10 h-10 rounded-xl bg-clepto-cyan/10 flex items-center justify-center border border-clepto-cyan/20">
-                                                        <span className="text-sm font-bold text-clepto-cyan">
-                                                            {skill.substring(0, 2).toUpperCase()}
-                                                        </span>
-                                                    </div>
+                                            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-clepto-navy/60 border border-gray-800/50 hover:border-clepto-cyan/30 transition-all duration-300 backdrop-blur-sm">
+                                                {TechIcon && (
+                                                    <TechIcon className="w-4 h-4 text-clepto-cyan" />
                                                 )}
-                                                <span className="text-xs font-medium text-gray-300 group-hover:text-white transition-colors text-center leading-tight">
+                                                <span className="text-xs font-medium text-gray-300 group-hover:text-white transition-colors whitespace-nowrap">
                                                     {skill}
                                                 </span>
                                             </div>

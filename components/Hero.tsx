@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, ArrowDown, Sparkles, Zap, Shield } from "lucide-react";
+import { MapPin, ArrowDown, Sparkles, Zap, Users } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { PERSONAL_INFO } from "@/lib/data";
@@ -65,12 +65,12 @@ export function Hero() {
                             </motion.h1>
                         </div>
 
-                        {/* Bio - constrained width */}
+                        {/* Bio - larger font */}
                         <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-md"
+                            className="text-lg sm:text-xl lg:text-2xl text-gray-300 leading-relaxed max-w-lg"
                         >
                             {PERSONAL_INFO.bio}
                         </motion.p>
@@ -161,20 +161,20 @@ export function Hero() {
                     {[
                         {
                             icon: Sparkles,
-                            value: "8+",
+                            value: "7+",
                             label: "Years Experience",
                             subtext: "Business Transformation"
                         },
                         {
                             icon: Zap,
                             value: "100+",
-                            label: "n8n Workflows",
-                            subtext: "Deployed Successfully"
+                            label: "AI Workflows",
+                            subtext: "Production Deployed"
                         },
                         {
-                            icon: Shield,
-                            value: "100%",
-                            label: "Audit Ready",
+                            icon: Users,
+                            value: "10+",
+                            label: "Enterprise Clients",
                             subtext: "EU AI Act Compliant"
                         }
                     ].map((stat, idx) => (
