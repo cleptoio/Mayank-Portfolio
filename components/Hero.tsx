@@ -133,14 +133,14 @@ export function Hero() {
                     </motion.div>
 
                     {/* Center spacer */}
-                    <div className="hidden lg:block lg:col-span-2" />
+                    <div className="hidden lg:block lg:col-span-3" />
 
                     {/* Right Content - Profile Photo */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9, x: 20 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ delay: 0.5, duration: 0.8 }}
-                        className="lg:col-span-4 flex justify-center lg:justify-end order-first lg:order-last"
+                        className="lg:col-span-3 flex justify-center lg:justify-end order-first lg:order-last lg:-mr-8"
                     >
                         <motion.div
                             className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96"
