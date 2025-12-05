@@ -36,22 +36,22 @@ export function Hero() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.2 }}
-                            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-clepto-cyan/10 border border-clepto-cyan/30 backdrop-blur-md"
+                            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-clepto-cyan/10 border border-clepto-cyan/30 backdrop-blur-md"
                         >
-                            <span className="relative flex h-2.5 w-2.5">
+                            <span className="relative flex h-3 w-3">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-clepto-cyan opacity-75" />
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-clepto-cyan" />
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-clepto-cyan" />
                             </span>
-                            <span className="text-sm font-medium text-clepto-cyan">Available for new projects</span>
+                            <span className="text-base font-medium text-clepto-cyan">Available for new projects</span>
                         </motion.div>
 
                         {/* Greeting */}
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                             <motion.p
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.3 }}
-                                className="text-base text-gray-400 font-mono"
+                                className="text-lg sm:text-xl text-gray-400 font-mono"
                             >
                                 Hello,
                             </motion.p>
@@ -59,7 +59,7 @@ export function Hero() {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4 }}
-                                className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white tracking-tight leading-tight"
+                                className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white tracking-tight leading-tight"
                             >
                                 I&apos;m {PERSONAL_INFO.name.split(' ')[0]}.
                             </motion.h1>
@@ -70,7 +70,7 @@ export function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-lg sm:text-xl lg:text-2xl text-gray-300 leading-relaxed max-w-lg"
+                            className="text-xl sm:text-2xl lg:text-[1.75rem] text-gray-300 leading-relaxed max-w-xl"
                         >
                             {PERSONAL_INFO.bio}
                         </motion.p>
@@ -80,9 +80,9 @@ export function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.6 }}
-                            className="flex items-center gap-2.5 text-sm text-gray-400"
+                            className="flex items-center gap-3 text-base sm:text-lg text-gray-400"
                         >
-                            <MapPin className="w-4 h-4 text-clepto-cyan" />
+                            <MapPin className="w-5 h-5 text-clepto-cyan" />
                             <span>{PERSONAL_INFO.location}</span>
                         </motion.div>
 
@@ -100,14 +100,14 @@ export function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1 }}
-                            className="hidden lg:flex items-center gap-2 pt-4 text-sm text-gray-500"
+                            className="hidden lg:flex items-center gap-3 pt-6 text-base text-gray-500"
                         >
                             <Link
                                 href="#projects"
                                 className="flex items-center gap-2 hover:text-clepto-cyan transition-colors group"
                             >
                                 <span>View my work</span>
-                                <ArrowDown className="w-4 h-4 animate-bounce group-hover:text-clepto-cyan" />
+                                <ArrowDown className="w-5 h-5 animate-bounce group-hover:text-clepto-cyan" />
                             </Link>
                         </motion.div>
                     </motion.div>
@@ -123,7 +123,7 @@ export function Hero() {
                         className="lg:col-span-4 flex justify-center lg:justify-end order-first lg:order-last perspective-1000 lg:-mt-8"
                     >
                         <motion.div
-                            className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72"
+                            className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80"
                             whileHover={{ scale: 1.05, rotateY: 10, rotateX: -10 }}
                             transition={{ type: "spring", stiffness: 400, damping: 25 }}
                         >
@@ -156,12 +156,12 @@ export function Hero() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9, duration: 0.8 }}
-                    className="grid grid-cols-3 gap-3 sm:gap-6 mt-10 sm:mt-16 lg:mt-20"
+                    className="grid grid-cols-3 gap-4 sm:gap-8 mt-12 sm:mt-20 lg:mt-24"
                 >
                     {[
                         {
                             icon: Sparkles,
-                            value: "5+",
+                            value: "7+",
                             label: "Years Experience",
                             subtext: "Business Transformation"
                         },
@@ -186,15 +186,15 @@ export function Hero() {
                             whileHover={{ y: -5, scale: 1.02 }}
                             className="relative group"
                         >
-                            <div className="relative p-3 sm:p-6 rounded-2xl bg-clepto-navy/60 border border-gray-800/50 backdrop-blur-md hover:border-clepto-cyan/30 transition-all duration-300">
-                                <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-4">
-                                    <div className="p-2 sm:p-3 rounded-xl bg-clepto-cyan/10 border border-clepto-cyan/20">
-                                        <stat.icon className="w-4 h-4 sm:w-6 sm:h-6 text-clepto-cyan" />
+                            <div className="relative p-4 sm:p-8 rounded-2xl bg-clepto-navy/60 border border-gray-800/50 backdrop-blur-md hover:border-clepto-cyan/30 transition-all duration-300">
+                                <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5">
+                                    <div className="p-3 sm:p-4 rounded-xl bg-clepto-cyan/10 border border-clepto-cyan/20">
+                                        <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-clepto-cyan" />
                                     </div>
                                     <div className="text-center sm:text-left">
-                                        <div className="text-xl sm:text-3xl font-bold text-white">{stat.value}</div>
-                                        <div className="text-[10px] sm:text-sm text-gray-400">{stat.label}</div>
-                                        <div className="text-[9px] sm:text-xs text-gray-500 hidden sm:block">{stat.subtext}</div>
+                                        <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">{stat.value}</div>
+                                        <div className="text-sm sm:text-base lg:text-lg text-gray-400 mt-1">{stat.label}</div>
+                                        <div className="text-xs sm:text-sm text-gray-500 hidden sm:block">{stat.subtext}</div>
                                     </div>
                                 </div>
                             </div>

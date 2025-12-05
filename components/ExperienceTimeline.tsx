@@ -6,11 +6,11 @@ import { EXPERIENCE } from "@/lib/data";
 
 export function ExperienceTimeline() {
     return (
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
             {/* Timeline Line */}
             <div className="absolute left-0 sm:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-clepto-cyan/60 via-clepto-cyan/30 to-clepto-cyan/60 hidden md:block" />
 
-            <div className="relative space-y-8 md:space-y-12">
+            <div className="relative space-y-10 md:space-y-16">
                 {EXPERIENCE.map((exp, index) => (
                     <motion.div
                         key={index}
@@ -22,9 +22,9 @@ export function ExperienceTimeline() {
                         className="relative group"
                     >
                         {/* Timeline Dot */}
-                        <div className="absolute -left-1.5 sm:left-6.5 top-8 w-4 h-4 rounded-full bg-clepto-cyan border-4 border-clepto-navy group-hover:scale-125 transition-transform hidden md:block z-10" />
+                        <div className="absolute -left-1.5 sm:left-6.5 top-10 w-5 h-5 rounded-full bg-clepto-cyan border-4 border-clepto-navy group-hover:scale-125 transition-transform hidden md:block z-10" />
 
-                        <div className="relative md:ml-16 p-5 sm:p-6 md:p-8 rounded-2xl bg-gradient-to-br from-clepto-navy/70 to-navy-darker/90 border border-gray-800/50 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300 overflow-hidden">
+                        <div className="relative md:ml-20 p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-clepto-navy/70 to-navy-darker/90 border border-gray-800/50 backdrop-blur-sm hover:border-clepto-cyan/30 transition-all duration-300 overflow-hidden">
                             {/* Grid Background */}
                             <div className="absolute inset-0 opacity-[0.03]">
                                 <div className="absolute inset-0" style={{
@@ -37,32 +37,32 @@ export function ExperienceTimeline() {
                             </div>
 
                             {/* Corner Accent */}
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-clepto-cyan/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-clepto-cyan/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                             {/* Glow */}
-                            <div className="absolute -inset-0.5 bg-clepto-cyan/5 rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300 -z-10" />
+                            <div className="absolute -inset-0.5 bg-clepto-cyan/5 rounded-3xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300 -z-10" />
 
                             <div className="relative">
-                                <div className="flex flex-col gap-4 mb-5">
-                                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                                        <div className="space-y-2 flex-1">
-                                            <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-clepto-cyan transition-colors duration-300">
+                                <div className="flex flex-col gap-5 mb-6">
+                                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                                        <div className="space-y-3 flex-1">
+                                            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white group-hover:text-clepto-cyan transition-colors duration-300">
                                                 {exp.role}
                                             </h3>
-                                            <div className="flex flex-col gap-2">
-                                                <div className="flex items-center gap-2 text-gray-300">
-                                                    <Building2 className="w-4 h-4 text-clepto-cyan shrink-0" />
-                                                    <span className="font-semibold">{exp.company}</span>
+                                            <div className="flex flex-col gap-3">
+                                                <div className="flex items-center gap-3 text-gray-300">
+                                                    <Building2 className="w-5 h-5 text-clepto-cyan shrink-0" />
+                                                    <span className="font-semibold text-lg">{exp.company}</span>
                                                 </div>
-                                                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-400">
-                                                    <div className="flex items-center gap-1.5">
-                                                        <MapPin className="w-3.5 h-3.5 text-clepto-cyan shrink-0" />
+                                                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-base text-gray-400">
+                                                    <div className="flex items-center gap-2">
+                                                        <MapPin className="w-4 h-4 text-clepto-cyan shrink-0" />
                                                         <span>{exp.location}</span>
                                                     </div>
-                                                    <span className="hidden sm:inline text-gray-600">•</span>
-                                                    <div className="flex items-center gap-1.5">
-                                                        <Calendar className="w-3.5 h-3.5 text-clepto-cyan shrink-0" />
-                                                        <span className="font-mono">{exp.period}</span>
+                                                    <span className="hidden sm:inline text-gray-600">|</span>
+                                                    <div className="flex items-center gap-2">
+                                                        <Calendar className="w-4 h-4 text-clepto-cyan shrink-0" />
+                                                        <span className="font-mono text-clepto-cyan/80">{exp.period}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -70,11 +70,11 @@ export function ExperienceTimeline() {
                                     </div>
                                 </div>
 
-                                <p className="text-gray-400 mb-5 leading-relaxed text-sm sm:text-base">
+                                <p className="text-gray-400 mb-6 leading-relaxed text-base sm:text-lg">
                                     {exp.desc}
                                 </p>
 
-                                <ul className="space-y-3">
+                                <ul className="space-y-4">
                                     {exp.highlights.map((highlight, i) => (
                                         <motion.li
                                             key={i}
@@ -82,9 +82,9 @@ export function ExperienceTimeline() {
                                             whileInView={{ opacity: 1, x: 0 }}
                                             viewport={{ once: true }}
                                             transition={{ delay: index * 0.05 + i * 0.03 }}
-                                            className="flex items-start gap-3 text-xs sm:text-sm text-gray-400"
+                                            className="flex items-start gap-4 text-base sm:text-lg text-gray-400"
                                         >
-                                            <span className="mt-1.5 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-clepto-cyan shrink-0 animate-glow" />
+                                            <span className="mt-2.5 w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-clepto-cyan shrink-0 animate-glow" />
                                             <span className="leading-relaxed">{highlight}</span>
                                         </motion.li>
                                     ))}
