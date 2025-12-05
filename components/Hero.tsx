@@ -22,14 +22,14 @@ export function Hero() {
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-16">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
 
                     {/* Left Content - Text */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="lg:col-span-7 space-y-6 lg:space-y-8"
+                        className="lg:col-span-6 space-y-6 lg:space-y-8 lg:pt-8"
                     >
                         {/* Status Badge */}
                         <motion.div
@@ -132,12 +132,15 @@ export function Hero() {
                         </motion.div>
                     </motion.div>
 
+                    {/* Center spacer */}
+                    <div className="hidden lg:block lg:col-span-2" />
+
                     {/* Right Content - Profile Photo */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9, x: 20 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ delay: 0.5, duration: 0.8 }}
-                        className="lg:col-span-5 flex justify-center lg:justify-end order-first lg:order-last"
+                        className="lg:col-span-4 flex justify-center lg:justify-end order-first lg:order-last"
                     >
                         <motion.div
                             className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96"
