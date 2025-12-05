@@ -7,7 +7,7 @@ export const PERSONAL_INFO = {
     tagline: "Building Portals, Workflows & AI Agents Without Code",
     location: "Dublin, Ireland",
     coordinates: [-6.2603, 53.3498],
-    bio: "I bridge business strategy and intelligent automation—without writing traditional code. With 5+ years in data-driven transformation, I help organisations turn scattered data and manual workflows into AI-powered systems that scale. Specializing in n8n orchestration, RAG pipelines, and EU AI Act frameworks.",
+    bio: "I bridge business strategy and intelligent automation—without writing traditional code. With 7+ years in data-driven transformation, I help organisations turn scattered data and manual workflows into AI-powered systems that scale. Specializing in n8n orchestration, RAG pipelines, and EU AI Act frameworks.",
     image: "/images/Mayank Professional.webp",
     social: {
         linkedin: "https://www.linkedin.com/in/mayankkhanvilkar",
@@ -16,7 +16,7 @@ export const PERSONAL_INFO = {
         clepto: "https://www.clepto.io"
     },
     stats: {
-        experience: "5+",
+        experience: "7+",
         yearsLabel: "Years Experience",
         workflows: "100+",
         workflowsLabel: "AI Workflows",
