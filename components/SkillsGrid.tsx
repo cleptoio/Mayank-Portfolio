@@ -73,7 +73,7 @@ export function SkillsGrid() {
     return (
         <div className="space-y-16">
             {/* Skills in horizontal layout */}
-            <div className="space-y-8">
+            <div className="space-y-6">
                 {skillEntries.map(([category, data], index) => {
                     const CategoryIcon = categoryIconMap[data.icon] || Cpu;
                     return (
@@ -85,31 +85,28 @@ export function SkillsGrid() {
                             transition={{ duration: 0.4, delay: index * 0.1 }}
                             className="group"
                         >
-                            <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8 p-6 rounded-2xl bg-gray-900/40 border border-gray-800/50 hover:border-clepto-cyan/30 transition-all">
+                            <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-8 p-6 lg:p-8 rounded-2xl bg-gray-900/40 border border-gray-800/50 hover:border-clepto-cyan/30 transition-all">
                                 {/* Category header */}
-                                <div className="flex items-center gap-4 lg:min-w-[280px]">
+                                <div className="flex items-center gap-4 lg:min-w-[260px]">
                                     <div className="p-3 rounded-xl bg-clepto-cyan/10 border border-clepto-cyan/20">
-                                        <CategoryIcon className="w-6 h-6 text-clepto-cyan" />
+                                        <CategoryIcon className="w-7 h-7 text-clepto-cyan" />
                                     </div>
-                                    <div>
-                                        <h3 className="text-xl font-bold text-white">{category}</h3>
-                                        <p className="text-sm text-gray-500">{data.items.length} skills</p>
-                                    </div>
+                                    <h3 className="text-xl lg:text-2xl font-bold text-white">{category}</h3>
                                     <ChevronRight className="w-5 h-5 text-gray-600 hidden lg:block" />
                                 </div>
 
                                 {/* Skills */}
-                                <div className="flex flex-wrap gap-2 flex-1">
+                                <div className="flex flex-wrap gap-3 flex-1">
                                     {data.items.map((skill) => {
                                         const TechIcon = techIconMap[skill];
                                         return (
                                             <motion.div
                                                 key={skill}
                                                 whileHover={{ scale: 1.05 }}
-                                                className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/60 border border-gray-700/50 hover:border-clepto-cyan/40 hover:bg-clepto-cyan/10 transition-all cursor-default"
+                                                className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-gray-800/60 border border-gray-700/50 hover:border-clepto-cyan/40 hover:bg-clepto-cyan/10 transition-all cursor-default"
                                             >
-                                                {TechIcon && <TechIcon className="w-4 h-4 text-clepto-cyan" />}
-                                                <span className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
+                                                {TechIcon && <TechIcon className="w-5 h-5 text-clepto-cyan" />}
+                                                <span className="text-base font-medium text-gray-300 hover:text-white transition-colors">
                                                     {skill}
                                                 </span>
                                             </motion.div>
@@ -130,8 +127,8 @@ export function SkillsGrid() {
                 transition={{ duration: 0.5 }}
             >
                 <div className="text-center mb-10">
-                    <h3 className="text-3xl font-bold text-white mb-2">Certifications</h3>
-                    <p className="text-gray-400">Professional credentials and qualifications</p>
+                    <h3 className="text-3xl lg:text-4xl font-bold text-white mb-3">Certifications</h3>
+                    <p className="text-lg text-gray-400">Professional credentials and qualifications</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -145,10 +142,10 @@ export function SkillsGrid() {
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.05 }}
                                 whileHover={{ y: -2 }}
-                                className="flex items-center gap-3 p-4 rounded-xl bg-gray-900/40 border border-gray-800/50 hover:border-clepto-cyan/30 transition-all"
+                                className="flex items-center gap-4 p-5 rounded-xl bg-gray-900/40 border border-gray-800/50 hover:border-clepto-cyan/30 transition-all"
                             >
-                                <Icon className="w-5 h-5 text-clepto-cyan shrink-0" />
-                                <span className="text-sm font-medium text-gray-300">{cert.name}</span>
+                                <Icon className="w-6 h-6 text-clepto-cyan shrink-0" />
+                                <span className="text-base font-medium text-gray-300">{cert.name}</span>
                             </motion.div>
                         );
                     })}
