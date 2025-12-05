@@ -6,7 +6,7 @@ import { Award, Brain, Cloud, Database, Shield, Gavel, Cpu, BarChart3, Workflow,
 import {
     SiPython, SiSalesforce, SiGooglecloud, SiSupabase, SiPostgresql,
     SiJira, SiConfluence, SiTableau, SiOpenai, SiN8N,
-    SiZapier, SiMake, SiNotion, SiTrello, SiJavascript, SiGit
+    SiZapier, SiMake, SiNotion, SiTrello, SiJavascript, SiGithub, SiLooker
 } from "react-icons/si";
 
 const categoryIconMap: Record<string, any> = {
@@ -17,12 +17,12 @@ const techIconMap: Record<string, any> = {
     "n8n": SiN8N,
     "Python": SiPython,
     "JavaScript": SiJavascript,
-    "Git": SiGit,
+    "Github": SiGithub,
     "Salesforce": SiSalesforce,
     "Google Workspace": SiGooglecloud,
     "Google AI Studio": SiGooglecloud,
     "Vertex AI": SiGooglecloud,
-    "Google Data Studio": SiGooglecloud,
+    "Looker Studio": SiLooker,
     "Supabase": SiSupabase,
     "SQL": Database,
     "PostgreSQL": SiPostgresql,
@@ -30,16 +30,16 @@ const techIconMap: Record<string, any> = {
     "Confluence": SiConfluence,
     "Tableau": SiTableau,
     "Power BI": BarChart3,
+    "Hex.tech": BarChart3,
     "OpenAI": SiOpenai,
     "Zapier": SiZapier,
     "Make.com": SiMake,
+    "Workato": Workflow,
     "GDPR": Shield,
     "Notion AI": SiNotion,
     "Trello": SiTrello,
     "Claude": Bot,
     "Cursor": Cpu,
-    "Mistral": Bot,
-    "Heygen": Bot,
     "RAG": Database,
     "API Integration": Workflow,
     "Vector Databases": Database,
@@ -48,7 +48,11 @@ const techIconMap: Record<string, any> = {
     "NotebookLM": Brain,
     "Pinecone": Database,
     "Draw.io": Workflow,
+    "Eraser.io": Workflow,
+    "Clay.com": Cloud,
     "MS Office": Cloud,
+    "Data Modeling": Database,
+    "KPI Reporting": BarChart3,
     "EU AI Act": Gavel,
     "ISO 42001": ShieldCheck,
     "ISO 20000": ShieldCheck,
@@ -60,6 +64,7 @@ const techIconMap: Record<string, any> = {
     "Agile/BPR": Kanban,
     "Technical Documentation": Brain,
     "Change Management": Users,
+    "Backlog Management": Kanban,
 };
 
 export function SkillsGrid() {

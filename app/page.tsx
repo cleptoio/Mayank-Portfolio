@@ -44,7 +44,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 mb-16 text-center relative z-10">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 text-white">Professional Journey</h2>
           <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
-            7+ years of experience in CRM, Data Engineering, and AI Automation.
+            5+ years of experience in CRM, Data Engineering, and AI Automation.
           </p>
         </div>
         <div className="relative z-10">
