@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, ArrowDown, Sparkles, Zap, Users } from "lucide-react";
+import { MapPin, ArrowDown, Sparkles, Zap } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { PERSONAL_INFO } from "@/lib/data";
@@ -22,14 +22,14 @@ export function Hero() {
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-16">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
 
                     {/* Left Content - Text */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="lg:col-span-6 space-y-6 lg:space-y-8 lg:pt-8"
+                        className="lg:col-span-7 space-y-6 lg:space-y-8"
                     >
                         {/* Status Badge */}
                         <motion.div
@@ -59,27 +59,47 @@ export function Hero() {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4 }}
-                                className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white tracking-tight leading-tight"
+                                className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tight leading-[1.1]"
                             >
                                 I&apos;m {PERSONAL_INFO.name.split(' ')[0]}.
                             </motion.h1>
                         </div>
 
-                        {/* Bio - larger font */}
+                        {/* Bio */}
                         <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-xl sm:text-2xl lg:text-[1.75rem] text-gray-300 leading-relaxed max-w-xl"
+                            className="text-xl sm:text-2xl text-gray-300 leading-relaxed max-w-2xl"
                         >
                             {PERSONAL_INFO.bio}
                         </motion.p>
+
+                        {/* Stats - Simple inline */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.6 }}
+                            className="flex flex-wrap items-center gap-8 pt-2"
+                        >
+                            <div className="flex items-center gap-3">
+                                <Sparkles className="w-6 h-6 text-clepto-cyan" />
+                                <span className="text-3xl sm:text-4xl font-bold text-white">7+</span>
+                                <span className="text-base text-gray-400">Years</span>
+                            </div>
+                            <div className="w-px h-8 bg-gray-700" />
+                            <div className="flex items-center gap-3">
+                                <Zap className="w-6 h-6 text-clepto-cyan" />
+                                <span className="text-3xl sm:text-4xl font-bold text-white">100+</span>
+                                <span className="text-base text-gray-400">AI Workflows</span>
+                            </div>
+                        </motion.div>
 
                         {/* Location */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.6 }}
+                            transition={{ delay: 0.7 }}
                             className="flex items-center gap-3 text-base sm:text-lg text-gray-400"
                         >
                             <MapPin className="w-5 h-5 text-clepto-cyan" />
@@ -90,7 +110,7 @@ export function Hero() {
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.7 }}
+                            transition={{ delay: 0.8 }}
                         >
                             <SocialLinks />
                         </motion.div>
@@ -100,7 +120,7 @@ export function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1 }}
-                            className="hidden lg:flex items-center gap-3 pt-6 text-base text-gray-500"
+                            className="hidden lg:flex items-center gap-3 pt-4 text-base text-gray-500"
                         >
                             <Link
                                 href="#projects"
@@ -112,30 +132,26 @@ export function Hero() {
                         </motion.div>
                     </motion.div>
 
-                    {/* Center spacer */}
-                    <div className="hidden lg:block lg:col-span-2" />
-
                     {/* Right Content - Profile Photo */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9, x: 20 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ delay: 0.5, duration: 0.8 }}
-                        className="lg:col-span-4 flex justify-center lg:justify-end order-first lg:order-last perspective-1000 lg:-mt-8"
+                        className="lg:col-span-5 flex justify-center lg:justify-end order-first lg:order-last"
                     >
                         <motion.div
-                            className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80"
-                            whileHover={{ scale: 1.05, rotateY: 10, rotateX: -10 }}
+                            className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96"
+                            whileHover={{ scale: 1.03 }}
                             transition={{ type: "spring", stiffness: 400, damping: 25 }}
                         >
-                            {/* Glow - cyan only */}
-                            <div className="absolute inset-0 rounded-full bg-clepto-cyan/30 blur-3xl animate-pulse" />
+                            {/* Glow */}
+                            <div className="absolute inset-0 rounded-full bg-clepto-cyan/25 blur-3xl" />
 
-                            {/* Rotating Rings - cyan only */}
-                            <div className="absolute -inset-4 rounded-full border border-clepto-cyan/30 border-dashed animate-spin-slow" style={{ animationDuration: '10s' }} />
-                            <div className="absolute -inset-2 rounded-full border border-clepto-cyan/20 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }} />
+                            {/* Rotating Rings */}
+                            <div className="absolute -inset-4 rounded-full border border-clepto-cyan/20 border-dashed animate-spin-slow" style={{ animationDuration: '20s' }} />
 
                             {/* Profile Image */}
-                            <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-clepto-cyan/50 ring-4 ring-black/50 shadow-[0_0_50px_rgba(11,215,212,0.4)] backdrop-blur-sm">
+                            <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-clepto-cyan/40 shadow-[0_0_60px_rgba(11,215,212,0.3)]">
                                 <Image
                                     src={PERSONAL_INFO.image}
                                     alt={PERSONAL_INFO.name}
@@ -150,57 +166,6 @@ export function Hero() {
                         </motion.div>
                     </motion.div>
                 </div>
-
-                {/* Stats Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.9, duration: 0.8 }}
-                    className="grid grid-cols-3 gap-4 sm:gap-8 mt-12 sm:mt-20 lg:mt-24"
-                >
-                    {[
-                        {
-                            icon: Sparkles,
-                            value: "7+",
-                            label: "Years Experience",
-                            subtext: "Business Transformation"
-                        },
-                        {
-                            icon: Zap,
-                            value: "100+",
-                            label: "AI Workflows",
-                            subtext: "Production Deployed"
-                        },
-                        {
-                            icon: Users,
-                            value: "15+",
-                            label: "Enterprise Clients",
-                            subtext: "EU AI Act Compliant"
-                        }
-                    ].map((stat, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1 + idx * 0.1 }}
-                            whileHover={{ y: -5, scale: 1.02 }}
-                            className="relative group"
-                        >
-                            <div className="relative p-4 sm:p-8 rounded-2xl bg-clepto-navy/60 border border-gray-800/50 backdrop-blur-md hover:border-clepto-cyan/30 transition-all duration-300">
-                                <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5">
-                                    <div className="p-3 sm:p-4 rounded-xl bg-clepto-cyan/10 border border-clepto-cyan/20">
-                                        <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-clepto-cyan" />
-                                    </div>
-                                    <div className="text-center sm:text-left">
-                                        <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">{stat.value}</div>
-                                        <div className="text-sm sm:text-base lg:text-lg text-gray-400 mt-1">{stat.label}</div>
-                                        <div className="text-xs sm:text-sm text-gray-500 hidden sm:block">{stat.subtext}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
-                </motion.div>
             </div>
         </section>
     );
