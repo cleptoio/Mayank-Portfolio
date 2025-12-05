@@ -7,7 +7,7 @@ export const PERSONAL_INFO = {
     tagline: "Building Portals, Workflows & AI Agents Without Code",
     location: "Dublin, Ireland",
     coordinates: [-6.2603, 53.3498],
-    bio: "I bridge business strategy and intelligent automation—without writing traditional code. With 7+ years in data-driven transformation, I help organisations turn scattered data and manual workflows into AI-powered systems that scale. Specializing in n8n orchestration, RAG pipelines, and EU AI Act frameworks.",
+    bio: "I bridge business strategy and intelligent automation—without writing traditional code. With 5+ years in data-driven transformation, I help organisations turn scattered data and manual workflows into AI-powered systems that scale. Specializing in n8n orchestration, RAG pipelines, and EU AI Act frameworks.",
     image: "/images/Mayank Professional.webp",
     social: {
         linkedin: "https://www.linkedin.com/in/mayankkhanvilkar",
@@ -16,11 +16,11 @@ export const PERSONAL_INFO = {
         clepto: "https://www.clepto.io"
     },
     stats: {
-        experience: "7+",
+        experience: "5+",
         yearsLabel: "Years Experience",
         workflows: "100+",
-        workflowsLabel: "n8n Workflows",
-        clients: "10+",
+        workflowsLabel: "AI Workflows",
+        clients: "15+",
         clientsLabel: "Enterprise Clients"
     }
 };
@@ -30,7 +30,7 @@ export const CASE_STUDIES = [
         id: 1,
         title: "AI-Powered GTM Automation Framework",
         shortDesc: "End-to-end n8n workflows integrating OpenAI agents, MCP-enabled context retrieval, and vector search for automated lead qualification, enrichment, and routing.",
-        fullDesc: "Designed end-to-end n8n workflows integrating OpenAI agents, MCP-enabled context retrieval, CRM data, and vector search to automate lead qualification, enrichment, and routing. Built SQL analytics layer tracking automation performance. Delivered ISO 42001-aligned governance documentation ensuring EU AI Act compliance.",
+        fullDesc: "Designed end-to-end n8n workflows integrating OpenAI agents, MCP-enabled context retrieval, CRM data, and vector search to automate lead qualification, enrichment, and routing. Built analytics layer tracking automation performance metrics. Delivered ISO 42001-aligned governance documentation ensuring EU AI Act alignment.",
         tech: ["n8n", "OpenAI", "MCP", "Vector DB", "SQL", "ISO 42001"],
         metric: "50% Less Manual Work",
         metricSecondary: "35% Faster Pipeline",
@@ -41,8 +41,8 @@ export const CASE_STUDIES = [
     {
         id: 2,
         title: "Salesforce-to-Data Warehouse ETL Pipeline",
-        shortDesc: "Architected automated data sync between Salesforce and PostgreSQL using n8n, Python transformations, and scheduled SQL queries with real-time executive reporting.",
-        fullDesc: "Architected automated data sync between Salesforce and PostgreSQL using n8n, Python transformations, and scheduled SQL queries. Built Power BI dashboards visualizing sales trends, forecasting accuracy, and rep productivity. Real-time executive reporting replacing manual weekly extracts.",
+        shortDesc: "Architected automated data sync between Salesforce and PostgreSQL using n8n, Python transformations, and scheduled workflows with real-time executive reporting.",
+        fullDesc: "Architected automated data sync between Salesforce and PostgreSQL using n8n, Python transformations, and scheduled workflows. Built Power BI dashboards visualizing sales trends, forecasting accuracy, and rep productivity. Real-time executive reporting replacing manual weekly extracts.",
         tech: ["n8n", "PostgreSQL", "Python", "Power BI", "SQL", "ETL"],
         metric: "10 hrs/week Saved",
         metricSecondary: "Real-time Reporting",
@@ -66,7 +66,7 @@ export const CASE_STUDIES = [
         id: 4,
         title: "Legacy CRM to Salesforce Migration",
         shortDesc: "Enterprise-scale data migration of 100,000+ records with comprehensive project documentation, validation plans, and zero downtime deployment.",
-        fullDesc: "Ensured data integrity and minimal business disruption during migration of 100,000+ records. Created comprehensive project documentation including project charter, requirement documents, data mapping, validation plans, ETL specifications, UAT plans, migration checklists, and post-migration support plans.",
+        fullDesc: "Ensured data integrity, accuracy, and minimal disruption to business operations during migration of 100,000+ records. Created comprehensive project documentation including project charter, requirement documents, data mapping, validation plans, ETL specifications, UAT plans, migration checklists, and post-migration support plans.",
         tech: ["Salesforce", "ETL", "SQL", "Data Mapping", "UAT", "Documentation"],
         metric: "98% Data Accuracy",
         metricSecondary: "Zero Downtime",
@@ -77,8 +77,8 @@ export const CASE_STUDIES = [
     {
         id: 5,
         title: "Customer Order & Inventory Platform",
-        shortDesc: "Streamlined order tracking and automated inventory management using SQL queries, integration specifications, and workflow automation.",
-        fullDesc: "Streamlined order tracking and automated inventory management using SQL queries, integration specifications, and workflow automation. Developed comprehensive implementation plans covering requirements, training, risk management, and post-implementation support.",
+        shortDesc: "Streamlined order tracking and automated inventory management to improve customer experience with comprehensive documentation.",
+        fullDesc: "Streamlined order tracking and automated inventory management to improve customer experience. Created comprehensive project documentation including project charter, requirement document, inventory management plan, order management plan, integration specifications, training plan, risk management plan, and post-implementation support plan.",
         tech: ["SQL", "n8n", "API Integration", "Automation", "Analytics"],
         metric: "30% Faster Processing",
         metricSecondary: "25% Better Accuracy",
@@ -90,10 +90,10 @@ export const CASE_STUDIES = [
         id: 6,
         title: "EU AI Act Compliance Framework",
         shortDesc: "Comprehensive AI governance initiatives mapping technical workflow designs to EU AI Act and ISO 42001 standards for enterprise clients.",
-        fullDesc: "Conducted EU AI Act gap analyses and mapped ISO/IEC 42001 controls into workflow governance, building audit-ready compliance frameworks that reduced regulatory risk by 70% across 10+ enterprise clients.",
+        fullDesc: "Conducted EU AI Act gap analyses and mapped ISO/IEC 42001 controls into workflow governance, building audit-ready compliance frameworks that reduced regulatory risk by 70% across 15+ enterprise clients.",
         tech: ["ISO 42001", "EU AI Act", "GDPR", "Risk Assessment", "Governance"],
         metric: "70% Risk Reduction",
-        metricSecondary: "10+ Clients Compliant",
+        metricSecondary: "15+ Clients Compliant",
         icon: "ShieldCheck",
         gradient: "from-red-500/20 via-rose-500/10 to-transparent",
         category: "Compliance"
@@ -119,13 +119,13 @@ export const EXPERIENCE = [
     {
         company: "Star Link GRP",
         role: "CRM Analyst",
-        period: "Apr 2023 - Dec 2024",
+        period: "Apr 2023 - Sep 2024",
         location: "Dublin, Ireland",
         desc: "Optimized Salesforce Experience Cloud deployments and delivered data-driven analytics solutions for digital transformation initiatives.",
         highlights: [
             "Configured Salesforce Experience Cloud portals optimizing digital engagement across multi-client sites",
             "Designed, tested, and deployed scalable Salesforce solutions including custom objects, workflows, and Lightning components",
-            "Developed Power BI and Google Data Studio dashboards enabling stakeholders to gain actionable insights",
+            "Developed data-driven dashboards using Looker Studio enabling stakeholders to gain actionable insights",
             "Implemented automation workflows reducing manual tasks by 40% and accelerating deployment cycles"
         ],
         color: "#FF3131"
@@ -139,7 +139,7 @@ export const EXPERIENCE = [
         highlights: [
             "Led requirements gathering for 10+ Salesforce implementations, creating BRDs, FRDs, and process maps—ensuring 95% stakeholder satisfaction",
             "Coordinated ETL activities migrating 100,000+ records to Salesforce, validating data integrity at 98% accuracy",
-            "Led as-is and to-be process mapping, identifying system gaps and improving operational efficiency by 20%",
+            "Led as-is and to-be process mapping using Visio, identifying system gaps and improving operational efficiency by 20%",
             "Developed executive dashboards in Power BI and Google Data Studio delivering real-time insights"
         ],
         color: "#0BD7D4"
@@ -172,29 +172,27 @@ export const CERTIFICATIONS = [
     { name: "Salesforce Certified Associate", issuer: "Salesforce", icon: "Cloud" },
     { name: "Salesforce Certified Administrator", issuer: "Salesforce", icon: "Cloud" },
     { name: "Salesforce Business Analyst", issuer: "Salesforce", icon: "Cloud" },
-    { name: "Google Cloud AI Prompt Engineering", issuer: "Google Cloud", icon: "Brain" },
-    { name: "Alteryx Designer Core", issuer: "Alteryx", icon: "Database" },
-    { name: "Six Sigma Yellow Belt", issuer: "ASQ", icon: "Award" }
+    { name: "Google Cloud AI Prompt Engineering", issuer: "Google Cloud", icon: "Brain" }
 ];
 
 export const SKILLS = {
     "AI & Automation": {
-        items: ["n8n", "Zapier", "Make.com", "OpenAI", "Claude", "Cursor", "Mistral", "Heygen", "Google AI Studio", "Vertex AI", "RAG", "API Integration", "Vector Databases", "MCP Integration"],
+        items: ["n8n", "Zapier", "Make.com", "Workato", "OpenAI", "Claude", "Cursor", "Google AI Studio", "Vertex AI", "NotebookLM", "RAG", "API Integration", "Vector Databases", "MCP Integration"],
         icon: "Bot",
         color: "#FF3131"
     },
     "Data & Analytics": {
-        items: ["Power BI", "Tableau", "Google Data Studio", "SQL", "PostgreSQL", "ETL Pipelines", "NotebookLM"],
+        items: ["Looker Studio", "Power BI", "Tableau", "Hex.tech", "SQL", "PostgreSQL", "Data Modeling", "KPI Reporting", "ETL Pipelines"],
         icon: "BarChart3",
         color: "#0BD7D4"
     },
     "Development & Tools": {
-        items: ["JavaScript", "Python", "Git", "Supabase", "Pinecone", "Draw.io", "Notion AI"],
+        items: ["JavaScript", "Python", "Github", "Supabase", "Pinecone", "Draw.io", "Eraser.io", "Notion AI"],
         icon: "Wrench",
         color: "#FF3131"
     },
     "Platforms": {
-        items: ["Salesforce", "Google Workspace", "JIRA", "Confluence", "Trello", "MS Office"],
+        items: ["Salesforce", "Clay.com", "Google Workspace", "JIRA", "Confluence", "Trello", "MS Office"],
         icon: "Cloud",
         color: "#0BD7D4"
     },
@@ -204,7 +202,7 @@ export const SKILLS = {
         color: "#FF3131"
     },
     "Core Competencies": {
-        items: ["Requirements Analysis", "Stakeholder Management", "Process Improvement", "Agile/BPR", "Technical Documentation", "Change Management"],
+        items: ["Requirements Analysis", "Stakeholder Management", "Process Improvement", "Agile/BPR", "Technical Documentation", "Change Management", "Backlog Management"],
         icon: "Users",
         color: "#0BD7D4"
     }

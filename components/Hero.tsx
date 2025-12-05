@@ -161,7 +161,7 @@ export function Hero() {
                     {[
                         {
                             icon: Sparkles,
-                            value: "7+",
+                            value: "5+",
                             label: "Years Experience",
                             subtext: "Business Transformation"
                         },
@@ -173,7 +173,7 @@ export function Hero() {
                         },
                         {
                             icon: Users,
-                            value: "10+",
+                            value: "15+",
                             label: "Enterprise Clients",
                             subtext: "EU AI Act Compliant"
                         }
