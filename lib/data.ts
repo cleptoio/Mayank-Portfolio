@@ -8,7 +8,7 @@ export const PERSONAL_INFO = {
     location: "Dublin, Ireland",
     coordinates: [-6.2603, 53.3498],
     bio: "I bridge business strategy and intelligent automation—without writing traditional code. With 7+ years in data-driven transformation, I help organisations turn scattered data and manual workflows into AI-powered systems that scale. Specializing in n8n orchestration, RAG pipelines, and EU AI Act frameworks.",
-    image: "/images/Mayank Professional.webp",
+    image: "/images/Mayank Professional.jpg",
     social: {
         linkedin: "https://www.linkedin.com/in/mayankkhanvilkar",
         instagram: "https://www.instagram.com/mayank_khanvilkar/",
