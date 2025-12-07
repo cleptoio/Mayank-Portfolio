@@ -140,7 +140,7 @@ export function Hero() {
                         initial={{ opacity: 0, scale: 0.9, x: 20 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ delay: 0.5, duration: 0.8 }}
-                        className="lg:col-span-2 flex justify-center lg:justify-end order-first lg:order-last lg:mr-[-60px]"
+                        className="lg:col-span-2 flex justify-center lg:justify-end order-first lg:order-last lg:mr-[-120px]"
                     >
                         <motion.div
                             className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96"
@@ -159,7 +159,7 @@ export function Hero() {
                                     src={PERSONAL_INFO.image}
                                     alt={PERSONAL_INFO.name}
                                     fill
-                                    className="object-cover"
+                                    className="object-cover object-center"
                                     priority
                                     onError={(e) => {
                                         e.currentTarget.style.display = 'none';
